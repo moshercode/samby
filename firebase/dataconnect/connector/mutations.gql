@@ -1,0 +1,228 @@
+mutation CreateAssociation(
+  $name: String!
+  $shortName: String!
+  $subdomain: String!
+  $primaryColor: String!
+  $secondaryColor: String!
+) @auth(level: USER) {
+  association_insert(data: {
+    name: $name
+    shortName: $shortName
+    subdomain: $subdomain
+    logoUrl: ""
+    iconUrl: ""
+    primaryColor: $primaryColor
+    secondaryColor: $secondaryColor
+  })
+}
+
+mutation UpdateAssociationImages(
+  $id: UUID!
+  $logoUrl: String!
+  $iconUrl: String!
+) @auth(level: USER) {
+  association_update(key: { id: $id }, data: {
+    logoUrl: $logoUrl
+    iconUrl: $iconUrl
+  })
+}
+
+mutation AddAssociationCondition(
+  $associationId: UUID!
+  $type: String!
+  $content: String!
+  $sortOrder: Int!
+) @auth(level: USER) {
+  associationCondition_insert(data: {
+    associationId: $associationId
+    type: $type
+    content: $content
+    sortOrder: $sortOrder
+  })
+}
+
+mutation DeleteAssociationCondition($id: UUID!) @auth(level: USER) {
+  associationCondition_delete(key: { id: $id })
+}
+
+mutation CreateAppUser(
+  $email: String!
+  $name: String!
+  $phone: String!
+) @auth(level: USER) {
+  appUser_insert(data: {
+    email: $email
+    name: $name
+    phone: $phone
+  })
+}
+
+mutation CreateMembership(
+  $associationId: UUID!
+  $userId: UUID!
+  $memberName: String!
+  $memberBirthDate: Date!
+  $memberDNI: String!
+  $memberDNIImageUrl: String!
+  $guardianName: String
+  $guardianDNI: String
+  $guardianDNIImageUrl: String
+  $signatureUrl: String!
+  $conditionsAcceptedAt: Timestamp!
+  $minorConditionsAcceptedAt: Timestamp
+) @auth(level: USER) {
+  associationMembership_insert(data: {
+    associationId: $associationId
+    userId: $userId
+    role: "member"
+    status: "pending"
+    isBlocked: false
+    isFounder: false
+    memberName: $memberName
+    memberBirthDate: $memberBirthDate
+    memberDNI: $memberDNI
+    memberDNIImageUrl: $memberDNIImageUrl
+    guardianName: $guardianName
+    guardianDNI: $guardianDNI
+    guardianDNIImageUrl: $guardianDNIImageUrl
+    signatureUrl: $signatureUrl
+    conditionsAcceptedAt: $conditionsAcceptedAt
+    minorConditionsAcceptedAt: $minorConditionsAcceptedAt
+  })
+}
+
+mutation CreateFounderMembership(
+  $associationId: UUID!
+  $userId: UUID!
+  $userName: String!
+) @auth(level: USER) {
+  associationMembership_insert(data: {
+    associationId: $associationId
+    userId: $userId
+    role: "manager"
+    status: "approved"
+    isBlocked: false
+    isFounder: true
+    memberName: $userName
+    memberBirthDate: "1900-01-01"
+    memberDNI: ""
+    memberDNIImageUrl: ""
+    signatureUrl: ""
+    conditionsAcceptedAt: {expr: "request.time"}
+  })
+}
+
+mutation UpdateMembershipStatus(
+  $id: UUID!
+  $status: String!
+  $resolvedBy: UUID!
+  $resolvedAt: Timestamp!
+) @auth(level: USER) {
+  associationMembership_update(key: { id: $id }, data: {
+    status: $status
+    resolvedBy: $resolvedBy
+    resolvedAt: $resolvedAt
+  })
+}
+
+mutation UpdateMembershipRole($id: UUID!, $role: String!) @auth(level: USER) {
+  associationMembership_update(key: { id: $id }, data: { role: $role })
+}
+
+mutation UpdateMembershipBlock($id: UUID!, $isBlocked: Boolean!) @auth(level: USER) {
+  associationMembership_update(key: { id: $id }, data: { isBlocked: $isBlocked })
+}
+
+mutation UpdateMembershipNotes($id: UUID!, $internalNotes: String!) @auth(level: USER) {
+  associationMembership_update(key: { id: $id }, data: { internalNotes: $internalNotes })
+}
+
+mutation ResetMembership(
+  $id: UUID!
+  $memberName: String!
+  $memberBirthDate: Date!
+  $memberDNI: String!
+  $memberDNIImageUrl: String!
+  $guardianName: String
+  $guardianDNI: String
+  $guardianDNIImageUrl: String
+  $signatureUrl: String!
+  $conditionsAcceptedAt: Timestamp!
+  $minorConditionsAcceptedAt: Timestamp
+) @auth(level: USER) {
+  associationMembership_update(key: { id: $id }, data: {
+    status: "pending"
+    memberName: $memberName
+    memberBirthDate: $memberBirthDate
+    memberDNI: $memberDNI
+    memberDNIImageUrl: $memberDNIImageUrl
+    guardianName: $guardianName
+    guardianDNI: $guardianDNI
+    guardianDNIImageUrl: $guardianDNIImageUrl
+    signatureUrl: $signatureUrl
+    conditionsAcceptedAt: $conditionsAcceptedAt
+    minorConditionsAcceptedAt: $minorConditionsAcceptedAt
+    resolvedAt: null
+    resolvedBy: null
+  })
+}
+
+mutation UpsertFCMToken($userId: UUID!, $token: String!) @auth(level: USER) {
+  userFCMToken_upsert(data: {
+    userId: $userId
+    token: $token
+    updatedAt: {expr: "request.time"}
+  })
+}
+
+mutation CreateEvent(
+  $associationId: UUID!
+  $title: String!
+  $description: String!
+  $eventDate: Timestamp!
+  $endDate: Timestamp
+  $createdBy: UUID!
+) @auth(level: USER) {
+  event_insert(data: {
+    associationId: $associationId
+    title: $title
+    description: $description
+    eventDate: $eventDate
+    endDate: $endDate
+    createdBy: $createdBy
+  })
+}
+
+mutation AddEventImage($eventId: UUID!, $imageUrl: String!, $sortOrder: Int!) @auth(level: USER) {
+  eventImage_insert(data: {
+    eventId: $eventId
+    imageUrl: $imageUrl
+    sortOrder: $sortOrder
+  })
+}
+
+mutation CreateEventComment($eventId: UUID!, $userId: UUID!, $content: String!) @auth(level: USER) {
+  eventComment_insert(data: {
+    eventId: $eventId
+    userId: $userId
+    content: $content
+  })
+}
+
+mutation DeleteEventComment($id: UUID!) @auth(level: USER) {
+  eventComment_delete(key: { id: $id })
+}
+
+mutation SendBroadcast(
+  $associationId: UUID!
+  $sentBy: UUID!
+  $title: String!
+  $body: String!
+) @auth(level: USER) {
+  broadcastMessage_insert(data: {
+    associationId: $associationId
+    sentBy: $sentBy
+    title: $title
+    body: $body
+  })
+}

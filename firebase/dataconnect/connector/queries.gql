@@ -1,0 +1,133 @@
+query GetAssociationBySubdomain($subdomain: String!) @auth(level: PUBLIC) {
+  association(key: { subdomain: $subdomain }) {
+    id
+    name
+    shortName
+    subdomain
+    logoUrl
+    iconUrl
+    primaryColor
+    secondaryColor
+    createdAt
+  }
+}
+
+query GetMembership($associationId: UUID!, $userId: UUID!) @auth(level: PUBLIC) {
+  associationMembership(key: { associationId: $associationId, userId: $userId }) {
+    id
+    role
+    status
+    isBlocked
+    isFounder
+    memberName
+    memberBirthDate
+    memberDNI
+    memberDNIImageUrl
+    guardianName
+    guardianDNI
+    guardianDNIImageUrl
+    signatureUrl
+    conditionsAcceptedAt
+    minorConditionsAcceptedAt
+    internalNotes
+    requestedAt
+    resolvedAt
+  }
+}
+
+query GetAssociationConditions($associationId: UUID!) @auth(level: PUBLIC) {
+  associationConditions(where: { associationId: { eq: $associationId } }, orderBy: [{ sortOrder: ASC }]) {
+    id
+    type
+    content
+    sortOrder
+  }
+}
+
+query GetManagerMemberships($userId: UUID!) @auth(level: PUBLIC) {
+  associationMemberships(where: { userId: { eq: $userId }, role: { eq: "manager" }, status: { eq: "approved" } }) {
+    id
+    role
+    status
+    association {
+      id
+      name
+      shortName
+      subdomain
+      logoUrl
+      iconUrl
+      primaryColor
+      secondaryColor
+    }
+  }
+}
+
+query GetAssociationMembers($associationId: UUID!) @auth(level: USER) {
+  associationMemberships(where: { associationId: { eq: $associationId } }, orderBy: [{ requestedAt: DESC }]) {
+    id
+    role
+    status
+    isBlocked
+    isFounder
+    memberName
+    memberBirthDate
+    memberDNI
+    memberDNIImageUrl
+    guardianName
+    guardianDNI
+    guardianDNIImageUrl
+    signatureUrl
+    conditionsAcceptedAt
+    minorConditionsAcceptedAt
+    internalNotes
+    requestedAt
+    resolvedAt
+    user {
+      id
+      email
+      name
+    }
+  }
+}
+
+query GetAssociationEvents($associationId: UUID!) @auth(level: USER) {
+  events(where: { associationId: { eq: $associationId } }, orderBy: [{ eventDate: DESC }]) {
+    id
+    title
+    description
+    eventDate
+    endDate
+    createdAt
+    createdBy {
+      id
+      name
+    }
+    eventImages {
+      id
+      imageUrl
+      sortOrder
+    }
+  }
+}
+
+query GetEventComments($eventId: UUID!) @auth(level: USER) {
+  eventComments(where: { eventId: { eq: $eventId } }, orderBy: [{ createdAt: ASC }]) {
+    id
+    content
+    createdAt
+    user {
+      id
+      name
+    }
+  }
+}
+
+query GetUserByEmail($email: String!) @auth(level: PUBLIC) {
+  appUsers(where: { email: { eq: $email } }) {
+    id
+    email
+    name
+    phone
+    createdAt
+  }
+}

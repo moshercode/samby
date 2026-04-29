@@ -1,0 +1,10 @@
+connectorId: samby
+authMode: PUBLIC
+generate:
+  dartSdk:
+    outputDir: ../../../client-pwa/lib/generated
+    package: samby
+  adminNodeSdk:
+    - outputDir: ..\..\functions\src\dataconnect-admin-generated
+      package: "@dataconnect/admin-generated"
+      packageJsonDir: ..\..\functions

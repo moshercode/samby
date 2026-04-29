@@ -1,0 +1,94 @@
+type Association @table {
+  id: UUID! @default(expr: "uuidV4()")
+  name: String!
+  shortName: String!
+  subdomain: String!
+  logoUrl: String!
+  iconUrl: String!
+  primaryColor: String!
+  secondaryColor: String!
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+type AssociationCondition @table {
+  id: UUID! @default(expr: "uuidV4()")
+  association: Association!
+  type: String!
+  content: String!
+  sortOrder: Int!
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+type AppUser @table {
+  id: UUID! @default(expr: "uuidV4()")
+  email: String!
+  name: String!
+  phone: String!
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+type AssociationMembership @table {
+  id: UUID! @default(expr: "uuidV4()")
+  association: Association!
+  user: AppUser!
+  role: String!
+  status: String!
+  isBlocked: Boolean!
+  isFounder: Boolean!
+  memberName: String!
+  memberBirthDate: Date!
+  memberDNI: String!
+  memberDNIImageUrl: String!
+  guardianName: String
+  guardianDNI: String
+  guardianDNIImageUrl: String
+  signatureUrl: String!
+  conditionsAcceptedAt: Timestamp!
+  minorConditionsAcceptedAt: Timestamp
+  internalNotes: String
+  requestedAt: Timestamp! @default(expr: "request.time")
+  resolvedAt: Timestamp
+  resolvedBy: AppUser
+}
+
+type UserFCMToken @table {
+  id: UUID! @default(expr: "uuidV4()")
+  user: AppUser!
+  token: String!
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type Event @table {
+  id: UUID! @default(expr: "uuidV4()")
+  association: Association!
+  title: String!
+  description: String!
+  eventDate: Timestamp!
+  endDate: Timestamp
+  createdBy: AppUser!
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+type EventImage @table {
+  id: UUID! @default(expr: "uuidV4()")
+  event: Event!
+  imageUrl: String!
+  sortOrder: Int!
+}
+
+type EventComment @table {
+  id: UUID! @default(expr: "uuidV4()")
+  event: Event!
+  user: AppUser!
+  content: String!
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+type BroadcastMessage @table {
+  id: UUID! @default(expr: "uuidV4()")
+  association: Association!
+  sentBy: AppUser!
+  title: String!
+  body: String!
+  sentAt: Timestamp! @default(expr: "request.time")
+}
