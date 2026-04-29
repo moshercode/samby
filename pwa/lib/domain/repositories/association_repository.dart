@@ -21,4 +21,12 @@ abstract class AssociationRepository {
     String secondaryColor, {
     required Function(String? associationId, AppError? error) onComplete,
   });
+
+  void createCondition(
+    String associationId,
+    String type,
+    String content,
+    int sortOrder, {
+    required Function(AppError? error) onComplete,
+  });
 }

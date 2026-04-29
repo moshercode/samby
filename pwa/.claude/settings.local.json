@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter analyze *)",
+      "Read(//c/Users/PabloRP/AppData/Local/Pub/Cache/hosted/pub.dev/**)"
+    ]
+  }
+}

@@ -48,4 +48,10 @@ abstract class MembershipRepository {
     String userName, {
     required Function(AppError? error) onComplete,
   });
+
+  void resetMembership(
+    String associationId,
+    String userId, {
+    required Function(AppError? error) onComplete,
+  });
 }

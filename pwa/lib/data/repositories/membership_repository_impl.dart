@@ -164,6 +164,30 @@ class MembershipRepositoryImpl implements MembershipRepository {
   }
 
   @override
+  void resetMembership(
+    String associationId,
+    String userId, {
+    required Function(AppError? error) onComplete,
+  }) async {
+    try {
+      await _datasource.executeMutation(
+        DataconnectOps.resetMembership,
+        variables: {
+          DataconnectKeys.associationId: associationId,
+          DataconnectKeys.userId: userId,
+        },
+      );
+      onComplete(null);
+    } on AppError catch (e) {
+      Log.error('MembershipRepositoryImpl.resetMembership: $e');
+      onComplete(e);
+    } catch (e) {
+      Log.error('MembershipRepositoryImpl.resetMembership unknown: $e');
+      onComplete(DataError(e.toString()));
+    }
+  }
+
+  @override
   void createFounderMembership(
     String associationId,
     String userId,

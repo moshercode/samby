@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:samby/domain/entities/association_condition.dart';
 import 'package:samby/presentation/resources/l10n/localization.dart';
 import 'package:samby/presentation/resources/theme/app_dimensions.dart';
 import 'package:samby/presentation/viewmodels/access_request/access_request_viewmodel.dart';
@@ -46,11 +49,7 @@ class AccessRequestView extends BaseView<AccessRequestViewModel> {
               _Block3Signature(viewModel: viewModel, l: l),
               const SizedBox(height: Dimensions.space32),
 
-              Button(
-                title: l.accessRequestSubmit,
-                loading: viewModel.isLoading(),
-                onTap: viewModel.isReadyToSubmit ? viewModel.submit : null,
-              ),
+              Button(title: l.accessRequestSubmit, loading: viewModel.isLoading(), onTap: viewModel.isReadyToSubmit ? viewModel.submit : null),
               const SizedBox(height: Dimensions.space32),
             ],
           ),
@@ -94,19 +93,13 @@ class _Block1PersonalDetails extends StatelessWidget {
           onChanged: viewModel.onBirthDateChanged,
         ),
         const SizedBox(height: Dimensions.space12),
-        AppTextInput(
-          label: l.accessRequestDNI,
-          textInputAction: TextInputAction.next,
-          onChanged: viewModel.onDNIChanged,
-        ),
+        AppTextInput(label: l.accessRequestDNI, textInputAction: TextInputAction.next, onChanged: viewModel.onDNIChanged),
         const SizedBox(height: Dimensions.space12),
         Button.outlined(
           title: viewModel.memberDNIImageUrl != null ? l.accessRequestDNIUploaded : l.accessRequestUploadDNI,
           icon: viewModel.memberDNIImageUrl != null ? Icons.check_circle_outline_rounded : Icons.upload_rounded,
-          onTap: () {
-            // TODO: open ImagePicker.pickImage(source: ImageSource.gallery/camera)
-            // Upload result to Firebase Storage and call viewModel.onDNIImageUploaded(url)
-          },
+          loading: viewModel.isDNIUploading,
+          onTap: () => viewModel.pickAndUploadMemberDNI(),
         ),
         if (viewModel.isMinor) ...<Widget>[
           const SizedBox(height: Dimensions.space16),
@@ -128,19 +121,13 @@ class _Block1PersonalDetails extends StatelessWidget {
             onChanged: viewModel.onGuardianNameChanged,
           ),
           const SizedBox(height: Dimensions.space12),
-          AppTextInput(
-            label: l.accessRequestGuardianDNI,
-            textInputAction: TextInputAction.next,
-            onChanged: viewModel.onGuardianDNIChanged,
-          ),
+          AppTextInput(label: l.accessRequestGuardianDNI, textInputAction: TextInputAction.next, onChanged: viewModel.onGuardianDNIChanged),
           const SizedBox(height: Dimensions.space12),
           Button.outlined(
             title: viewModel.guardianDNIImageUrl != null ? l.accessRequestDNIUploaded : l.accessRequestUploadGuardianDNI,
             icon: viewModel.guardianDNIImageUrl != null ? Icons.check_circle_outline_rounded : Icons.upload_rounded,
-            onTap: () {
-              // TODO: open ImagePicker.pickImage(source: ImageSource.gallery/camera)
-              // Upload result to Firebase Storage and call viewModel.onGuardianDNIImageUploaded(url)
-            },
+            loading: viewModel.isGuardianDNIUploading,
+            onTap: () => viewModel.pickAndUploadGuardianDNI(),
           ),
         ],
       ],
@@ -172,9 +159,9 @@ class _Block2Conditions extends StatelessWidget {
         const SizedBox(height: Dimensions.space12),
         if (viewModel.generalConditions.isNotEmpty) ...<Widget>[
           ...viewModel.generalConditions.map(
-            (String c) => Padding(
+            (AssociationCondition c) => Padding(
               padding: const EdgeInsets.only(bottom: Dimensions.space8),
-              child: Text('• $c', style: Theme.of(context).textTheme.bodySmall),
+              child: Text('• ${c.content}', style: Theme.of(context).textTheme.bodySmall),
             ),
           ),
           CheckboxListTile(
@@ -188,9 +175,9 @@ class _Block2Conditions extends StatelessWidget {
         if (viewModel.isMinor && viewModel.minorConditions.isNotEmpty) ...<Widget>[
           const SizedBox(height: Dimensions.space12),
           ...viewModel.minorConditions.map(
-            (String c) => Padding(
+            (AssociationCondition c) => Padding(
               padding: const EdgeInsets.only(bottom: Dimensions.space8),
-              child: Text('• $c', style: Theme.of(context).textTheme.bodySmall),
+              child: Text('• ${c.content}', style: Theme.of(context).textTheme.bodySmall),
             ),
           ),
           CheckboxListTile(
@@ -225,10 +212,8 @@ class _Block3Signature extends StatefulWidget {
 class _Block3SignatureState extends State<_Block3Signature> {
   // Variables
 
-  final SignatureController _signatureController = SignatureController(
-    penStrokeWidth: 2,
-    exportBackgroundColor: Colors.white,
-  );
+  final SignatureController _signatureController = SignatureController(penStrokeWidth: 2, exportBackgroundColor: Colors.white);
+  bool _isUploading = false;
 
   // Life cycle
 
@@ -236,6 +221,18 @@ class _Block3SignatureState extends State<_Block3Signature> {
   void dispose() {
     _signatureController.dispose();
     super.dispose();
+  }
+
+  // Private methods
+
+  Future<void> _onStrokeEnd() async {
+    if (_isUploading || _signatureController.isEmpty) return;
+    _isUploading = true;
+    final Uint8List? bytes = await _signatureController.toPngBytes();
+    if (bytes != null && mounted) {
+      await widget.viewModel.uploadSignature(bytes);
+    }
+    _isUploading = false;
   }
 
   // Build
@@ -258,7 +255,10 @@ class _Block3SignatureState extends State<_Block3Signature> {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(Dimensions.radiusMd),
-            child: Signature(controller: _signatureController, backgroundColor: Colors.white),
+            child: Listener(
+              onPointerUp: (_) => _onStrokeEnd(),
+              child: Signature(controller: _signatureController, backgroundColor: Colors.white),
+            ),
           ),
         ),
         const SizedBox(height: Dimensions.space8),
@@ -270,11 +270,6 @@ class _Block3SignatureState extends State<_Block3Signature> {
             widget.viewModel.onSignatureUploaded('');
           },
         ),
-        // TODO: listen to _signatureController changes (addListener) and, on each stroke end,
-        // call _signatureController.toPngBytes() → upload PNG to Firebase Storage path:
-        //   memberships/{associationId}/{userId}/signature/signature.png
-        // → call widget.viewModel.onSignatureUploaded(downloadUrl)
-        // Do this in initState/dispose lifecycle of _Block3SignatureState
       ],
     );
   }

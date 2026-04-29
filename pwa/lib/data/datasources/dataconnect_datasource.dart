@@ -15,6 +15,7 @@ abstract class DataconnectOps {
   static const String getAssociationBySubdomain = 'GetAssociationBySubdomain';
   static const String getAssociationConditions = 'GetAssociationConditions';
   static const String createAssociation = 'CreateAssociation';
+  static const String createAssociationCondition = 'CreateAssociationCondition';
 
   // Membership
   static const String getMembership = 'GetMembership';
@@ -56,6 +57,7 @@ abstract class DataconnectKeys {
   static const String shortName = 'shortName';
   static const String primaryColor = 'primaryColor';
   static const String secondaryColor = 'secondaryColor';
+  static const String type = 'type';
   static const String role = 'role';
   static const String status = 'status';
   static const String isBlocked = 'isBlocked';
@@ -136,14 +138,25 @@ class DataconnectDatasource {
   }) async {
     try {
       Log.debug('DataconnectDatasource.$type: $operationName, vars: $variables');
-      dynamic result;
+
+      final Deserializer<Map<String, dynamic>?> deserializer =
+          (String data) => jsonDecode(data) as Map<String, dynamic>?;
+      final Serializer<Map<String, dynamic>> serializer =
+          (Map<String, dynamic> vars) => jsonEncode(vars);
+
+      OperationResult<Map<String, dynamic>?, Map<String, dynamic>> result;
       if (type == DataconnectActionType.query) {
-        result = await dc.query(operationName, variables: variables).execute();
+        result = await dc
+            .query<Map<String, dynamic>?, Map<String, dynamic>>(
+              operationName, deserializer, serializer, variables)
+            .execute();
       } else {
-        result = await dc.mutation(operationName, variables: variables).execute();
+        result = await dc
+            .mutation<Map<String, dynamic>?, Map<String, dynamic>>(
+              operationName, deserializer, serializer, variables)
+            .execute();
       }
-      final String jsonString = jsonEncode(result.data);
-      return jsonDecode(jsonString) as Map<String, dynamic>?;
+      return result.data;
     } on DataConnectError catch (e) {
       Log.error('DataconnectDatasource error on $operationName: $e');
       throw DataError(e.message ?? operationName);

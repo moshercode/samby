@@ -65,6 +65,34 @@ class AssociationRepositoryImpl implements AssociationRepository {
   }
 
   @override
+  void createCondition(
+    String associationId,
+    String type,
+    String content,
+    int sortOrder, {
+    required Function(AppError? error) onComplete,
+  }) async {
+    try {
+      await _datasource.executeMutation(
+        DataconnectOps.createAssociationCondition,
+        variables: {
+          DataconnectKeys.associationId: associationId,
+          DataconnectKeys.type: type,
+          DataconnectKeys.content: content,
+          DataconnectKeys.sortOrder: sortOrder,
+        },
+      );
+      onComplete(null);
+    } on AppError catch (e) {
+      Log.error('AssociationRepositoryImpl.createCondition: $e');
+      onComplete(e);
+    } catch (e) {
+      Log.error('AssociationRepositoryImpl.createCondition unknown: $e');
+      onComplete(DataError(e.toString()));
+    }
+  }
+
+  @override
   void createAssociation(
     String name,
     String shortName,

@@ -1,11 +1,13 @@
+import 'dart:async';
+
 import 'package:samby/core/di/service_locator.dart';
+import 'package:samby/domain/entities/app_user.dart';
 import 'package:samby/domain/repositories/association_repository.dart';
 import 'package:samby/domain/repositories/membership_repository.dart';
-import 'package:samby/domain/usecases/association/get_association_conditions_use_case.dart';
 import 'package:samby/presentation/managers/user_manager.dart';
-import 'package:samby/presentation/utils/navigation_utils.dart';
 import 'package:samby/presentation/utils/validation_utils.dart';
 import 'package:samby/presentation/viewmodels/base/view_model.dart';
+import 'package:web/web.dart' as web;
 
 class OnboardingViewModel extends ViewModel {
   // Variables
@@ -124,32 +126,58 @@ class OnboardingViewModel extends ViewModel {
   // Private methods
 
   Future<void> _createConditions(String associationId) async {
-    // TODO: call MutationCreateAssociationCondition for each entry in
-    // _generalConditions (type: general) and _minorConditions (type: minor)
-    // via sl<AssociationRepository>().createCondition(...)
+    final List<Future<void>> tasks = <Future<void>>[];
+
+    for (int i = 0; i < _generalConditions.length; i++) {
+      final Completer<void> c = Completer<void>();
+      sl<AssociationRepository>().createCondition(
+        associationId, 'general', _generalConditions[i], i,
+        onComplete: (_) => c.complete(),
+      );
+      tasks.add(c.future);
+    }
+
+    for (int i = 0; i < _minorConditions.length; i++) {
+      final Completer<void> c = Completer<void>();
+      sl<AssociationRepository>().createCondition(
+        associationId, 'minor', _minorConditions[i], i,
+        onComplete: (_) => c.complete(),
+      );
+      tasks.add(c.future);
+    }
+
+    await Future.wait(tasks);
   }
 
   Future<void> _createFounderMembership(String associationId) async {
-    final String? uid = UserManager.instance.user?.uid;
     final String? email = UserManager.instance.userEmail;
-    if (uid == null || email == null) return;
+    final String? displayName = UserManager.instance.user?.displayName;
+    if (email == null) return;
 
-    // TODO: use getUserByEmail to check if AppUser already exists.
-    // If not, call createAppUser(email, displayName, photoUrl).
-    // Then call createFounderMembership(associationId, userId) so the creator
-    // gets role=manager + isFounder=true in AssociationMembership.
-    sl<MembershipRepository>().getUserByEmail(email, onComplete: (dynamic user, dynamic _) {
-      if (user == null) {
-        sl<MembershipRepository>().createAppUser(email, _name, '', onComplete: (dynamic id, dynamic __) {});
+    final Completer<String?> userIdCompleter = Completer<String?>();
+    sl<MembershipRepository>().getUserByEmail(email, onComplete: (AppUser? user, dynamic _) {
+      if (user != null) {
+        userIdCompleter.complete(user.id);
+      } else {
+        sl<MembershipRepository>().createAppUser(
+          email, displayName ?? email, '',
+          onComplete: (String? id, dynamic __) => userIdCompleter.complete(id),
+        );
       }
     });
+
+    final String? userId = await userIdCompleter.future;
+    if (userId == null) return;
+
+    final Completer<void> membershipCompleter = Completer<void>();
+    sl<MembershipRepository>().createFounderMembership(
+      associationId, userId, displayName ?? email,
+      onComplete: (_) => membershipCompleter.complete(),
+    );
+    await membershipCompleter.future;
   }
 
   void _redirectToAssociation() {
-    // TODO: replace NavigationUtils call below with a full browser redirect:
-    // import 'dart:js_interop'; or use universal_html:
-    //   web.window.location.href = 'https://$_subdomain.samby.app';
-    // This must happen after all mutations above are complete.
-    NavigationUtils.showSplashView(this);
+    web.window.location.href = 'https://$_subdomain.samby.app';
   }
 }
