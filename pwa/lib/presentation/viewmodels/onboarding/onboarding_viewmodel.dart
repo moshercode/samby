@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:samby/core/di/service_locator.dart';
-import 'package:samby/domain/entities/app_user.dart';
 import 'package:samby/domain/repositories/association_repository.dart';
 import 'package:samby/domain/repositories/membership_repository.dart';
 import 'package:samby/presentation/managers/user_manager.dart';
@@ -54,6 +53,19 @@ class OnboardingViewModel extends ViewModel {
     notifyListeners();
   }
 
+  bool _requireDni = false;
+  bool _requireDniImage = false;
+  bool _requireGuardian = false;
+
+  bool get requireDni => _requireDni;
+  set requireDni(bool v) { _requireDni = v; notifyListeners(); }
+
+  bool get requireDniImage => _requireDniImage;
+  set requireDniImage(bool v) { _requireDniImage = v; notifyListeners(); }
+
+  bool get requireGuardian => _requireGuardian;
+  set requireGuardian(bool v) { _requireGuardian = v; notifyListeners(); }
+
   List<String> get generalConditions => List<String>.unmodifiable(_generalConditions);
   List<String> get minorConditions => List<String>.unmodifiable(_minorConditions);
   String? get subdomainError => _subdomainError;
@@ -103,6 +115,7 @@ class OnboardingViewModel extends ViewModel {
       notifyListeners();
       return;
     }
+    final String founderEmail = UserManager.instance.userEmail ?? '';
     setLoading(true);
     sl<AssociationRepository>().createAssociation(
       _name.trim(),
@@ -110,6 +123,7 @@ class OnboardingViewModel extends ViewModel {
       _subdomain,
       _primaryColor,
       _secondaryColor,
+      founderEmail,
       onComplete: (String? associationId, dynamic error) async {
         if (error != null || associationId == null) {
           setLoading(false);
@@ -117,6 +131,7 @@ class OnboardingViewModel extends ViewModel {
         }
         await _createConditions(associationId);
         await _createFounderMembership(associationId);
+        await _updateAssociationSettings(associationId);
         setLoading(false);
         _redirectToAssociation();
       },
@@ -151,30 +166,29 @@ class OnboardingViewModel extends ViewModel {
 
   Future<void> _createFounderMembership(String associationId) async {
     final String? email = UserManager.instance.userEmail;
-    final String? displayName = UserManager.instance.user?.displayName;
     if (email == null) return;
+    final String displayName = UserManager.instance.user?.displayName ?? email;
 
-    final Completer<String?> userIdCompleter = Completer<String?>();
-    sl<MembershipRepository>().getUserByEmail(email, onComplete: (AppUser? user, dynamic _) {
-      if (user != null) {
-        userIdCompleter.complete(user.id);
-      } else {
-        sl<MembershipRepository>().createAppUser(
-          email, displayName ?? email, '',
-          onComplete: (String? id, dynamic __) => userIdCompleter.complete(id),
-        );
-      }
-    });
-
-    final String? userId = await userIdCompleter.future;
-    if (userId == null) return;
-
-    final Completer<void> membershipCompleter = Completer<void>();
-    sl<MembershipRepository>().createFounderMembership(
-      associationId, userId, displayName ?? email,
-      onComplete: (_) => membershipCompleter.complete(),
+    final Completer<void> completer = Completer<void>();
+    sl<MemberRepository>().createFounderMember(
+      associationId,
+      displayName,
+      email,
+      onComplete: (_) => completer.complete(),
     );
-    await membershipCompleter.future;
+    await completer.future;
+  }
+
+  Future<void> _updateAssociationSettings(String associationId) async {
+    final Completer<void> completer = Completer<void>();
+    sl<AssociationRepository>().updateAssociation(
+      associationId,
+      requireDni: _requireDni,
+      requireDniImage: _requireDniImage,
+      requireGuardian: _requireGuardian,
+      onComplete: (_) => completer.complete(),
+    );
+    await completer.future;
   }
 
   void _redirectToAssociation() {

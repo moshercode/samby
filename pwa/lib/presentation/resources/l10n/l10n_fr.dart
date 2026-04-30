@@ -21,6 +21,16 @@ class L10nFr extends Localization {
   String get delete => 'Supprimer';
   @override
   String get edit => 'Modifier';
+  @override
+  String get fieldTitle => 'Titre';
+  @override
+  String get fieldDescription => 'Description';
+  @override
+  String get clearDate => 'Effacer la date';
+  @override
+  String get selectAll => 'Tous';
+  @override
+  String get selectNone => 'Aucun';
 
   // Splash
 
@@ -66,11 +76,25 @@ class L10nFr extends Localization {
   @override
   String get authErrorTooManyAttempts => 'Trop de tentatives. Veuillez patienter';
   @override
+  String get authPhone => 'Téléphone';
+  @override
+  String get authResetCode => 'Code de vérification';
+  @override
+  String get authNewPassword => 'Nouveau mot de passe';
+  @override
+  String get authResetSubmit => 'Changer le mot de passe';
+  @override
+  String get authErrorResetTokenInvalid => 'Code invalide';
+  @override
+  String get authErrorResetTokenExpired => 'Le code a expiré';
+  @override
+  String get authErrorResetTokenUsed => 'Le code a déjà été utilisé';
+  @override
   String get passwordResetTitle => 'Réinitialiser le mot de passe';
   @override
-  String get passwordResetSubtitle => 'Nous enverrons un lien de récupération à votre email';
+  String get passwordResetSubtitle => 'Nous enverrons un code de vérification à votre email';
   @override
-  String get passwordResetSend => 'Envoyer le lien';
+  String get passwordResetSend => 'Envoyer le code';
   @override
   String get passwordResetSentConfirmation => 'Vérifiez votre email';
   @override
@@ -182,4 +206,148 @@ class L10nFr extends Localization {
 
   @override
   String get dashboardTitle => 'Accueil';
+  @override
+  String get dashboardActiveEvents => 'Événements';
+  @override
+  String get dashboardNoEvents => 'Aucun événement actif';
+  @override
+  String get eventDetailSessions => 'Séances';
+  @override
+  String get eventDetailNoSessions => 'Aucune séance à venir';
+  @override
+  String get eventDetailMembers => 'Accès';
+  @override
+  String get createEventTitle => 'Nouvel événement';
+  @override
+  String get createEventStartDate => 'Date de début';
+  @override
+  String get createEventEndDate => 'Date de fin (facultatif)';
+  @override
+  String get createEventImageLabel => "Image de l'événement";
+  @override
+  String get createEventMembersLabel => 'Membres avec accès';
+  @override
+  String get createEventSubmit => "Créer l'événement";
+  @override
+  String get createCalendarEventTitle => 'Nouvelle séance';
+  @override
+  String get createCalendarEventDateLabel => 'Date de la séance';
+  @override
+  String get createCalendarEventSubmit => 'Créer la séance';
+
+  // Home
+
+  @override
+  String get homeTabEvents => 'Événements';
+  @override
+  String get homeTabMembers => 'Membres';
+  @override
+  String get homeTabAssociation => 'Association';
+  @override
+  String get homeTabProfile => 'Profil';
+
+  // Membership status
+
+  @override
+  String get membershipStatusPendingTitle => 'Demande envoyée';
+  @override
+  String get membershipStatusPendingMessage => "Un responsable examinera votre demande et vous recevrez une notification dès qu'elle sera acceptée";
+  @override
+  String get membershipStatusRejectedTitle => 'Demande refusée';
+  @override
+  String get membershipStatusRejectedMessage => "Votre demande n'a pas été acceptée. Vous pouvez soumettre une nouvelle demande";
+  @override
+  String get membershipStatusBlockedMessage => "Vous ne pouvez plus demander l'accès à cette association";
+  @override
+  String get membershipStatusReapply => 'Redemander';
+  @override
+  String get membershipStatusRefresh => 'Actualiser le statut';
+
+  // Events extras
+
+  @override
+  String get eventsActive => 'Actifs';
+  @override
+  String get eventsFinished => 'Terminés';
+  @override
+  String get eventsEmpty => 'Aucun événement';
+  @override
+  String get eventDetailFreeEntry => 'Entrée libre';
+  @override
+  String get eventDetailRequestAccess => "Demander l'accès";
+  @override
+  String get eventDetailAccessPending => 'Demande en attente';
+  @override
+  String get eventDetailAccessRejected => 'Accès refusé';
+  @override
+  String get createEventFreeEntry => 'Entrée libre';
+  @override
+  String get createEventEntryCondition => "Condition d'entrée";
+  @override
+  String get createAppointmentTitle => 'Nouvelle séance';
+  @override
+  String get createAppointmentDateLabel => 'Date de la séance';
+  @override
+  String get createAppointmentSubmit => 'Créer la séance';
+
+  // Association Detail
+
+  @override
+  String get associationDetailTitle => 'Association';
+  @override
+  String get associationDetailRequirements => 'Exigences de candidature';
+  @override
+  String get associationDetailRequireDni => "Exiger une pièce d'identité";
+  @override
+  String get associationDetailRequireDniImage => "Exiger l'image de la pièce d'identité";
+  @override
+  String get associationDetailRequireGuardian => 'Exiger les données du tuteur';
+
+  // Profile
+
+  @override
+  String get profileTitle => 'Profil';
+  @override
+  String get profileLogout => 'Se déconnecter';
+  @override
+  String get profileMemberSince => 'Membre depuis';
+
+  // Onboarding extras
+
+  @override
+  String get onboardingRequireDni => "Exiger une pièce d'identité";
+  @override
+  String get onboardingRequireDniImage => "Exiger l'image de la pièce d'identité";
+  @override
+  String get onboardingRequireGuardian => 'Exiger les données du tuteur pour les mineurs';
+
+  // Members
+
+  @override
+  String get membersTitle => 'Membres';
+  @override
+  String get membersEmpty => "Aucun membre pour l'instant";
+  @override
+  String get memberStatusPending => 'En attente';
+  @override
+  String get memberStatusApproved => 'Approuvé';
+  @override
+  String get memberStatusRejected => 'Refusé';
+  @override
+  String get memberRoleManager => 'Responsable';
+  @override
+  String get memberRoleMember => 'Membre';
+  @override
+  String get memberBlocked => 'Bloqué';
+
+  // Member detail
+
+  @override
+  String get memberDetailPersonalInfo => 'Informations personnelles';
+  @override
+  String get memberDetailEvents => 'Événements';
+  @override
+  String get memberDetailNoEvents => 'Aucun événement assigné';
+  @override
+  String get memberDetailChangeRole => 'Rôle';
 }

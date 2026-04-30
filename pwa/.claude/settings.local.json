@@ -2,7 +2,16 @@
   "permissions": {
     "allow": [
       "Bash(flutter analyze *)",
-      "Read(//c/Users/PabloRP/AppData/Local/Pub/Cache/hosted/pub.dev/**)"
+      "Read(//c/Users/PabloRP/AppData/Local/Pub/Cache/hosted/pub.dev/**)",
+      "Read(//d/Projects/samby/**)",
+      "Bash(dir \"d:\\\\Projects\\\\samby\")",
+      "Bash(xargs grep *)"
+    ],
+    "additionalDirectories": [
+      "d:\\Projects\\samby\\firebase\\dataconnect\\schema",
+      "d:\\Projects\\samby\\firebase\\dataconnect\\connector",
+      "d:\\Projects\\samby\\firebase\\dataconnect",
+      "d:\\Projects\\samby"
     ]
   }
 }

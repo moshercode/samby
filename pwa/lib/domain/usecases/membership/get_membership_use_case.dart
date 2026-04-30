@@ -5,7 +5,7 @@ import 'package:samby/domain/repositories/membership_repository.dart';
 class GetMembershipUseCase {
   // Variables
 
-  final MembershipRepository _repository;
+  final MemberRepository _repository;
 
   // Constructor
 
@@ -14,9 +14,8 @@ class GetMembershipUseCase {
   // Public methods
 
   void call(
-    String associationId,
-    String userId, {
-    required Function(Membership? membership, AppError? error) onComplete,
+    String memberId, {
+    required Function(Member? member, AppError? error) onComplete,
   }) =>
-      _repository.getMembership(associationId, userId, onComplete: onComplete);
+      _repository.getMember(memberId, onComplete: onComplete);
 }

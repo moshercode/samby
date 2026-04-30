@@ -1,5 +1,5 @@
-query GetAssociationBySubdomain($subdomain: String!) @auth(level: PUBLIC) {
-  association(key: { subdomain: $subdomain }) {
+query GetAssociationByFounderEmail($founderEmail: String!) @auth(level: USER) {
+  association(first: { where: { founderEmail: { eq: $founderEmail } } }) {
     id
     name
     shortName
@@ -8,24 +8,54 @@ query GetAssociationBySubdomain($subdomain: String!) @auth(level: PUBLIC) {
     iconUrl
     primaryColor
     secondaryColor
+    founderEmail
+    requireDni
+    requireDniImage
+    requireGuardian
+    active
     createdAt
   }
 }
 
-query GetMembership($associationId: UUID!, $userId: UUID!) @auth(level: PUBLIC) {
-  associationMembership(key: { associationId: $associationId, userId: $userId }) {
+query GetAssociationBySubdomain($subdomain: String!) @auth(level: PUBLIC) {
+  association(first: { where: { subdomain: { eq: $subdomain } } }) {
     id
+    name
+    shortName
+    subdomain
+    logoUrl
+    iconUrl
+    primaryColor
+    secondaryColor
+    founderEmail
+    requireDni
+    requireDniImage
+    requireGuardian
+    active
+    createdAt
+  }
+}
+
+query GetMember($memberId: UUID!) @auth(level: USER) {
+  member(key: { id: $memberId }) {
+    id
+    association { id }
+    email
+    name
+    phone
     role
     status
     isBlocked
     isFounder
+    createdAt
     memberName
     memberBirthDate
-    memberDNI
-    memberDNIImageUrl
+    memberDni
+    memberDniImageUrl
+    profileImageUrl
     guardianName
-    guardianDNI
-    guardianDNIImageUrl
+    guardianDni
+    guardianDniImageUrl
     signatureUrl
     conditionsAcceptedAt
     minorConditionsAcceptedAt
@@ -44,90 +74,126 @@ query GetAssociationConditions($associationId: UUID!) @auth(level: PUBLIC) {
   }
 }
 
-query GetManagerMemberships($userId: UUID!) @auth(level: PUBLIC) {
-  associationMemberships(where: { userId: { eq: $userId }, role: { eq: "manager" }, status: { eq: "approved" } }) {
-    id
-    role
-    status
-    association {
-      id
-      name
-      shortName
-      subdomain
-      logoUrl
-      iconUrl
-      primaryColor
-      secondaryColor
-    }
-  }
-}
-
 query GetAssociationMembers($associationId: UUID!) @auth(level: USER) {
-  associationMemberships(where: { associationId: { eq: $associationId } }, orderBy: [{ requestedAt: DESC }]) {
+  members(where: { associationId: { eq: $associationId } }, orderBy: [{ createdAt: DESC }]) {
     id
+    email
+    name
+    phone
     role
     status
     isBlocked
     isFounder
+    createdAt
     memberName
     memberBirthDate
-    memberDNI
-    memberDNIImageUrl
+    memberDni
+    memberDniImageUrl
+    profileImageUrl
     guardianName
-    guardianDNI
-    guardianDNIImageUrl
+    guardianDni
+    guardianDniImageUrl
     signatureUrl
     conditionsAcceptedAt
     minorConditionsAcceptedAt
     internalNotes
     requestedAt
     resolvedAt
-    user {
-      id
-      email
-      name
-    }
   }
 }
 
 query GetAssociationEvents($associationId: UUID!) @auth(level: USER) {
-  events(where: { associationId: { eq: $associationId } }, orderBy: [{ eventDate: DESC }]) {
+  events(where: { associationId: { eq: $associationId } }, orderBy: [{ createdAt: DESC }]) {
     id
+    title
+    description
+    imageUrl
+    startDate
+    endDate
+    status
+    freeEntry
+    entryCondition
+    updatedAt
+    createdAt
+    eventMembers_on_event {
+      member { id }
+    }
+  }
+}
+
+query GetEventDetail($eventId: UUID!) @auth(level: USER) {
+  event(key: { id: $eventId }) {
+    id
+    title
+    description
+    imageUrl
+    startDate
+    endDate
+    status
+    freeEntry
+    entryCondition
+    updatedAt
+    createdAt
+    eventAppointments_on_event(orderBy: [{ eventDate: ASC }]) {
+      id
+      title
+      description
+      eventDate
+      endDate
+      createdAt
+    }
+    eventMembers_on_event {
+      id
+      member { id name memberName }
+    }
+  }
+}
+
+query GetMemberEvents($memberId: UUID!) @auth(level: USER) {
+  eventMembers(where: { memberId: { eq: $memberId } }) {
+    event {
+      id
+      title
+      description
+      imageUrl
+      startDate
+      endDate
+      status
+      freeEntry
+      entryCondition
+      updatedAt
+      createdAt
+    }
+  }
+}
+
+query GetEventAccessRequest($eventId: UUID!, $memberId: UUID!) @auth(level: USER) {
+  eventAccessRequests(
+    where: { eventId: { eq: $eventId }, memberId: { eq: $memberId } }
+    first: 1
+  ) {
+    id
+    status
+    requestedAt
+    resolvedAt
+  }
+}
+
+query GetEventAppointmentDetail($appointmentId: UUID!) @auth(level: USER) {
+  eventAppointment(key: { id: $appointmentId }) {
+    id
+    event { id title }
     title
     description
     eventDate
     endDate
     createdAt
-    createdBy {
+    eventAppointmentComments_on_eventAppointment(orderBy: [{ createdAt: ASC }]) {
       id
-      name
+      author { id name memberName profileImageUrl }
+      content
+      imageUrls
+      createdAt
     }
-    eventImages {
-      id
-      imageUrl
-      sortOrder
-    }
-  }
-}
-
-query GetEventComments($eventId: UUID!) @auth(level: USER) {
-  eventComments(where: { eventId: { eq: $eventId } }, orderBy: [{ createdAt: ASC }]) {
-    id
-    content
-    createdAt
-    user {
-      id
-      name
-    }
-  }
-}
-
-query GetUserByEmail($email: String!) @auth(level: PUBLIC) {
-  appUsers(where: { email: { eq: $email } }) {
-    id
-    email
-    name
-    phone
-    createdAt
   }
 }

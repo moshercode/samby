@@ -8,6 +8,11 @@ abstract class AssociationRepository {
     required Function(Association? association, AppError? error) onComplete,
   });
 
+  void findAssociationByFounderEmail(
+    String founderEmail, {
+    required Function(Association? association, AppError? error) onComplete,
+  });
+
   void getAssociationConditions(
     String associationId, {
     required Function(List<AssociationCondition> conditions, AppError? error) onComplete,
@@ -18,7 +23,8 @@ abstract class AssociationRepository {
     String shortName,
     String subdomain,
     String primaryColor,
-    String secondaryColor, {
+    String secondaryColor,
+    String founderEmail, {
     required Function(String? associationId, AppError? error) onComplete,
   });
 
@@ -27,6 +33,14 @@ abstract class AssociationRepository {
     String type,
     String content,
     int sortOrder, {
+    required Function(AppError? error) onComplete,
+  });
+
+  void updateAssociation(
+    String associationId, {
+    required bool requireDni,
+    required bool requireDniImage,
+    required bool requireGuardian,
     required Function(AppError? error) onComplete,
   });
 }

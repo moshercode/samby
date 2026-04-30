@@ -1,54 +1,73 @@
 import 'package:samby/domain/entities/entity.dart';
 
-enum MembershipRole { manager, member }
+enum MemberRole { manager, member }
 
-enum MembershipStatus { pending, approved, rejected }
+enum MemberStatus { pending, approved, rejected }
 
-class Membership implements Entity {
+class Member implements Entity {
   // Variables
 
   late String id;
   late String associationId;
-  late String userId;
-  late MembershipRole role;
-  late MembershipStatus status;
+  late String email;
+  late String name;
+  late String phone;
+  late MemberRole role;
+  late MemberStatus status;
   late bool isBlocked;
   late bool isFounder;
   late String memberName;
-  late String memberDNI;
+  late String memberDni;
+  String? memberDniImageUrl;
+  String? profileImageUrl;
+  String? phone2;
   String? guardianName;
-  String? guardianDNI;
+  String? guardianDni;
   String? internalNotes;
+  DateTime? requestedAt;
 
   // Getters
 
-  bool get isManager => role == MembershipRole.manager;
-  bool get isApproved => status == MembershipStatus.approved;
-  bool get isPending => status == MembershipStatus.pending;
-  bool get isRejected => status == MembershipStatus.rejected;
+  bool get isManager => role == MemberRole.manager;
+  bool get isApproved => status == MemberStatus.approved;
+  bool get isPending => status == MemberStatus.pending;
+  bool get isRejected => status == MemberStatus.rejected;
   bool get canReapply => isRejected && !isBlocked;
 
   // Constructor
 
   @override
-  Membership.fromMap(Map<String, dynamic> map) {
+  Member.fromMap(Map<String, dynamic> map) {
     id = map['id'] as String;
-    associationId = map['associationId'] as String;
-    userId = map['userId'] as String;
-    role = MembershipRole.values.firstWhere(
-      (MembershipRole r) => r.name == map['role'],
-      orElse: () => MembershipRole.member,
+    final Map<String, dynamic>? assocMap = map['association'] as Map<String, dynamic>?;
+    associationId = assocMap?['id'] as String? ?? map['associationId'] as String? ?? '';
+    email = map['email'] as String? ?? '';
+    name = map['name'] as String? ?? '';
+    phone = map['phone'] as String? ?? '';
+    role = MemberRole.values.firstWhere(
+      (MemberRole r) => r.name == (map['role'] as String?)?.toLowerCase(),
+      orElse: () => MemberRole.member,
     );
-    status = MembershipStatus.values.firstWhere(
-      (MembershipStatus s) => s.name == map['status'],
-      orElse: () => MembershipStatus.pending,
+    status = MemberStatus.values.firstWhere(
+      (MemberStatus s) => s.name == (map['status'] as String?)?.toLowerCase(),
+      orElse: () => MemberStatus.pending,
     );
     isBlocked = map['isBlocked'] as bool? ?? false;
     isFounder = map['isFounder'] as bool? ?? false;
-    memberName = map['memberName'] as String? ?? '';
-    memberDNI = map['memberDNI'] as String? ?? '';
+    final String? rawMemberName = map['memberName'] as String?;
+    memberName = rawMemberName?.isNotEmpty == true ? rawMemberName! : name;
+    memberDni = map['memberDni'] as String? ?? '';
+    memberDniImageUrl = map['memberDniImageUrl'] as String?;
+    profileImageUrl = map['profileImageUrl'] as String?;
+    phone2 = map['phone2'] as String?;
     guardianName = map['guardianName'] as String?;
-    guardianDNI = map['guardianDNI'] as String?;
+    guardianDni = map['guardianDni'] as String?;
     internalNotes = map['internalNotes'] as String?;
+    final String? reqStr = map['requestedAt'] as String?;
+    requestedAt = reqStr != null ? DateTime.tryParse(reqStr) : null;
   }
 }
+
+typedef Membership = Member;
+typedef MembershipRole = MemberRole;
+typedef MembershipStatus = MemberStatus;

@@ -1,5 +1,7 @@
+import 'package:samby/core/di/service_locator.dart';
 import 'package:samby/domain/entities/association.dart';
 import 'package:samby/domain/entities/membership.dart';
+import 'package:samby/domain/repositories/association_repository.dart';
 import 'package:samby/presentation/managers/samby_theme_manager.dart';
 import 'package:samby/presentation/managers/session_data_manager.dart';
 import 'package:samby/presentation/managers/user_manager.dart';
@@ -11,7 +13,7 @@ class SplashViewModel extends ViewModel {
   // Constants
 
   static const String kCreateSubdomain = 'create';
-  static const String kDevSubdomain = 'lacomparsa';
+  static const String kDevSubdomain = 'create';
 
   // Variables
 
@@ -38,14 +40,19 @@ class SplashViewModel extends ViewModel {
     final String subdomain = _resolveSubdomain();
 
     if (subdomain == kCreateSubdomain) {
-      _proceedWithCreateFlow();
+      Future.delayed(Duration(seconds: 2), () => _proceedWithCreateFlow());
       return;
     }
 
-    SessionDataManager.instance.loadAssociation(
-      subdomain,
-      onComplete: _onAssociationLoaded,
-    );
+    SessionDataManager.instance.loadAssociation(subdomain, onComplete: _onAssociationLoaded);
+  }
+
+  String _resolveSubdomain() {
+    final String hostname = web.window.location.hostname;
+    if (hostname.contains('localhost')) return kDevSubdomain;
+    final List<String> parts = hostname.split('.');
+    if (parts.length > 2) return parts[0];
+    return kCreateSubdomain;
   }
 
   Future<void> _onAssociationLoaded() async {
@@ -60,41 +67,34 @@ class SplashViewModel extends ViewModel {
   }
 
   void _checkAuth() {
-    final String? uid = UserManager.instance.user?.uid;
-    if (uid == null) {
-      NavigationUtils.showAuthenticationView(this, onAuthenticated: _onAuthenticated);
+    if (UserManager.instance.isAuthenticated) {
+      _checkMembership(UserManager.instance.user!.uid);
     } else {
-      _checkMembership(uid);
+      NavigationUtils.showAuthenticationView(this, onAuthenticated: () => _checkMembership(UserManager.instance.user!.uid));
     }
   }
 
-  void _onAuthenticated() {
-    final String? uid = UserManager.instance.user?.uid;
-    if (uid != null) _checkMembership(uid);
+  void _checkMembership(String memberId) {
+    SessionDataManager.instance.loadMember(memberId, onComplete: _routeByMember);
   }
 
-  void _checkMembership(String userId) {
-    final String associationId = SessionDataManager.instance.association!.id;
-    SessionDataManager.instance.loadMembership(
-      associationId,
-      userId,
-      onComplete: _routeByMembership,
-    );
-  }
-
-  void _routeByMembership() {
-    final Membership? membership = SessionDataManager.instance.membership;
-    if (membership == null) {
+  void _routeByMember() {
+    final Member? member = SessionDataManager.instance.member;
+    if (member == null) {
       NavigationUtils.showAccessRequestView(this);
       return;
     }
-    switch (membership.status) {
-      case MembershipStatus.approved:
-        NavigationUtils.showDashboardView(this);
-      case MembershipStatus.pending:
-        NavigationUtils.showPendingApprovalView(this);
-      case MembershipStatus.rejected:
-        NavigationUtils.showRejectedView(this);
+    switch (member.status) {
+      case MemberStatus.approved:
+        NavigationUtils.showHomeView(this);
+      case MemberStatus.pending:
+        if (member.requestedAt != null) {
+          NavigationUtils.showMembershipStatusView(this);
+        } else {
+          NavigationUtils.showAccessRequestView(this);
+        }
+      case MemberStatus.rejected:
+        NavigationUtils.showMembershipStatusView(this);
     }
   }
 
@@ -110,14 +110,20 @@ class SplashViewModel extends ViewModel {
   }
 
   void _onCreateAuthenticated() {
-    NavigationUtils.showOnboardingView(this);
-  }
-
-  String _resolveSubdomain() {
-    final String hostname = web.window.location.hostname;
-    if (hostname.contains('localhost')) return kDevSubdomain;
-    final List<String> parts = hostname.split('.');
-    if (parts.length > 2) return parts[0];
-    return kCreateSubdomain;
+    final String? email = UserManager.instance.userEmail;
+    if (email == null) {
+      NavigationUtils.showOnboardingView(this);
+      return;
+    }
+    sl<AssociationRepository>().findAssociationByFounderEmail(
+      email,
+      onComplete: (Association? association, dynamic _) {
+        if (association != null) {
+          web.window.location.href = 'https://${association.subdomain}.samby.app';
+        } else {
+          NavigationUtils.showOnboardingView(this);
+        }
+      },
+    );
   }
 }

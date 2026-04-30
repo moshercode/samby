@@ -1,0 +1,36 @@
+[debug] [2026-04-29T19:38:26.328Z] [Firebase Plugin] Activating Firebase extension.
+[info] [Firebase Plugin] Checked firebase-tools, is up to date!
+[debug] [2026-04-29T19:38:29.449Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2026-04-29T19:38:29.450Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-29T19:38:29.450Z] > authorizing via signed-in user (pbl.tns@gmail.com)
+[debug] [2026-04-29T19:38:29.453Z] Checked if tokens are valid: false, expires at: 1777470907482
+[debug] [2026-04-29T19:38:29.454Z] Checked if tokens are valid: false, expires at: 1777470907482
+[debug] [2026-04-29T19:38:29.454Z] > refreshing access token with scopes: []
+[debug] [2026-04-29T19:38:29.456Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-04-29T19:38:29.456Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-04-29T19:38:29.637Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-04-29T19:38:29.638Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-04-29T19:38:29.648Z] [Firebase Plugin] User found:  pbl.tns@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2026-04-29T19:38:29.650Z] Checked if tokens are valid: true, expires at: 1777495108638
+[debug] [2026-04-29T19:38:29.651Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2026-04-29T19:38:30.084Z] Object "" in "firebase.json" has unknown property: {"additionalProperty":"flutter"}
+[info] [Firebase Plugin] Starting SQL Connect toolkit (version 3.4.5) on port 50001
+[debug] [2026-04-29T19:38:30.442Z] 'fdc build' failed with error: Unable to build your SQL Connect schema and connectors (exit code 1): E0429 21:38:30.274529    1776 cmd.go:43] Error loading data connect config: could not find dataconnect.yaml in `d:\Projects\samby\pwa\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"'fdc build' failed with error: Unable to build your SQL Connect schema and connectors (exit code 1): E0429 21:38:30.274529    1776 cmd.go:43] Error loading data connect config: could not find dataconnect.yaml in `d:\\Projects\\samby\\pwa\\dataconnect`\n"}}
+[debug] [2026-04-29T19:38:30.443Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2026-04-29T19:38:30.443Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2026-04-29T19:38:30.444Z] Starting SQL Connect Emulator with command {"binary":"C:\\Users\\PabloRP\\.cache\\firebase\\emulators\\dataconnect-emulator-3.4.5.exe","args":["--logtostderr","-v=2","dev","--listen=localhost:50001","--config_dir=d:\\Projects\\samby\\pwa\\dataconnect","--enable_output_schema_extensions=true","--enable_output_generated_sdk=true"],"optionalArgs":["listen","config_dir","enable_output_schema_extensions","enable_output_generated_sdk"],"joinArgs":true,"shell":false,"port":9399} {"metadata":{"emulator":{"name":"dataconnect"},"message":"Starting SQL Connect Emulator with command {\"binary\":\"C:\\\\Users\\\\PabloRP\\\\.cache\\\\firebase\\\\emulators\\\\dataconnect-emulator-3.4.5.exe\",\"args\":[\"--logtostderr\",\"-v=2\",\"dev\",\"--listen=localhost:50001\",\"--config_dir=d:\\\\Projects\\\\samby\\\\pwa\\\\dataconnect\",\"--enable_output_schema_extensions=true\",\"--enable_output_generated_sdk=true\"],\"optionalArgs\":[\"listen\",\"config_dir\",\"enable_output_schema_extensions\",\"enable_output_generated_sdk\"],\"joinArgs\":true,\"shell\":false,\"port\":9399}"}}
+[info] i  dataconnect: SQL Connect Emulator logging to dataconnect-debug.log {"metadata":{"emulator":{"name":"dataconnect"},"message":"SQL Connect Emulator logging to \u001b[1mdataconnect-debug.log\u001b[22m"}}
+[debug] [2026-04-29T19:38:30.764Z] E0429 21:38:30.701597   14400 dev.go:83] Failed to load initial config from "d:\\Projects\\samby\\pwa\\dataconnect": could not find dataconnect.yaml in `d:\Projects\samby\pwa\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0429 21:38:30.701597   14400 dev.go:83] Failed to load initial config from \"d:\\\\Projects\\\\samby\\\\pwa\\\\dataconnect\": could not find dataconnect.yaml in `d:\\Projects\\samby\\pwa\\dataconnect`\n"}}
+[debug] [2026-04-29T19:38:30.768Z] E0429 21:38:30.765429   14400 watch.go:116] watchAllDir unable to walk dir `d:\Projects\samby\pwa\dataconnect`: GetFileAttributesEx d:\Projects\samby\pwa\dataconnect: El sistema no puede encontrar el archivo especificado.
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0429 21:38:30.765429   14400 watch.go:116] watchAllDir unable to walk dir `d:\\Projects\\samby\\pwa\\dataconnect`: GetFileAttributesEx d:\\Projects\\samby\\pwa\\dataconnect: El sistema no puede encontrar el archivo especificado.\n"}}
+[debug] [2026-04-29T19:38:30.803Z] F0429 21:38:30.802293   14400 dev.go:102] Could not listen on address localhost:50001: listen tcp 127.0.0.1:50001: bind: Solo se permite un uso de cada dirección de socket (protocolo/dirección de red/puerto)
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"F0429 21:38:30.802293   14400 dev.go:102] Could not listen on address localhost:50001: listen tcp 127.0.0.1:50001: bind: Solo se permite un uso de cada dirección de socket (protocolo/dirección de red/puerto)\n"}}
+[warn] !  dataconnect: Fatal error occurred: 
+   SQL Connect Emulator has exited with code: 1, 
+   stopping all running emulators {"metadata":{"emulator":{"name":"dataconnect"},"message":"Fatal error occurred: \n   SQL Connect Emulator has exited with code: 1, \n   stopping all running emulators"}}
+[error] [Firebase Plugin] error:  {}
+[debug] [2026-04-29T19:38:30.910Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2026-04-29T19:38:30.910Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]

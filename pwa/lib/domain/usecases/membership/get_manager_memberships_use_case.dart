@@ -14,8 +14,17 @@ class GetManagerMembershipsUseCase {
   // Public methods
 
   void call(
-    String userId, {
-    required Function(List<Membership> memberships, AppError? error) onComplete,
+    String memberId, {
+    required Function(List<Member> memberships, AppError? error) onComplete,
   }) =>
-      _repository.getManagerMemberships(userId, onComplete: onComplete);
+      _repository.getMember(
+        memberId,
+        onComplete: (Member? member, AppError? error) {
+          if (member != null && member.isManager) {
+            onComplete(<Member>[member], null);
+          } else {
+            onComplete(<Member>[], error);
+          }
+        },
+      );
 }

@@ -43,6 +43,11 @@ abstract class Localization {
   String get save;
   String get delete;
   String get edit;
+  String get fieldTitle;
+  String get fieldDescription;
+  String get clearDate;
+  String get selectAll;
+  String get selectNone;
 
   // ── Splash ─────────────────────────────────────────
 
@@ -68,6 +73,13 @@ abstract class Localization {
   String get authErrorEmailInUse;
   String get authErrorWeakPassword;
   String get authErrorTooManyAttempts;
+  String get authPhone;
+  String get authResetCode;
+  String get authNewPassword;
+  String get authResetSubmit;
+  String get authErrorResetTokenInvalid;
+  String get authErrorResetTokenExpired;
+  String get authErrorResetTokenUsed;
   String get passwordResetTitle;
   String get passwordResetSubtitle;
   String get passwordResetSend;
@@ -131,9 +143,92 @@ abstract class Localization {
   String get rejectedReapply;
   String get rejectedBlocked;
 
-  // ── Dashboard ──────────────────────────────────────
+  // ── Home ───────────────────────────────────────────
+
+  String get homeTabEvents;
+  String get homeTabMembers;
+  String get homeTabAssociation;
+  String get homeTabProfile;
+
+  // ── Membership status ───────────────────────────────
+
+  String get membershipStatusPendingTitle;
+  String get membershipStatusPendingMessage;
+  String get membershipStatusRejectedTitle;
+  String get membershipStatusRejectedMessage;
+  String get membershipStatusBlockedMessage;
+  String get membershipStatusReapply;
+  String get membershipStatusRefresh;
+
+  // ── Dashboard (legacy) ──────────────────────────────
 
   String get dashboardTitle;
+  String get dashboardActiveEvents;
+  String get dashboardNoEvents;
+
+  // ── Events ─────────────────────────────────────────
+
+  String get eventsActive;
+  String get eventsFinished;
+  String get eventsEmpty;
+  String get eventDetailSessions;
+  String get eventDetailNoSessions;
+  String get eventDetailMembers;
+  String get eventDetailFreeEntry;
+  String get eventDetailRequestAccess;
+  String get eventDetailAccessPending;
+  String get eventDetailAccessRejected;
+  String get createEventTitle;
+  String get createEventStartDate;
+  String get createEventEndDate;
+  String get createEventImageLabel;
+  String get createEventMembersLabel;
+  String get createEventFreeEntry;
+  String get createEventEntryCondition;
+  String get createEventSubmit;
+  String get createCalendarEventTitle;
+  String get createCalendarEventDateLabel;
+  String get createCalendarEventSubmit;
+  String get createAppointmentTitle;
+  String get createAppointmentDateLabel;
+  String get createAppointmentSubmit;
+
+  // ── Association Detail ──────────────────────────────
+
+  String get associationDetailTitle;
+  String get associationDetailRequirements;
+  String get associationDetailRequireDni;
+  String get associationDetailRequireDniImage;
+  String get associationDetailRequireGuardian;
+
+  // ── Profile ─────────────────────────────────────────
+
+  String get profileTitle;
+  String get profileLogout;
+  String get profileMemberSince;
+
+  // ── Onboarding extras ───────────────────────────────
+
+  String get onboardingRequireDni;
+  String get onboardingRequireDniImage;
+  String get onboardingRequireGuardian;
+
+  // ── Members ────────────────────────────────────────
+
+  String get membersTitle;
+  String get membersEmpty;
+  String get memberStatusPending;
+  String get memberStatusApproved;
+  String get memberStatusRejected;
+  String get memberRoleManager;
+  String get memberRoleMember;
+  String get memberBlocked;
+
+  // ── Member detail ──────────────────────────────────
+  String get memberDetailPersonalInfo;
+  String get memberDetailEvents;
+  String get memberDetailNoEvents;
+  String get memberDetailChangeRole;
 }
 
 // ── Delegate ──────────────────────────────────────────────────────────────────

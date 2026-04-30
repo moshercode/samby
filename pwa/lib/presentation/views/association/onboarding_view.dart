@@ -70,6 +70,27 @@ class OnboardingView extends BaseView<OnboardingViewModel> {
                     ),
                   ),
                 ),
+                const SizedBox(height: Dimensions.space24),
+
+                // Application requirements
+                SwitchListTile(
+                  title: Text(l.onboardingRequireDni),
+                  value: viewModel.requireDni,
+                  onChanged: (bool v) => viewModel.requireDni = v,
+                  contentPadding: EdgeInsets.zero,
+                ),
+                SwitchListTile(
+                  title: Text(l.onboardingRequireDniImage),
+                  value: viewModel.requireDniImage,
+                  onChanged: viewModel.requireDni ? (bool v) => viewModel.requireDniImage = v : null,
+                  contentPadding: EdgeInsets.zero,
+                ),
+                SwitchListTile(
+                  title: Text(l.onboardingRequireGuardian),
+                  value: viewModel.requireGuardian,
+                  onChanged: (bool v) => viewModel.requireGuardian = v,
+                  contentPadding: EdgeInsets.zero,
+                ),
                 const SizedBox(height: Dimensions.space32),
 
                 // Block 2 — General conditions

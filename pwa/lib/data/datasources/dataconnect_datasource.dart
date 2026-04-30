@@ -12,35 +12,44 @@ enum DataconnectActionType { query, mutation }
 
 abstract class DataconnectOps {
   // Association
+  static const String getAssociationByFounderEmail = 'GetAssociationByFounderEmail';
   static const String getAssociationBySubdomain = 'GetAssociationBySubdomain';
   static const String getAssociationConditions = 'GetAssociationConditions';
   static const String createAssociation = 'CreateAssociation';
-  static const String createAssociationCondition = 'CreateAssociationCondition';
+  static const String createAssociationCondition = 'AddAssociationCondition';
 
-  // Membership
-  static const String getMembership = 'GetMembership';
-  static const String getManagerMemberships = 'GetManagerMemberships';
+  // Member
+  static const String getMember = 'GetMember';
   static const String getAssociationMembers = 'GetAssociationMembers';
-  static const String createAppUser = 'CreateAppUser';
-  static const String getUserByEmail = 'GetUserByEmail';
-  static const String createMembership = 'CreateMembership';
-  static const String createFounderMembership = 'CreateFounderMembership';
-  static const String updateMembershipStatus = 'UpdateMembershipStatus';
-  static const String updateMembershipRole = 'UpdateMembershipRole';
-  static const String updateMembershipBlock = 'UpdateMembershipBlock';
-  static const String updateMembershipNotes = 'UpdateMembershipNotes';
-  static const String resetMembership = 'ResetMembership';
-
-  // FCM
-  static const String upsertFCMToken = 'UpsertFCMToken';
+  static const String getMemberEvents = 'GetMemberEvents';
+  static const String updateMemberApplication = 'UpdateMemberApplication';
+  static const String resetMemberApplication = 'ResetMemberApplication';
+  static const String updateMemberStatus = 'UpdateMemberStatus';
+  static const String updateMemberRole = 'UpdateMemberRole';
+  static const String updateMemberBlock = 'UpdateMemberBlock';
+  static const String updateMemberNotes = 'UpdateMemberNotes';
+  static const String createFounderMember = 'CreateFounderMember';
+  static const String updateMemberFcmToken = 'UpdateMemberFcmToken';
 
   // Events
   static const String getAssociationEvents = 'GetAssociationEvents';
-  static const String getEventComments = 'GetEventComments';
+  static const String getEventDetail = 'GetEventDetail';
   static const String createEvent = 'CreateEvent';
-  static const String addEventImage = 'AddEventImage';
-  static const String createEventComment = 'CreateEventComment';
-  static const String deleteEventComment = 'DeleteEventComment';
+  static const String addEventMember = 'AddEventMember';
+  static const String removeEventMember = 'RemoveEventMember';
+  static const String updateEventStatus = 'UpdateEventStatus';
+  static const String requestEventAccess = 'RequestEventAccess';
+  static const String resolveEventAccess = 'ResolveEventAccess';
+  static const String getEventAccessRequest = 'GetEventAccessRequest';
+
+  // Event Appointments
+  static const String createEventAppointment = 'CreateEventAppointment';
+  static const String getEventAppointmentDetail = 'GetEventAppointmentDetail';
+
+  // Association
+  static const String updateAssociation = 'UpdateAssociation';
+
+  // Broadcasts
   static const String sendBroadcast = 'SendBroadcast';
 }
 
@@ -49,8 +58,9 @@ abstract class DataconnectOps {
 abstract class DataconnectKeys {
   static const String id = 'id';
   static const String associationId = 'associationId';
-  static const String userId = 'userId';
+  static const String memberId = 'memberId';
   static const String subdomain = 'subdomain';
+  static const String founderEmail = 'founderEmail';
   static const String email = 'email';
   static const String name = 'name';
   static const String phone = 'phone';
@@ -66,40 +76,49 @@ abstract class DataconnectKeys {
   static const String internalNotes = 'internalNotes';
   static const String memberName = 'memberName';
   static const String memberBirthDate = 'memberBirthDate';
-  static const String memberDNI = 'memberDNI';
-  static const String memberDNIImageUrl = 'memberDNIImageUrl';
+  static const String memberDni = 'memberDni';
+  static const String memberDniImageUrl = 'memberDniImageUrl';
   static const String guardianName = 'guardianName';
-  static const String guardianDNI = 'guardianDNI';
-  static const String guardianDNIImageUrl = 'guardianDNIImageUrl';
+  static const String guardianDni = 'guardianDni';
+  static const String guardianDniImageUrl = 'guardianDniImageUrl';
   static const String signatureUrl = 'signatureUrl';
   static const String conditionsAcceptedAt = 'conditionsAcceptedAt';
   static const String minorConditionsAcceptedAt = 'minorConditionsAcceptedAt';
+  static const String requestedAt = 'requestedAt';
+  static const String updatedAt = 'updatedAt';
   static const String token = 'token';
   static const String title = 'title';
   static const String description = 'description';
-  static const String eventDate = 'eventDate';
+  static const String imageUrl = 'imageUrl';
+  static const String startDate = 'startDate';
   static const String endDate = 'endDate';
+  static const String eventDate = 'eventDate';
   static const String createdBy = 'createdBy';
   static const String eventId = 'eventId';
-  static const String imageUrl = 'imageUrl';
-  static const String sortOrder = 'sortOrder';
   static const String content = 'content';
+  static const String sortOrder = 'sortOrder';
   static const String body = 'body';
   static const String sentBy = 'sentBy';
-  static const String userName = 'userName';
+  static const String freeEntry = 'freeEntry';
+  static const String entryCondition = 'entryCondition';
+  static const String requireDni = 'requireDni';
+  static const String requireDniImage = 'requireDniImage';
+  static const String requireGuardian = 'requireGuardian';
+  static const String appointmentId = 'appointmentId';
 }
 
 // ── Response data keys ────────────────────────────────────────────────────────
 
 abstract class DataconnectResponseKeys {
   static const String association = 'association';
-  static const String associations = 'associations';
   static const String associationConditions = 'associationConditions';
-  static const String associationMembership = 'associationMembership';
-  static const String associationMemberships = 'associationMemberships';
-  static const String appUsers = 'appUsers';
+  static const String member = 'member';
+  static const String members = 'members';
+  static const String event = 'event';
   static const String events = 'events';
-  static const String eventComments = 'eventComments';
+  static const String eventMembers = 'eventMembers';
+  static const String eventAppointment = 'eventAppointment';
+  static const String eventAccessRequests = 'eventAccessRequests';
 }
 
 // ── Datasource ────────────────────────────────────────────────────────────────

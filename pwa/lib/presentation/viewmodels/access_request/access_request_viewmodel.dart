@@ -5,7 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:samby/core/di/service_locator.dart';
 import 'package:samby/core/utils/log.dart';
-import 'package:samby/domain/entities/app_user.dart';
 import 'package:samby/domain/entities/association_condition.dart';
 import 'package:samby/domain/entities/membership.dart';
 import 'package:samby/domain/repositories/association_repository.dart';
@@ -21,15 +20,15 @@ class AccessRequestViewModel extends ViewModel {
 
   String memberName = '';
   String memberBirthDateRaw = '';
-  String memberDNI = '';
-  String? memberDNIImageUrl;
+  String memberDni = '';
+  String? memberDniImageUrl;
   String? guardianName;
-  String? guardianDNI;
-  String? guardianDNIImageUrl;
+  String? guardianDni;
+  String? guardianDniImageUrl;
   String? signatureUrl;
 
-  bool isDNIUploading = false;
-  bool isGuardianDNIUploading = false;
+  bool isDniUploading = false;
+  bool isGuardianDniUploading = false;
   bool isSignatureUploading = false;
 
   bool _allGeneralConditionsAccepted = false;
@@ -65,23 +64,27 @@ class AccessRequestViewModel extends ViewModel {
     notifyListeners();
   }
 
-  bool get hasExistingMembership =>
-      SessionDataManager.instance.membership?.status == MembershipStatus.rejected;
+  bool get hasExistingApplication =>
+      SessionDataManager.instance.member?.status == MemberStatus.rejected;
+
+  bool get requireDni => SessionDataManager.instance.association?.requireDni ?? false;
+  bool get requireDniImage => SessionDataManager.instance.association?.requireDniImage ?? false;
+  bool get requireGuardian => SessionDataManager.instance.association?.requireGuardian ?? false;
 
   bool get isReadyToSubmit {
-    final bool block1Valid =
-        memberName.trim().isNotEmpty &&
-        memberBirthDateRaw.trim().isNotEmpty &&
-        memberDNI.trim().isNotEmpty &&
-        memberDNIImageUrl != null;
-    final bool guardianValid = !isMinor ||
+    final bool nameValid = memberName.trim().isNotEmpty;
+    final bool birthDateValid = memberBirthDateRaw.trim().isNotEmpty;
+    final bool dniValid = !requireDni || memberDni.trim().isNotEmpty;
+    final bool dniImageValid = !requireDniImage || memberDniImageUrl != null;
+    final bool guardianValid = !requireGuardian || !isMinor ||
         (guardianName?.isNotEmpty == true &&
-            guardianDNI?.isNotEmpty == true &&
-            guardianDNIImageUrl != null);
+            guardianDni?.isNotEmpty == true &&
+            guardianDniImageUrl != null);
     final bool conditionsValid = _allGeneralConditionsAccepted &&
         (!isMinor || _allMinorConditionsAccepted);
     final bool signatureValid = signatureUrl != null && signatureUrl!.isNotEmpty;
-    return block1Valid && guardianValid && conditionsValid && signatureValid;
+    return nameValid && birthDateValid && dniValid && dniImageValid &&
+        guardianValid && conditionsValid && signatureValid;
   }
 
   // Constructor
@@ -109,13 +112,13 @@ class AccessRequestViewModel extends ViewModel {
     notifyListeners();
   }
 
-  void onDNIChanged(String v) {
-    memberDNI = v;
+  void onDniChanged(String v) {
+    memberDni = v;
     notifyListeners();
   }
 
-  void onDNIImageUploaded(String url) {
-    memberDNIImageUrl = url;
+  void onDniImageUploaded(String url) {
+    memberDniImageUrl = url;
     notifyListeners();
   }
 
@@ -124,13 +127,13 @@ class AccessRequestViewModel extends ViewModel {
     notifyListeners();
   }
 
-  void onGuardianDNIChanged(String v) {
-    guardianDNI = v;
+  void onGuardianDniChanged(String v) {
+    guardianDni = v;
     notifyListeners();
   }
 
-  void onGuardianDNIImageUploaded(String url) {
-    guardianDNIImageUrl = url;
+  void onGuardianDniImageUploaded(String url) {
+    guardianDniImageUrl = url;
     notifyListeners();
   }
 
@@ -139,34 +142,34 @@ class AccessRequestViewModel extends ViewModel {
     notifyListeners();
   }
 
-  Future<void> pickAndUploadMemberDNI() async {
+  Future<void> pickAndUploadMemberDni() async {
     final XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (file == null) return;
-    isDNIUploading = true;
+    isDniUploading = true;
     notifyListeners();
     final Uint8List bytes = await file.readAsBytes();
-    final String? url = await _uploadToStorage(bytes, _dniPath('dni/dni.jpg'));
-    if (url != null) memberDNIImageUrl = url;
-    isDNIUploading = false;
+    final String? url = await _uploadToStorage(bytes, _storagePath('dni/dni.jpg'));
+    if (url != null) memberDniImageUrl = url;
+    isDniUploading = false;
     notifyListeners();
   }
 
-  Future<void> pickAndUploadGuardianDNI() async {
+  Future<void> pickAndUploadGuardianDni() async {
     final XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (file == null) return;
-    isGuardianDNIUploading = true;
+    isGuardianDniUploading = true;
     notifyListeners();
     final Uint8List bytes = await file.readAsBytes();
-    final String? url = await _uploadToStorage(bytes, _dniPath('guardian_dni/guardian_dni.jpg'));
-    if (url != null) guardianDNIImageUrl = url;
-    isGuardianDNIUploading = false;
+    final String? url = await _uploadToStorage(bytes, _storagePath('guardian_dni/guardian_dni.jpg'));
+    if (url != null) guardianDniImageUrl = url;
+    isGuardianDniUploading = false;
     notifyListeners();
   }
 
   Future<void> uploadSignature(Uint8List bytes) async {
     isSignatureUploading = true;
     notifyListeners();
-    final String? url = await _uploadToStorage(bytes, _dniPath('signature/signature.png'));
+    final String? url = await _uploadToStorage(bytes, _storagePath('signature/signature.png'));
     onSignatureUploaded(url ?? '');
     isSignatureUploading = false;
     notifyListeners();
@@ -176,61 +179,52 @@ class AccessRequestViewModel extends ViewModel {
     if (!isReadyToSubmit) return;
     setLoading(true);
 
-    final String? email = UserManager.instance.userEmail;
-    final String? assocId = SessionDataManager.instance.association?.id;
-    if (email == null || assocId == null) {
+    final String? memberId = UserManager.instance.user?.uid;
+    if (memberId == null) {
       setLoading(false);
       return;
     }
 
-    // Get or create AppUser
-    final Completer<String?> userCompleter = Completer<String?>();
-    sl<MembershipRepository>().getUserByEmail(email, onComplete: (AppUser? user, dynamic _) {
-      if (user != null) {
-        userCompleter.complete(user.id);
-      } else {
-        sl<MembershipRepository>().createAppUser(
-          email, memberName, '',
-          onComplete: (String? id, dynamic __) => userCompleter.complete(id),
-        );
-      }
-    });
+    final String now = DateTime.now().toUtc().toIso8601String();
+    final Completer<bool> completer = Completer<bool>();
 
-    final String? userId = await userCompleter.future;
-    if (userId == null) {
-      setLoading(false);
-      return;
-    }
-
-    final String now = DateTime.now().toIso8601String();
-    final Completer<bool> submitCompleter = Completer<bool>();
-
-    if (hasExistingMembership) {
-      sl<MembershipRepository>().resetMembership(
-        assocId, userId,
-        onComplete: (dynamic error) => submitCompleter.complete(error == null),
-      );
-    } else {
-      sl<MembershipRepository>().createMembership(
-        associationId: assocId,
-        userId: userId,
+    if (hasExistingApplication) {
+      sl<MemberRepository>().resetMemberApplication(
+        memberId: memberId,
         memberName: memberName,
         memberBirthDate: memberBirthDateRaw,
-        memberDNI: memberDNI,
-        memberDNIImageUrl: memberDNIImageUrl!,
+        memberDni: memberDni,
+        memberDniImageUrl: memberDniImageUrl!,
         guardianName: guardianName,
-        guardianDNI: guardianDNI,
-        guardianDNIImageUrl: guardianDNIImageUrl,
+        guardianDni: guardianDni,
+        guardianDniImageUrl: guardianDniImageUrl,
         signatureUrl: signatureUrl!,
         conditionsAcceptedAt: now,
         minorConditionsAcceptedAt: isMinor ? now : null,
-        onComplete: (dynamic error) => submitCompleter.complete(error == null),
+        requestedAt: now,
+        onComplete: (dynamic error) => completer.complete(error == null),
+      );
+    } else {
+      sl<MemberRepository>().updateMemberApplication(
+        memberId: memberId,
+        memberName: memberName,
+        memberBirthDate: memberBirthDateRaw,
+        memberDni: memberDni,
+        memberDniImageUrl: memberDniImageUrl!,
+        guardianName: guardianName,
+        guardianDni: guardianDni,
+        guardianDniImageUrl: guardianDniImageUrl,
+        signatureUrl: signatureUrl!,
+        conditionsAcceptedAt: now,
+        minorConditionsAcceptedAt: isMinor ? now : null,
+        requestedAt: now,
+        onComplete: (dynamic error) => completer.complete(error == null),
       );
     }
 
-    final bool success = await submitCompleter.future;
+    final bool success = await completer.future;
     setLoading(false);
-    if (success) NavigationUtils.showPendingApprovalView(this);
+    if (success) NavigationUtils.showMembershipStatusView(this);
   }
 
   // Private methods
@@ -252,7 +246,7 @@ class AccessRequestViewModel extends ViewModel {
     );
   }
 
-  String _dniPath(String suffix) {
+  String _storagePath(String suffix) {
     final String uid = UserManager.instance.user?.uid ?? 'unknown';
     final String assocId = SessionDataManager.instance.association?.id ?? 'unknown';
     return 'memberships/$assocId/$uid/$suffix';

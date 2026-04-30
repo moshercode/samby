@@ -7,6 +7,11 @@ type Association @table {
   iconUrl: String!
   primaryColor: String!
   secondaryColor: String!
+  founderEmail: String!
+  requireDni: Boolean! @default(expr: "false")
+  requireDniImage: Boolean! @default(expr: "false")
+  requireGuardian: Boolean! @default(expr: "false")
+  active: Boolean! @default(expr: "false")
   createdAt: Timestamp! @default(expr: "request.time")
 }
 
@@ -19,43 +24,49 @@ type AssociationCondition @table {
   createdAt: Timestamp! @default(expr: "request.time")
 }
 
-type AppUser @table {
+enum MemberRole {
+  MANAGER
+  MEMBER
+}
+
+type Member @table {
   id: UUID! @default(expr: "uuidV4()")
+  association: Association!
   email: String!
   name: String!
   phone: String!
-  createdAt: Timestamp! @default(expr: "request.time")
-}
-
-type AssociationMembership @table {
-  id: UUID! @default(expr: "uuidV4()")
-  association: Association!
-  user: AppUser!
-  role: String!
+  role: MemberRole!
   status: String!
   isBlocked: Boolean!
   isFounder: Boolean!
-  memberName: String!
-  memberBirthDate: Date!
-  memberDNI: String!
-  memberDNIImageUrl: String!
+  createdAt: Timestamp! @default(expr: "request.time")
+  memberName: String
+  memberBirthDate: Date
+  memberDni: String
+  memberDniImageUrl: String
+  profileImageUrl: String
   guardianName: String
-  guardianDNI: String
-  guardianDNIImageUrl: String
-  signatureUrl: String!
-  conditionsAcceptedAt: Timestamp!
+  guardianDni: String
+  guardianDniImageUrl: String
+  signatureUrl: String
+  conditionsAcceptedAt: Timestamp
   minorConditionsAcceptedAt: Timestamp
   internalNotes: String
-  requestedAt: Timestamp! @default(expr: "request.time")
+  requestedAt: Timestamp
   resolvedAt: Timestamp
-  resolvedBy: AppUser
+  resolvedBy: Member
+  passwordHash: String
+  passwordResetToken: String
+  passwordResetTokenExpiresAt: Timestamp
+  passwordResetTokenUses: Int
+  fcmToken: String
+  fcmTokenUpdatedAt: Timestamp
 }
 
-type UserFCMToken @table {
-  id: UUID! @default(expr: "uuidV4()")
-  user: AppUser!
-  token: String!
-  updatedAt: Timestamp! @default(expr: "request.time")
+enum EventStatus {
+  ACTIVE
+  FINISHED
+  CANCELLED
 }
 
 type Event @table {
@@ -63,31 +74,57 @@ type Event @table {
   association: Association!
   title: String!
   description: String!
-  eventDate: Timestamp!
+  imageUrl: String!
+  startDate: Timestamp
   endDate: Timestamp
-  createdBy: AppUser!
+  status: EventStatus!
+  freeEntry: Boolean! @default(expr: "true")
+  entryCondition: String
+  updatedAt: Timestamp
+  createdBy: Member!
   createdAt: Timestamp! @default(expr: "request.time")
 }
 
-type EventImage @table {
+type EventMember @table {
   id: UUID! @default(expr: "uuidV4()")
   event: Event!
-  imageUrl: String!
-  sortOrder: Int!
+  member: Member!
 }
 
-type EventComment @table {
+type EventAccessRequest @table {
   id: UUID! @default(expr: "uuidV4()")
   event: Event!
-  user: AppUser!
+  member: Member!
+  status: String!
+  requestedAt: Timestamp! @default(expr: "request.time")
+  resolvedAt: Timestamp
+  resolvedBy: Member
+}
+
+type EventAppointment @table {
+  id: UUID! @default(expr: "uuidV4()")
+  event: Event!
+  title: String!
+  description: String!
+  eventDate: Timestamp!
+  endDate: Timestamp
+  createdBy: Member!
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+type EventAppointmentComment @table {
+  id: UUID! @default(expr: "uuidV4()")
+  eventAppointment: EventAppointment!
+  author: Member!
   content: String!
+  imageUrls: String
   createdAt: Timestamp! @default(expr: "request.time")
 }
 
 type BroadcastMessage @table {
   id: UUID! @default(expr: "uuidV4()")
   association: Association!
-  sentBy: AppUser!
+  sentBy: Member!
   title: String!
   body: String!
   sentAt: Timestamp! @default(expr: "request.time")

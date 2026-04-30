@@ -1,11 +1,11 @@
 specVersion: "v1alpha"
-serviceId: samby-service
-location: europe-west1
+serviceId: samby-database-service
+location: europe-southwest1
 schema:
   source: ./schema
   datasource:
     postgresql:
-      database: samby
+      database: samby-database
       cloudSql:
-        instanceId: samby-f3e5b:europe-west1:samby-db
+        instanceId: samby-database-instance
 connectorDirs: ["./connector"]

@@ -21,6 +21,16 @@ class L10nEn extends Localization {
   String get delete => 'Delete';
   @override
   String get edit => 'Edit';
+  @override
+  String get fieldTitle => 'Title';
+  @override
+  String get fieldDescription => 'Description';
+  @override
+  String get clearDate => 'Clear date';
+  @override
+  String get selectAll => 'All';
+  @override
+  String get selectNone => 'None';
 
   // Splash
 
@@ -66,11 +76,25 @@ class L10nEn extends Localization {
   @override
   String get authErrorTooManyAttempts => 'Too many attempts. Please wait a moment';
   @override
+  String get authPhone => 'Phone';
+  @override
+  String get authResetCode => 'Verification code';
+  @override
+  String get authNewPassword => 'New password';
+  @override
+  String get authResetSubmit => 'Change password';
+  @override
+  String get authErrorResetTokenInvalid => 'Invalid code';
+  @override
+  String get authErrorResetTokenExpired => 'The code has expired';
+  @override
+  String get authErrorResetTokenUsed => 'The code has already been used';
+  @override
   String get passwordResetTitle => 'Reset password';
   @override
-  String get passwordResetSubtitle => 'We will send a recovery link to your email';
+  String get passwordResetSubtitle => 'We will send a verification code to your email';
   @override
-  String get passwordResetSend => 'Send link';
+  String get passwordResetSend => 'Send code';
   @override
   String get passwordResetSentConfirmation => 'Check your email';
   @override
@@ -182,4 +206,148 @@ class L10nEn extends Localization {
 
   @override
   String get dashboardTitle => 'Home';
+  @override
+  String get dashboardActiveEvents => 'Events';
+  @override
+  String get dashboardNoEvents => 'No active events';
+  @override
+  String get eventDetailSessions => 'Sessions';
+  @override
+  String get eventDetailNoSessions => 'No upcoming sessions';
+  @override
+  String get eventDetailMembers => 'Access';
+  @override
+  String get createEventTitle => 'New event';
+  @override
+  String get createEventStartDate => 'Start date';
+  @override
+  String get createEventEndDate => 'End date (optional)';
+  @override
+  String get createEventImageLabel => 'Event image';
+  @override
+  String get createEventMembersLabel => 'Members with access';
+  @override
+  String get createEventSubmit => 'Create event';
+  @override
+  String get createCalendarEventTitle => 'New session';
+  @override
+  String get createCalendarEventDateLabel => 'Session date';
+  @override
+  String get createCalendarEventSubmit => 'Create session';
+
+  // Home
+
+  @override
+  String get homeTabEvents => 'Events';
+  @override
+  String get homeTabMembers => 'Members';
+  @override
+  String get homeTabAssociation => 'Association';
+  @override
+  String get homeTabProfile => 'Profile';
+
+  // Membership status
+
+  @override
+  String get membershipStatusPendingTitle => 'Request submitted';
+  @override
+  String get membershipStatusPendingMessage => 'A manager will review your request and you will receive a notification when it is accepted';
+  @override
+  String get membershipStatusRejectedTitle => 'Request rejected';
+  @override
+  String get membershipStatusRejectedMessage => 'Your request was not accepted. You can submit a new request';
+  @override
+  String get membershipStatusBlockedMessage => 'You cannot request access to this association again';
+  @override
+  String get membershipStatusReapply => 'Request again';
+  @override
+  String get membershipStatusRefresh => 'Refresh status';
+
+  // Events extras
+
+  @override
+  String get eventsActive => 'Active';
+  @override
+  String get eventsFinished => 'Finished';
+  @override
+  String get eventsEmpty => 'No events';
+  @override
+  String get eventDetailFreeEntry => 'Free entry';
+  @override
+  String get eventDetailRequestAccess => 'Request access';
+  @override
+  String get eventDetailAccessPending => 'Request pending';
+  @override
+  String get eventDetailAccessRejected => 'Access denied';
+  @override
+  String get createEventFreeEntry => 'Free entry';
+  @override
+  String get createEventEntryCondition => 'Entry condition';
+  @override
+  String get createAppointmentTitle => 'New session';
+  @override
+  String get createAppointmentDateLabel => 'Session date';
+  @override
+  String get createAppointmentSubmit => 'Create session';
+
+  // Association Detail
+
+  @override
+  String get associationDetailTitle => 'Association';
+  @override
+  String get associationDetailRequirements => 'Application requirements';
+  @override
+  String get associationDetailRequireDni => 'Require ID document';
+  @override
+  String get associationDetailRequireDniImage => 'Require ID document image';
+  @override
+  String get associationDetailRequireGuardian => 'Require guardian data';
+
+  // Profile
+
+  @override
+  String get profileTitle => 'Profile';
+  @override
+  String get profileLogout => 'Log out';
+  @override
+  String get profileMemberSince => 'Member since';
+
+  // Onboarding extras
+
+  @override
+  String get onboardingRequireDni => 'Require ID document';
+  @override
+  String get onboardingRequireDniImage => 'Require ID document image';
+  @override
+  String get onboardingRequireGuardian => 'Require guardian data for minors';
+
+  // Members
+
+  @override
+  String get membersTitle => 'Members';
+  @override
+  String get membersEmpty => 'No members yet';
+  @override
+  String get memberStatusPending => 'Pending';
+  @override
+  String get memberStatusApproved => 'Approved';
+  @override
+  String get memberStatusRejected => 'Rejected';
+  @override
+  String get memberRoleManager => 'Manager';
+  @override
+  String get memberRoleMember => 'Member';
+  @override
+  String get memberBlocked => 'Blocked';
+
+  // Member detail
+
+  @override
+  String get memberDetailPersonalInfo => 'Personal information';
+  @override
+  String get memberDetailEvents => 'Events';
+  @override
+  String get memberDetailNoEvents => 'No events assigned';
+  @override
+  String get memberDetailChangeRole => 'Role';
 }

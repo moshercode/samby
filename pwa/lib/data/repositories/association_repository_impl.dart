@@ -40,6 +40,29 @@ class AssociationRepositoryImpl implements AssociationRepository {
   }
 
   @override
+  void findAssociationByFounderEmail(
+    String founderEmail, {
+    required Function(Association? association, AppError? error) onComplete,
+  }) async {
+    try {
+      final Map<String, dynamic>? data = await _datasource.executeQuery(
+        DataconnectOps.getAssociationByFounderEmail,
+        variables: {DataconnectKeys.founderEmail: founderEmail},
+      );
+      final Map<String, dynamic>? raw =
+          data?[DataconnectResponseKeys.association] as Map<String, dynamic>?;
+      final Association? association = raw != null ? Association.fromMap(raw) : null;
+      onComplete(association, null);
+    } on AppError catch (e) {
+      Log.error('AssociationRepositoryImpl.findAssociationByFounderEmail: $e');
+      onComplete(null, e);
+    } catch (e) {
+      Log.error('AssociationRepositoryImpl.findAssociationByFounderEmail unknown: $e');
+      onComplete(null, DataError(e.toString()));
+    }
+  }
+
+  @override
   void getAssociationConditions(
     String associationId, {
     required Function(List<AssociationCondition> conditions, AppError? error) onComplete,
@@ -93,12 +116,41 @@ class AssociationRepositoryImpl implements AssociationRepository {
   }
 
   @override
+  void updateAssociation(
+    String associationId, {
+    required bool requireDni,
+    required bool requireDniImage,
+    required bool requireGuardian,
+    required Function(AppError? error) onComplete,
+  }) async {
+    try {
+      await _datasource.executeMutation(
+        DataconnectOps.updateAssociation,
+        variables: {
+          DataconnectKeys.id: associationId,
+          DataconnectKeys.requireDni: requireDni,
+          DataconnectKeys.requireDniImage: requireDniImage,
+          DataconnectKeys.requireGuardian: requireGuardian,
+        },
+      );
+      onComplete(null);
+    } on AppError catch (e) {
+      Log.error('AssociationRepositoryImpl.updateAssociation: $e');
+      onComplete(e);
+    } catch (e) {
+      Log.error('AssociationRepositoryImpl.updateAssociation unknown: $e');
+      onComplete(DataError(e.toString()));
+    }
+  }
+
+  @override
   void createAssociation(
     String name,
     String shortName,
     String subdomain,
     String primaryColor,
-    String secondaryColor, {
+    String secondaryColor,
+    String founderEmail, {
     required Function(String? associationId, AppError? error) onComplete,
   }) async {
     try {
@@ -110,6 +162,7 @@ class AssociationRepositoryImpl implements AssociationRepository {
           DataconnectKeys.subdomain: subdomain,
           DataconnectKeys.primaryColor: primaryColor,
           DataconnectKeys.secondaryColor: secondaryColor,
+          DataconnectKeys.founderEmail: founderEmail,
         },
       );
       final String? id = (data?['association_insert'] as Map<String, dynamic>?)?['id'] as String?;

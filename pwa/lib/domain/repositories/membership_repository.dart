@@ -1,57 +1,87 @@
 import 'package:samby/core/errors/app_errors.dart';
-import 'package:samby/domain/entities/app_user.dart';
 import 'package:samby/domain/entities/membership.dart';
 
-abstract class MembershipRepository {
-  void getMembership(
-    String associationId,
-    String userId, {
-    required Function(Membership? membership, AppError? error) onComplete,
+abstract class MemberRepository {
+  void getMember(
+    String memberId, {
+    required Function(Member? member, AppError? error) onComplete,
   });
 
-  void getManagerMemberships(
-    String userId, {
-    required Function(List<Membership> memberships, AppError? error) onComplete,
+  void getAssociationMembers(
+    String associationId, {
+    required Function(List<Member> members, AppError? error) onComplete,
   });
 
-  void getUserByEmail(
-    String email, {
-    required Function(AppUser? user, AppError? error) onComplete,
-  });
-
-  void createAppUser(
-    String email,
-    String name,
-    String phone, {
-    required Function(String? userId, AppError? error) onComplete,
-  });
-
-  void createMembership({
-    required String associationId,
-    required String userId,
+  void updateMemberApplication({
+    required String memberId,
     required String memberName,
     required String memberBirthDate,
-    required String memberDNI,
-    required String memberDNIImageUrl,
+    required String memberDni,
+    required String memberDniImageUrl,
     String? guardianName,
-    String? guardianDNI,
-    String? guardianDNIImageUrl,
+    String? guardianDni,
+    String? guardianDniImageUrl,
     required String signatureUrl,
     required String conditionsAcceptedAt,
     String? minorConditionsAcceptedAt,
+    required String requestedAt,
     required Function(AppError? error) onComplete,
   });
 
-  void createFounderMembership(
-    String associationId,
-    String userId,
-    String userName, {
+  void resetMemberApplication({
+    required String memberId,
+    required String memberName,
+    required String memberBirthDate,
+    required String memberDni,
+    required String memberDniImageUrl,
+    String? guardianName,
+    String? guardianDni,
+    String? guardianDniImageUrl,
+    required String signatureUrl,
+    required String conditionsAcceptedAt,
+    String? minorConditionsAcceptedAt,
+    required String requestedAt,
     required Function(AppError? error) onComplete,
   });
 
-  void resetMembership(
+  void updateMemberStatus(
+    String memberId,
+    String status,
+    String resolvedBy,
+    String resolvedAt, {
+    required Function(AppError? error) onComplete,
+  });
+
+  void updateMemberRole(
+    String memberId,
+    String role, {
+    required Function(AppError? error) onComplete,
+  });
+
+  void updateMemberBlock(
+    String memberId,
+    bool isBlocked, {
+    required Function(AppError? error) onComplete,
+  });
+
+  void updateMemberNotes(
+    String memberId,
+    String internalNotes, {
+    required Function(AppError? error) onComplete,
+  });
+
+  void createFounderMember(
     String associationId,
-    String userId, {
+    String name,
+    String email, {
+    required Function(AppError? error) onComplete,
+  });
+
+  void updateMemberFcmToken(
+    String memberId,
+    String token, {
     required Function(AppError? error) onComplete,
   });
 }
+
+typedef MembershipRepository = MemberRepository;

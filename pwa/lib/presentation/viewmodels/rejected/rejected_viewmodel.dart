@@ -5,7 +5,7 @@ import 'package:samby/presentation/viewmodels/base/view_model.dart';
 class RejectedViewModel extends ViewModel {
   // Variables
 
-  bool get isBlocked => SessionDataManager.instance.membership?.isBlocked ?? true;
+  bool get isBlocked => SessionDataManager.instance.member?.isBlocked ?? true;
 
   // Constructor
 
@@ -17,7 +17,6 @@ class RejectedViewModel extends ViewModel {
   // Public methods
 
   void reapply() {
-    SessionDataManager.instance.clearMembership();
     NavigationUtils.showAccessRequestView(this);
   }
 }
