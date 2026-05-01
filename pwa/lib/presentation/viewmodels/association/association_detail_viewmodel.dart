@@ -9,16 +9,16 @@ import 'package:samby/presentation/viewmodels/base/view_model.dart';
 class AssociationDetailViewModel extends ViewModel {
   // Variables
 
-  bool _requireDni = false;
-  bool _requireDniImage = false;
+  bool _requireIdDoc = false;
+  bool _requireIdDocImage = false;
   bool _requireGuardian = false;
   bool _saved = false;
 
-  bool get requireDni => _requireDni;
-  set requireDni(bool v) { _requireDni = v; _saved = false; notifyListeners(); }
+  bool get requireIdDoc => _requireIdDoc;
+  set requireIdDoc(bool v) { _requireIdDoc = v; _saved = false; notifyListeners(); }
 
-  bool get requireDniImage => _requireDniImage;
-  set requireDniImage(bool v) { _requireDniImage = v; _saved = false; notifyListeners(); }
+  bool get requireIdDocImage => _requireIdDocImage;
+  set requireIdDocImage(bool v) { _requireIdDocImage = v; _saved = false; notifyListeners(); }
 
   bool get requireGuardian => _requireGuardian;
   set requireGuardian(bool v) { _requireGuardian = v; _saved = false; notifyListeners(); }
@@ -39,8 +39,8 @@ class AssociationDetailViewModel extends ViewModel {
     super.onStart();
     final Association? assoc = SessionDataManager.instance.association;
     if (assoc != null) {
-      _requireDni = assoc.requireDni;
-      _requireDniImage = assoc.requireDniImage;
+      _requireIdDoc = assoc.requireIdDoc;
+      _requireIdDocImage = assoc.requireIdDocImage;
       _requireGuardian = assoc.requireGuardian;
     }
   }
@@ -54,8 +54,8 @@ class AssociationDetailViewModel extends ViewModel {
     final Completer<void> completer = Completer<void>();
     sl<AssociationRepository>().updateAssociation(
       assocId,
-      requireDni: _requireDni,
-      requireDniImage: _requireDniImage,
+      requireIdDoc: _requireIdDoc,
+      requireIdDocImage: _requireIdDocImage,
       requireGuardian: _requireGuardian,
       onComplete: (_) => completer.complete(),
     );

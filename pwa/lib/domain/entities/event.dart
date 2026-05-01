@@ -4,6 +4,8 @@ import 'package:samby/domain/entities/event_appointment.dart';
 enum EventStatus { active, finished, cancelled }
 
 class Event implements Entity {
+  // Variables
+
   late String id;
   late String associationId;
   late String title;
@@ -26,17 +28,12 @@ class Event implements Entity {
 
   bool get isUpcoming => startDate != null && startDate!.isAfter(DateTime.now());
 
-  bool hasAccessFor(String? memberId) {
-    if (memberId == null) return false;
-    return memberIds.contains(memberId);
-  }
+  // Constructor
 
   @override
   Event.fromMap(Map<String, dynamic> map) {
     id = map['id'] as String;
-    associationId =
-        (map['association'] as Map<String, dynamic>?)?['id'] as String? ??
-        map['associationId'] as String? ?? '';
+    associationId = (map['association'] as Map<String, dynamic>?)?['id'] as String? ?? map['associationId'] as String? ?? '';
     title = map['title'] as String;
     description = map['description'] as String;
     imageUrl = map['imageUrl'] as String? ?? '';
@@ -45,10 +42,7 @@ class Event implements Entity {
     final String? endStr = map['endDate'] as String?;
     endDate = endStr != null ? DateTime.parse(endStr) : null;
     final String? statusStr = (map['status'] as String?)?.toLowerCase();
-    status = EventStatus.values.firstWhere(
-      (EventStatus s) => s.name == statusStr,
-      orElse: () => EventStatus.active,
-    );
+    status = EventStatus.values.firstWhere((EventStatus s) => s.name == statusStr, orElse: () => EventStatus.active);
     freeEntry = map['freeEntry'] as bool? ?? true;
     entryCondition = map['entryCondition'] as String?;
     final String? updatedAtStr = map['updatedAt'] as String?;
@@ -56,19 +50,27 @@ class Event implements Entity {
     createdAt = DateTime.parse(map['createdAt'] as String? ?? DateTime.now().toUtc().toIso8601String());
 
     final List<dynamic> members = map['eventMembers_on_event'] as List<dynamic>? ?? <dynamic>[];
-    memberIds = members.map((dynamic m) {
+    final List<dynamic> approved = members.where((dynamic m) {
+      final Map<String, dynamic> entry = m as Map<String, dynamic>;
+      return entry['status'] == 'approved';
+    }).toList();
+    memberIds = approved.map((dynamic m) {
       final Map<String, dynamic> entry = m as Map<String, dynamic>;
       return (entry['member'] as Map<String, dynamic>)['id'] as String;
     }).toList();
-    memberNames = members.map((dynamic m) {
+    memberNames = approved.map((dynamic m) {
       final Map<String, dynamic> entry = m as Map<String, dynamic>;
-      final Map<String, dynamic> member = entry['member'] as Map<String, dynamic>;
-      return member['memberName'] as String? ?? member['name'] as String? ?? '';
+      return (entry['member'] as Map<String, dynamic>)['name'] as String? ?? '';
     }).toList();
 
     final List<dynamic> appts = map['eventAppointments_on_event'] as List<dynamic>? ?? <dynamic>[];
-    appointments = appts
-        .map((dynamic e) => EventAppointment.fromMap(e as Map<String, dynamic>))
-        .toList();
+    appointments = appts.map((dynamic e) => EventAppointment.fromMap(e as Map<String, dynamic>)).toList();
+  }
+
+  // Public methods
+
+  bool hasAccessFor(String? memberId) {
+    if (memberId == null) return false;
+    return memberIds.contains(memberId);
   }
 }

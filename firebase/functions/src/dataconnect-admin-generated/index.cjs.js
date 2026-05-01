@@ -1,5 +1,18 @@
 const { validateAdminArgs } = require('firebase-admin/data-connect');
 
+const EventStatus = {
+  ACTIVE: "ACTIVE",
+  FINISHED: "FINISHED",
+  CANCELLED: "CANCELLED",
+}
+exports.EventStatus = EventStatus;
+
+const MemberRole = {
+  MANAGER: "MANAGER",
+  MEMBER: "MEMBER",
+}
+exports.MemberRole = MemberRole;
+
 const connectorConfig = {
   connector: 'samby',
   serviceId: 'samby-database-service',
@@ -21,6 +34,13 @@ function updateAssociationImages(dcOrVarsOrOptions, varsOrOptions, options) {
 }
 exports.updateAssociationImages = updateAssociationImages;
 
+function updateAssociation(dcOrVarsOrOptions, varsOrOptions, options) {
+  const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
+  dcInstance.useGen(true);
+  return dcInstance.executeMutation('UpdateAssociation', inputVars, inputOpts);
+}
+exports.updateAssociation = updateAssociation;
+
 function addAssociationCondition(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
@@ -35,68 +55,61 @@ function deleteAssociationCondition(dcOrVarsOrOptions, varsOrOptions, options) {
 }
 exports.deleteAssociationCondition = deleteAssociationCondition;
 
-function createAppUser(dcOrVarsOrOptions, varsOrOptions, options) {
+function createFounderMember(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('CreateAppUser', inputVars, inputOpts);
+  return dcInstance.executeMutation('CreateFounderMember', inputVars, inputOpts);
 }
-exports.createAppUser = createAppUser;
+exports.createFounderMember = createFounderMember;
 
-function createMembership(dcOrVarsOrOptions, varsOrOptions, options) {
+function updateMemberApplication(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('CreateMembership', inputVars, inputOpts);
+  return dcInstance.executeMutation('UpdateMemberApplication', inputVars, inputOpts);
 }
-exports.createMembership = createMembership;
+exports.updateMemberApplication = updateMemberApplication;
 
-function createFounderMembership(dcOrVarsOrOptions, varsOrOptions, options) {
+function resetMemberApplication(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('CreateFounderMembership', inputVars, inputOpts);
+  return dcInstance.executeMutation('ResetMemberApplication', inputVars, inputOpts);
 }
-exports.createFounderMembership = createFounderMembership;
+exports.resetMemberApplication = resetMemberApplication;
 
-function updateMembershipStatus(dcOrVarsOrOptions, varsOrOptions, options) {
+function updateMemberStatus(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('UpdateMembershipStatus', inputVars, inputOpts);
+  return dcInstance.executeMutation('UpdateMemberStatus', inputVars, inputOpts);
 }
-exports.updateMembershipStatus = updateMembershipStatus;
+exports.updateMemberStatus = updateMemberStatus;
 
-function updateMembershipRole(dcOrVarsOrOptions, varsOrOptions, options) {
+function updateMemberRole(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('UpdateMembershipRole', inputVars, inputOpts);
+  return dcInstance.executeMutation('UpdateMemberRole', inputVars, inputOpts);
 }
-exports.updateMembershipRole = updateMembershipRole;
+exports.updateMemberRole = updateMemberRole;
 
-function updateMembershipBlock(dcOrVarsOrOptions, varsOrOptions, options) {
+function updateMemberBlock(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('UpdateMembershipBlock', inputVars, inputOpts);
+  return dcInstance.executeMutation('UpdateMemberBlock', inputVars, inputOpts);
 }
-exports.updateMembershipBlock = updateMembershipBlock;
+exports.updateMemberBlock = updateMemberBlock;
 
-function updateMembershipNotes(dcOrVarsOrOptions, varsOrOptions, options) {
+function updateMemberNotes(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('UpdateMembershipNotes', inputVars, inputOpts);
+  return dcInstance.executeMutation('UpdateMemberNotes', inputVars, inputOpts);
 }
-exports.updateMembershipNotes = updateMembershipNotes;
+exports.updateMemberNotes = updateMemberNotes;
 
-function resetMembership(dcOrVarsOrOptions, varsOrOptions, options) {
+function updateMemberFcmToken(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('ResetMembership', inputVars, inputOpts);
+  return dcInstance.executeMutation('UpdateMemberFcmToken', inputVars, inputOpts);
 }
-exports.resetMembership = resetMembership;
-
-function upsertFcmToken(dcOrVarsOrOptions, varsOrOptions, options) {
-  const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
-  dcInstance.useGen(true);
-  return dcInstance.executeMutation('UpsertFCMToken', inputVars, inputOpts);
-}
-exports.upsertFcmToken = upsertFcmToken;
+exports.updateMemberFcmToken = updateMemberFcmToken;
 
 function createEvent(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
@@ -105,6 +118,13 @@ function createEvent(dcOrVarsOrOptions, varsOrOptions, options) {
 }
 exports.createEvent = createEvent;
 
+function updateEventStatus(dcOrVarsOrOptions, varsOrOptions, options) {
+  const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
+  dcInstance.useGen(true);
+  return dcInstance.executeMutation('UpdateEventStatus', inputVars, inputOpts);
+}
+exports.updateEventStatus = updateEventStatus;
+
 function addEventMember(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
@@ -112,12 +132,33 @@ function addEventMember(dcOrVarsOrOptions, varsOrOptions, options) {
 }
 exports.addEventMember = addEventMember;
 
-function createCalendarEvent(dcOrVarsOrOptions, varsOrOptions, options) {
+function removeEventMember(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('CreateCalendarEvent', inputVars, inputOpts);
+  return dcInstance.executeMutation('RemoveEventMember', inputVars, inputOpts);
 }
-exports.createCalendarEvent = createCalendarEvent;
+exports.removeEventMember = removeEventMember;
+
+function requestEventAccess(dcOrVarsOrOptions, varsOrOptions, options) {
+  const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
+  dcInstance.useGen(true);
+  return dcInstance.executeMutation('RequestEventAccess', inputVars, inputOpts);
+}
+exports.requestEventAccess = requestEventAccess;
+
+function resolveEventAccess(dcOrVarsOrOptions, varsOrOptions, options) {
+  const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
+  dcInstance.useGen(true);
+  return dcInstance.executeMutation('ResolveEventAccess', inputVars, inputOpts);
+}
+exports.resolveEventAccess = resolveEventAccess;
+
+function createEventAppointment(dcOrVarsOrOptions, varsOrOptions, options) {
+  const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
+  dcInstance.useGen(true);
+  return dcInstance.executeMutation('CreateEventAppointment', inputVars, inputOpts);
+}
+exports.createEventAppointment = createEventAppointment;
 
 function sendBroadcast(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
@@ -140,12 +181,12 @@ function getAssociationBySubdomain(dcOrVarsOrOptions, varsOrOptions, options) {
 }
 exports.getAssociationBySubdomain = getAssociationBySubdomain;
 
-function getMembership(dcOrVarsOrOptions, varsOrOptions, options) {
+function getMember(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetMembership', inputVars, inputOpts);
+  return dcInstance.executeQuery('GetMember', inputVars, inputOpts);
 }
-exports.getMembership = getMembership;
+exports.getMember = getMember;
 
 function getAssociationConditions(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
@@ -153,13 +194,6 @@ function getAssociationConditions(dcOrVarsOrOptions, varsOrOptions, options) {
   return dcInstance.executeQuery('GetAssociationConditions', inputVars, inputOpts);
 }
 exports.getAssociationConditions = getAssociationConditions;
-
-function getManagerMemberships(dcOrVarsOrOptions, varsOrOptions, options) {
-  const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
-  dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetManagerMemberships', inputVars, inputOpts);
-}
-exports.getManagerMemberships = getManagerMemberships;
 
 function getAssociationMembers(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
@@ -182,10 +216,24 @@ function getEventDetail(dcOrVarsOrOptions, varsOrOptions, options) {
 }
 exports.getEventDetail = getEventDetail;
 
-function getUserByEmail(dcOrVarsOrOptions, varsOrOptions, options) {
+function getMemberEvents(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetUserByEmail', inputVars, inputOpts);
+  return dcInstance.executeQuery('GetMemberEvents', inputVars, inputOpts);
 }
-exports.getUserByEmail = getUserByEmail;
+exports.getMemberEvents = getMemberEvents;
+
+function getEventMember(dcOrVarsOrOptions, varsOrOptions, options) {
+  const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
+  dcInstance.useGen(true);
+  return dcInstance.executeQuery('GetEventMember', inputVars, inputOpts);
+}
+exports.getEventMember = getEventMember;
+
+function getEventAppointmentDetail(dcOrVarsOrOptions, varsOrOptions, options) {
+  const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
+  dcInstance.useGen(true);
+  return dcInstance.executeQuery('GetEventAppointmentDetail', inputVars, inputOpts);
+}
+exports.getEventAppointmentDetail = getEventAppointmentDetail;
 

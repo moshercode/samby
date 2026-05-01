@@ -152,11 +152,11 @@ class L10nDe extends Localization {
   @override
   String get accessRequestBirthDateHint => 'TT.MM.JJJJ';
   @override
-  String get accessRequestDNI => 'Ausweis / Reisepass';
+  String get accessRequestIdDoc => 'Ausweis / Reisepass';
   @override
-  String get accessRequestUploadDNI => 'Ausweisfoto hochladen';
+  String get accessRequestUploadIdDoc => 'Ausweisfoto hochladen';
   @override
-  String get accessRequestDNIUploaded => 'Ausweis erfolgreich hochgeladen';
+  String get accessRequestIdDocUploaded => 'Ausweis erfolgreich hochgeladen';
   @override
   String get accessRequestMinorWarning => 'Du bist minderjährig. Wir benötigen die Daten deines Erziehungsberechtigten';
   @override
@@ -164,9 +164,9 @@ class L10nDe extends Localization {
   @override
   String get accessRequestGuardianFullName => 'Vollständiger Name des Erziehungsberechtigten';
   @override
-  String get accessRequestGuardianDNI => 'Ausweis des Erziehungsberechtigten';
+  String get accessRequestGuardianIdDoc => 'Ausweis des Erziehungsberechtigten';
   @override
-  String get accessRequestUploadGuardianDNI => 'Ausweis des Erziehungsberechtigten hochladen';
+  String get accessRequestUploadGuardianIdDoc => 'Ausweis des Erziehungsberechtigten hochladen';
   @override
   String get accessRequestBlock2Title => 'Bedingungen';
   @override
@@ -297,9 +297,9 @@ class L10nDe extends Localization {
   @override
   String get associationDetailRequirements => 'Anforderungen';
   @override
-  String get associationDetailRequireDni => 'Ausweis erforderlich';
+  String get associationDetailRequireIdDoc => 'Ausweis erforderlich';
   @override
-  String get associationDetailRequireDniImage => 'Ausweisbild erforderlich';
+  String get associationDetailRequireIdDocImage => 'Ausweisbild erforderlich';
   @override
   String get associationDetailRequireGuardian => 'Erziehungsberechtigte Daten erforderlich';
 
@@ -315,9 +315,9 @@ class L10nDe extends Localization {
   // Onboarding extras
 
   @override
-  String get onboardingRequireDni => 'Ausweis erforderlich';
+  String get onboardingRequireIdDoc => 'Ausweis erforderlich';
   @override
-  String get onboardingRequireDniImage => 'Ausweisbild erforderlich';
+  String get onboardingRequireIdDocImage => 'Ausweisbild erforderlich';
   @override
   String get onboardingRequireGuardian => 'Erziehungsberechtigte Daten für Minderjährige erforderlich';
 

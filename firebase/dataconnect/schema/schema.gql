@@ -8,8 +8,8 @@ type Association @table {
   primaryColor: String!
   secondaryColor: String!
   founderEmail: String!
-  requireDni: Boolean! @default(expr: "false")
-  requireDniImage: Boolean! @default(expr: "false")
+  requireIdDoc: Boolean! @default(expr: "false")
+  requireIdDocImage: Boolean! @default(expr: "false")
   requireGuardian: Boolean! @default(expr: "false")
   active: Boolean! @default(expr: "false")
   createdAt: Timestamp! @default(expr: "request.time")
@@ -33,21 +33,20 @@ type Member @table {
   id: UUID! @default(expr: "uuidV4()")
   association: Association!
   email: String!
-  name: String!
   phone: String!
   role: MemberRole!
   status: String!
   isBlocked: Boolean!
   isFounder: Boolean!
   createdAt: Timestamp! @default(expr: "request.time")
-  memberName: String
-  memberBirthDate: Date
-  memberDni: String
-  memberDniImageUrl: String
+  name: String
+  birthDate: Date
+  idDoc: String
+  idDocImageUrl: String
   profileImageUrl: String
   guardianName: String
-  guardianDni: String
-  guardianDniImageUrl: String
+  guardianIdDoc: String
+  guardianIdDocImageUrl: String
   signatureUrl: String
   conditionsAcceptedAt: Timestamp
   minorConditionsAcceptedAt: Timestamp
@@ -89,14 +88,8 @@ type EventMember @table {
   id: UUID! @default(expr: "uuidV4()")
   event: Event!
   member: Member!
-}
-
-type EventAccessRequest @table {
-  id: UUID! @default(expr: "uuidV4()")
-  event: Event!
-  member: Member!
   status: String!
-  requestedAt: Timestamp! @default(expr: "request.time")
+  requestedAt: Timestamp
   resolvedAt: Timestamp
   resolvedBy: Member
 }
@@ -112,12 +105,13 @@ type EventAppointment @table {
   createdAt: Timestamp! @default(expr: "request.time")
 }
 
-type EventAppointmentComment @table {
+type EventAppointmentComment @table(key: "id") {
   id: UUID! @default(expr: "uuidV4()")
   eventAppointment: EventAppointment!
   author: Member!
   content: String!
   imageUrls: String
+  parentComment: EventAppointmentComment
   createdAt: Timestamp! @default(expr: "request.time")
 }
 

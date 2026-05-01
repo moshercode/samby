@@ -82,7 +82,7 @@ class _MemberCard extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    member.memberName,
+                    member.name,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ),

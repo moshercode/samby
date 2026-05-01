@@ -38,15 +38,15 @@ class AccessRequestView extends BaseView<AccessRequestViewModel> {
               const SizedBox(height: Dimensions.space32),
 
               // Block 1 — Personal details
-              _Block1PersonalDetails(viewModel: viewModel, l: l),
+              _AccessRequestPersonalDetails(viewModel: viewModel, l: l),
               const SizedBox(height: Dimensions.space32),
 
               // Block 2 — Conditions
-              _Block2Conditions(viewModel: viewModel, l: l),
+              _AccessRequestConditions(viewModel: viewModel, l: l),
               const SizedBox(height: Dimensions.space32),
 
               // Block 3 — Signature
-              _Block3Signature(viewModel: viewModel, l: l),
+              _AccessRequestSignature(viewModel: viewModel, l: l),
               const SizedBox(height: Dimensions.space32),
 
               Button(title: l.accessRequestSubmit, loading: viewModel.isLoading(), onTap: viewModel.isReadyToSubmit ? viewModel.submit : null),
@@ -59,7 +59,7 @@ class AccessRequestView extends BaseView<AccessRequestViewModel> {
   }
 }
 
-class _Block1PersonalDetails extends StatelessWidget {
+class _AccessRequestPersonalDetails extends StatelessWidget {
   // Variables
 
   final AccessRequestViewModel viewModel;
@@ -67,7 +67,7 @@ class _Block1PersonalDetails extends StatelessWidget {
 
   // Constructor
 
-  const _Block1PersonalDetails({required this.viewModel, required this.l});
+  const _AccessRequestPersonalDetails({required this.viewModel, required this.l});
 
   // Build
 
@@ -93,13 +93,13 @@ class _Block1PersonalDetails extends StatelessWidget {
           onChanged: viewModel.onBirthDateChanged,
         ),
         const SizedBox(height: Dimensions.space12),
-        AppTextInput(label: l.accessRequestDNI, textInputAction: TextInputAction.next, onChanged: viewModel.onDniChanged),
+        AppTextInput(label: l.accessRequestIdDoc, textInputAction: TextInputAction.next, onChanged: viewModel.onIdDocChanged),
         const SizedBox(height: Dimensions.space12),
         Button.outlined(
-          title: viewModel.memberDniImageUrl != null ? l.accessRequestDNIUploaded : l.accessRequestUploadDNI,
-          icon: viewModel.memberDniImageUrl != null ? Icons.check_circle_outline_rounded : Icons.upload_rounded,
-          loading: viewModel.isDniUploading,
-          onTap: () => viewModel.pickAndUploadMemberDni(),
+          title: viewModel.idDocImageUrl != null ? l.accessRequestIdDocUploaded : l.accessRequestUploadIdDoc,
+          icon: viewModel.idDocImageUrl != null ? Icons.check_circle_outline_rounded : Icons.upload_rounded,
+          loading: viewModel.isIdDocUploading,
+          onTap: () => viewModel.pickAndUploadMemberIdDoc(),
         ),
         if (viewModel.isMinor) ...<Widget>[
           const SizedBox(height: Dimensions.space16),
@@ -121,13 +121,13 @@ class _Block1PersonalDetails extends StatelessWidget {
             onChanged: viewModel.onGuardianNameChanged,
           ),
           const SizedBox(height: Dimensions.space12),
-          AppTextInput(label: l.accessRequestGuardianDNI, textInputAction: TextInputAction.next, onChanged: viewModel.onGuardianDniChanged),
+          AppTextInput(label: l.accessRequestGuardianIdDoc, textInputAction: TextInputAction.next, onChanged: viewModel.onGuardianIdDocChanged),
           const SizedBox(height: Dimensions.space12),
           Button.outlined(
-            title: viewModel.guardianDniImageUrl != null ? l.accessRequestDNIUploaded : l.accessRequestUploadGuardianDNI,
-            icon: viewModel.guardianDniImageUrl != null ? Icons.check_circle_outline_rounded : Icons.upload_rounded,
-            loading: viewModel.isGuardianDniUploading,
-            onTap: () => viewModel.pickAndUploadGuardianDni(),
+            title: viewModel.guardianIdDocImageUrl != null ? l.accessRequestIdDocUploaded : l.accessRequestUploadGuardianIdDoc,
+            icon: viewModel.guardianIdDocImageUrl != null ? Icons.check_circle_outline_rounded : Icons.upload_rounded,
+            loading: viewModel.isGuardianIdDocUploading,
+            onTap: () => viewModel.pickAndUploadGuardianIdDoc(),
           ),
         ],
       ],
@@ -135,7 +135,7 @@ class _Block1PersonalDetails extends StatelessWidget {
   }
 }
 
-class _Block2Conditions extends StatelessWidget {
+class _AccessRequestConditions extends StatelessWidget {
   // Variables
 
   final AccessRequestViewModel viewModel;
@@ -143,7 +143,7 @@ class _Block2Conditions extends StatelessWidget {
 
   // Constructor
 
-  const _Block2Conditions({required this.viewModel, required this.l});
+  const _AccessRequestConditions({required this.viewModel, required this.l});
 
   // Build
 
@@ -193,7 +193,7 @@ class _Block2Conditions extends StatelessWidget {
   }
 }
 
-class _Block3Signature extends StatefulWidget {
+class _AccessRequestSignature extends StatefulWidget {
   // Variables
 
   final AccessRequestViewModel viewModel;
@@ -201,15 +201,15 @@ class _Block3Signature extends StatefulWidget {
 
   // Constructor
 
-  const _Block3Signature({required this.viewModel, required this.l});
+  const _AccessRequestSignature({required this.viewModel, required this.l});
 
   // Build
 
   @override
-  State<_Block3Signature> createState() => _Block3SignatureState();
+  State<_AccessRequestSignature> createState() => _AccessRequestSignatureState();
 }
 
-class _Block3SignatureState extends State<_Block3Signature> {
+class _AccessRequestSignatureState extends State<_AccessRequestSignature> {
   // Variables
 
   final SignatureController _signatureController = SignatureController(penStrokeWidth: 2, exportBackgroundColor: Colors.white);
@@ -221,18 +221,6 @@ class _Block3SignatureState extends State<_Block3Signature> {
   void dispose() {
     _signatureController.dispose();
     super.dispose();
-  }
-
-  // Private methods
-
-  Future<void> _onStrokeEnd() async {
-    if (_isUploading || _signatureController.isEmpty) return;
-    _isUploading = true;
-    final Uint8List? bytes = await _signatureController.toPngBytes();
-    if (bytes != null && mounted) {
-      await widget.viewModel.uploadSignature(bytes);
-    }
-    _isUploading = false;
   }
 
   // Build
@@ -272,5 +260,17 @@ class _Block3SignatureState extends State<_Block3Signature> {
         ),
       ],
     );
+  }
+
+  // Private methods
+
+  Future<void> _onStrokeEnd() async {
+    if (_isUploading || _signatureController.isEmpty) return;
+    _isUploading = true;
+    final Uint8List? bytes = await _signatureController.toPngBytes();
+    if (bytes != null && mounted) {
+      await widget.viewModel.uploadSignature(bytes);
+    }
+    _isUploading = false;
   }
 }

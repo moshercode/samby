@@ -18,17 +18,17 @@ import 'package:samby/presentation/viewmodels/base/view_model.dart';
 class AccessRequestViewModel extends ViewModel {
   // Variables
 
-  String memberName = '';
-  String memberBirthDateRaw = '';
-  String memberDni = '';
-  String? memberDniImageUrl;
+  String name = '';
+  String birthDateRaw = '';
+  String idDoc = '';
+  String? idDocImageUrl;
   String? guardianName;
-  String? guardianDni;
-  String? guardianDniImageUrl;
+  String? guardianIdDoc;
+  String? guardianIdDocImageUrl;
   String? signatureUrl;
 
-  bool isDniUploading = false;
-  bool isGuardianDniUploading = false;
+  bool isIdDocUploading = false;
+  bool isGuardianIdDocUploading = false;
   bool isSignatureUploading = false;
 
   bool _allGeneralConditionsAccepted = false;
@@ -39,7 +39,7 @@ class AccessRequestViewModel extends ViewModel {
 
   bool get isMinor {
     try {
-      final List<String> parts = memberBirthDateRaw.split('/');
+      final List<String> parts = birthDateRaw.split('/');
       if (parts.length != 3) return false;
       final DateTime birthDate = DateTime(
         int.parse(parts[2]),
@@ -67,23 +67,23 @@ class AccessRequestViewModel extends ViewModel {
   bool get hasExistingApplication =>
       SessionDataManager.instance.member?.status == MemberStatus.rejected;
 
-  bool get requireDni => SessionDataManager.instance.association?.requireDni ?? false;
-  bool get requireDniImage => SessionDataManager.instance.association?.requireDniImage ?? false;
+  bool get requireIdDoc => SessionDataManager.instance.association?.requireIdDoc ?? false;
+  bool get requireIdDocImage => SessionDataManager.instance.association?.requireIdDocImage ?? false;
   bool get requireGuardian => SessionDataManager.instance.association?.requireGuardian ?? false;
 
   bool get isReadyToSubmit {
-    final bool nameValid = memberName.trim().isNotEmpty;
-    final bool birthDateValid = memberBirthDateRaw.trim().isNotEmpty;
-    final bool dniValid = !requireDni || memberDni.trim().isNotEmpty;
-    final bool dniImageValid = !requireDniImage || memberDniImageUrl != null;
+    final bool nameValid = name.trim().isNotEmpty;
+    final bool birthDateValid = birthDateRaw.trim().isNotEmpty;
+    final bool idDocValid = !requireIdDoc || idDoc.trim().isNotEmpty;
+    final bool idDocImageValid = !requireIdDocImage || idDocImageUrl != null;
     final bool guardianValid = !requireGuardian || !isMinor ||
         (guardianName?.isNotEmpty == true &&
-            guardianDni?.isNotEmpty == true &&
-            guardianDniImageUrl != null);
+            guardianIdDoc?.isNotEmpty == true &&
+            guardianIdDocImageUrl != null);
     final bool conditionsValid = _allGeneralConditionsAccepted &&
         (!isMinor || _allMinorConditionsAccepted);
     final bool signatureValid = signatureUrl != null && signatureUrl!.isNotEmpty;
-    return nameValid && birthDateValid && dniValid && dniImageValid &&
+    return nameValid && birthDateValid && idDocValid && idDocImageValid &&
         guardianValid && conditionsValid && signatureValid;
   }
 
@@ -103,22 +103,22 @@ class AccessRequestViewModel extends ViewModel {
   // Public methods
 
   void onNameChanged(String v) {
-    memberName = v;
+    name = v;
     notifyListeners();
   }
 
   void onBirthDateChanged(String v) {
-    memberBirthDateRaw = v;
+    birthDateRaw = v;
     notifyListeners();
   }
 
-  void onDniChanged(String v) {
-    memberDni = v;
+  void onIdDocChanged(String v) {
+    idDoc = v;
     notifyListeners();
   }
 
-  void onDniImageUploaded(String url) {
-    memberDniImageUrl = url;
+  void onIdDocImageUploaded(String url) {
+    idDocImageUrl = url;
     notifyListeners();
   }
 
@@ -127,13 +127,13 @@ class AccessRequestViewModel extends ViewModel {
     notifyListeners();
   }
 
-  void onGuardianDniChanged(String v) {
-    guardianDni = v;
+  void onGuardianIdDocChanged(String v) {
+    guardianIdDoc = v;
     notifyListeners();
   }
 
-  void onGuardianDniImageUploaded(String url) {
-    guardianDniImageUrl = url;
+  void onGuardianIdDocImageUploaded(String url) {
+    guardianIdDocImageUrl = url;
     notifyListeners();
   }
 
@@ -142,27 +142,27 @@ class AccessRequestViewModel extends ViewModel {
     notifyListeners();
   }
 
-  Future<void> pickAndUploadMemberDni() async {
+  Future<void> pickAndUploadMemberIdDoc() async {
     final XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (file == null) return;
-    isDniUploading = true;
+    isIdDocUploading = true;
     notifyListeners();
     final Uint8List bytes = await file.readAsBytes();
-    final String? url = await _uploadToStorage(bytes, _storagePath('dni/dni.jpg'));
-    if (url != null) memberDniImageUrl = url;
-    isDniUploading = false;
+    final String? url = await _uploadToStorage(bytes, _storagePath('id_doc/id_doc.jpg'));
+    if (url != null) idDocImageUrl = url;
+    isIdDocUploading = false;
     notifyListeners();
   }
 
-  Future<void> pickAndUploadGuardianDni() async {
+  Future<void> pickAndUploadGuardianIdDoc() async {
     final XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (file == null) return;
-    isGuardianDniUploading = true;
+    isGuardianIdDocUploading = true;
     notifyListeners();
     final Uint8List bytes = await file.readAsBytes();
-    final String? url = await _uploadToStorage(bytes, _storagePath('guardian_dni/guardian_dni.jpg'));
-    if (url != null) guardianDniImageUrl = url;
-    isGuardianDniUploading = false;
+    final String? url = await _uploadToStorage(bytes, _storagePath('guardian_id_doc/guardian_id_doc.jpg'));
+    if (url != null) guardianIdDocImageUrl = url;
+    isGuardianIdDocUploading = false;
     notifyListeners();
   }
 
@@ -191,13 +191,13 @@ class AccessRequestViewModel extends ViewModel {
     if (hasExistingApplication) {
       sl<MemberRepository>().resetMemberApplication(
         memberId: memberId,
-        memberName: memberName,
-        memberBirthDate: memberBirthDateRaw,
-        memberDni: memberDni,
-        memberDniImageUrl: memberDniImageUrl!,
+        name: name,
+        birthDate: birthDateRaw,
+        idDoc: idDoc,
+        idDocImageUrl: idDocImageUrl!,
         guardianName: guardianName,
-        guardianDni: guardianDni,
-        guardianDniImageUrl: guardianDniImageUrl,
+        guardianIdDoc: guardianIdDoc,
+        guardianIdDocImageUrl: guardianIdDocImageUrl,
         signatureUrl: signatureUrl!,
         conditionsAcceptedAt: now,
         minorConditionsAcceptedAt: isMinor ? now : null,
@@ -207,13 +207,13 @@ class AccessRequestViewModel extends ViewModel {
     } else {
       sl<MemberRepository>().updateMemberApplication(
         memberId: memberId,
-        memberName: memberName,
-        memberBirthDate: memberBirthDateRaw,
-        memberDni: memberDni,
-        memberDniImageUrl: memberDniImageUrl!,
+        name: name,
+        birthDate: birthDateRaw,
+        idDoc: idDoc,
+        idDocImageUrl: idDocImageUrl!,
         guardianName: guardianName,
-        guardianDni: guardianDni,
-        guardianDniImageUrl: guardianDniImageUrl,
+        guardianIdDoc: guardianIdDoc,
+        guardianIdDocImageUrl: guardianIdDocImageUrl,
         signatureUrl: signatureUrl!,
         conditionsAcceptedAt: now,
         minorConditionsAcceptedAt: isMinor ? now : null,

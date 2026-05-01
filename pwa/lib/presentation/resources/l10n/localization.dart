@@ -114,14 +114,14 @@ abstract class Localization {
   String get accessRequestFullName;
   String get accessRequestBirthDate;
   String get accessRequestBirthDateHint;
-  String get accessRequestDNI;
-  String get accessRequestUploadDNI;
-  String get accessRequestDNIUploaded;
+  String get accessRequestIdDoc;
+  String get accessRequestUploadIdDoc;
+  String get accessRequestIdDocUploaded;
   String get accessRequestMinorWarning;
   String get accessRequestGuardianTitle;
   String get accessRequestGuardianFullName;
-  String get accessRequestGuardianDNI;
-  String get accessRequestUploadGuardianDNI;
+  String get accessRequestGuardianIdDoc;
+  String get accessRequestUploadGuardianIdDoc;
   String get accessRequestBlock2Title;
   String get accessRequestBlock3Title;
   String get accessRequestSignatureHint;
@@ -197,8 +197,8 @@ abstract class Localization {
 
   String get associationDetailTitle;
   String get associationDetailRequirements;
-  String get associationDetailRequireDni;
-  String get associationDetailRequireDniImage;
+  String get associationDetailRequireIdDoc;
+  String get associationDetailRequireIdDocImage;
   String get associationDetailRequireGuardian;
 
   // ── Profile ─────────────────────────────────────────
@@ -209,8 +209,8 @@ abstract class Localization {
 
   // ── Onboarding extras ───────────────────────────────
 
-  String get onboardingRequireDni;
-  String get onboardingRequireDniImage;
+  String get onboardingRequireIdDoc;
+  String get onboardingRequireIdDocImage;
   String get onboardingRequireGuardian;
 
   // ── Members ────────────────────────────────────────

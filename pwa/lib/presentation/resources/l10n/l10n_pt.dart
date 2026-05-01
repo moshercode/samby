@@ -152,11 +152,11 @@ class L10nPt extends Localization {
   @override
   String get accessRequestBirthDateHint => 'DD/MM/AAAA';
   @override
-  String get accessRequestDNI => 'BI / Passaporte';
+  String get accessRequestIdDoc => 'BI / Passaporte';
   @override
-  String get accessRequestUploadDNI => 'Carregar foto do BI';
+  String get accessRequestUploadIdDoc => 'Carregar foto do BI';
   @override
-  String get accessRequestDNIUploaded => 'BI carregado com sucesso';
+  String get accessRequestIdDocUploaded => 'BI carregado com sucesso';
   @override
   String get accessRequestMinorWarning => 'É menor de idade. Precisamos dos dados do seu tutor legal';
   @override
@@ -164,9 +164,9 @@ class L10nPt extends Localization {
   @override
   String get accessRequestGuardianFullName => 'Nome completo do tutor';
   @override
-  String get accessRequestGuardianDNI => 'BI do tutor';
+  String get accessRequestGuardianIdDoc => 'BI do tutor';
   @override
-  String get accessRequestUploadGuardianDNI => 'Carregar foto do BI do tutor';
+  String get accessRequestUploadGuardianIdDoc => 'Carregar foto do BI do tutor';
   @override
   String get accessRequestBlock2Title => 'Condições';
   @override
@@ -297,9 +297,9 @@ class L10nPt extends Localization {
   @override
   String get associationDetailRequirements => 'Requisitos de candidatura';
   @override
-  String get associationDetailRequireDni => 'Exigir documento de identidade';
+  String get associationDetailRequireIdDoc => 'Exigir documento de identidade';
   @override
-  String get associationDetailRequireDniImage => 'Exigir imagem do documento';
+  String get associationDetailRequireIdDocImage => 'Exigir imagem do documento';
   @override
   String get associationDetailRequireGuardian => 'Exigir dados do tutor';
 
@@ -315,9 +315,9 @@ class L10nPt extends Localization {
   // Onboarding extras
 
   @override
-  String get onboardingRequireDni => 'Exigir documento de identidade';
+  String get onboardingRequireIdDoc => 'Exigir documento de identidade';
   @override
-  String get onboardingRequireDniImage => 'Exigir imagem do documento';
+  String get onboardingRequireIdDocImage => 'Exigir imagem do documento';
   @override
   String get onboardingRequireGuardian => 'Exigir dados do tutor para menores';
 

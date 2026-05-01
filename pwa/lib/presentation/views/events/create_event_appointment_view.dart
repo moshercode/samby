@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:samby/presentation/resources/l10n/localization.dart';
 import 'package:samby/presentation/resources/theme/app_dimensions.dart';
-import 'package:samby/presentation/viewmodels/create_event_appointment/create_event_appointment_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/events/create_event_appointment_viewmodel.dart';
 import 'package:samby/presentation/views/base/base_view.dart';
 import 'package:samby/presentation/widgets/common/app_text_input.dart';
 import 'package:samby/presentation/widgets/common/button.dart';
 import 'package:samby/presentation/widgets/common/safe_scaffold.dart';
 
 class CreateEventAppointmentView extends BaseView<CreateEventAppointmentViewModel> {
-
   // Constructor
 
   const CreateEventAppointmentView(super.viewModel, {super.key});
@@ -20,31 +19,17 @@ class CreateEventAppointmentView extends BaseView<CreateEventAppointmentViewMode
     final Localization l = Localization.of(context);
 
     return SafeScaffold(
-      appBar: AppBar(
-        title: Text(l.createAppointmentTitle),
-        centerTitle: false,
-      ),
+      appBar: AppBar(title: Text(l.createAppointmentTitle), centerTitle: false),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(Dimensions.screenMargin),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            AppTextInput(
-              label: l.fieldTitle,
-              onChanged: viewModel.onTitleChanged,
-            ),
+            AppTextInput(label: l.fieldTitle, onChanged: viewModel.onTitleChanged),
             const SizedBox(height: Dimensions.space12),
-            AppTextInput(
-              label: l.fieldDescription,
-              onChanged: viewModel.onDescriptionChanged,
-              maxLines: 3,
-            ),
+            AppTextInput(label: l.fieldDescription, onChanged: viewModel.onDescriptionChanged, maxLines: 3),
             const SizedBox(height: Dimensions.space12),
-            _DateField(
-              label: l.createAppointmentDateLabel,
-              date: viewModel.eventDate,
-              onPick: (DateTime d) => viewModel.setEventDate(d),
-            ),
+            _DateField(label: l.createAppointmentDateLabel, date: viewModel.eventDate, onPick: (DateTime d) => viewModel.setEventDate(d)),
             const SizedBox(height: Dimensions.space12),
             _DateField(
               label: l.createEventEndDate,
@@ -53,11 +38,7 @@ class CreateEventAppointmentView extends BaseView<CreateEventAppointmentViewMode
               onClear: () => viewModel.setEndDate(null),
             ),
             const SizedBox(height: Dimensions.space24),
-            Button(
-              title: l.createAppointmentSubmit,
-              loading: viewModel.isLoading(),
-              onTap: viewModel.isValid ? viewModel.submit : null,
-            ),
+            Button(title: l.createAppointmentSubmit, loading: viewModel.isLoading(), onTap: viewModel.isValid ? viewModel.submit : null),
           ],
         ),
       ),
@@ -66,7 +47,6 @@ class CreateEventAppointmentView extends BaseView<CreateEventAppointmentViewMode
 }
 
 class _DateField extends StatelessWidget {
-
   // Variables
 
   final String label;
@@ -76,12 +56,7 @@ class _DateField extends StatelessWidget {
 
   // Constructor
 
-  const _DateField({
-    required this.label,
-    required this.date,
-    required this.onPick,
-    this.onClear,
-  });
+  const _DateField({required this.label, required this.date, required this.onPick, this.onClear});
 
   // Build
 
@@ -96,14 +71,8 @@ class _DateField extends StatelessWidget {
           lastDate: DateTime(2100),
         );
         if (picked == null) return;
-        final TimeOfDay? time = await showTimePicker(
-          context: context,
-          initialTime: TimeOfDay.fromDateTime(date ?? DateTime.now()),
-        );
-        final DateTime result = DateTime(
-          picked.year, picked.month, picked.day,
-          time?.hour ?? 0, time?.minute ?? 0,
-        );
+        final TimeOfDay? time = await showTimePicker(context: context, initialTime: TimeOfDay.fromDateTime(date ?? DateTime.now()));
+        final DateTime result = DateTime(picked.year, picked.month, picked.day, time?.hour ?? 0, time?.minute ?? 0);
         onPick(result);
       },
       borderRadius: BorderRadius.circular(Dimensions.radiusMd),
@@ -120,9 +89,7 @@ class _DateField extends StatelessWidget {
               child: Text(
                 date != null ? _fmt(date!.toLocal()) : label,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: date != null
-                      ? Theme.of(context).colorScheme.onSurface
-                      : Theme.of(context).colorScheme.onSurfaceVariant,
+                  color: date != null ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
             ),
@@ -135,11 +102,7 @@ class _DateField extends StatelessWidget {
                 constraints: const BoxConstraints(),
               )
             else
-              Icon(
-                Icons.calendar_today_rounded,
-                size: Dimensions.iconSm,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
+              Icon(Icons.calendar_today_rounded, size: Dimensions.iconSm, color: Theme.of(context).colorScheme.onSurfaceVariant),
           ],
         ),
       ),

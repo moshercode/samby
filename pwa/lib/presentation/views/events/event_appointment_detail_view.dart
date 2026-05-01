@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:samby/domain/entities/event_appointment.dart';
 import 'package:samby/presentation/resources/l10n/localization.dart';
 import 'package:samby/presentation/resources/theme/app_dimensions.dart';
-import 'package:samby/presentation/viewmodels/event_appointment_detail/event_appointment_detail_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/events/event_appointment_detail_viewmodel.dart';
 import 'package:samby/presentation/views/base/base_view.dart';
 import 'package:samby/presentation/widgets/common/safe_scaffold.dart';
 
 class EventAppointmentDetailView extends BaseView<EventAppointmentDetailViewModel> {
-
   // Constructor
 
   const EventAppointmentDetailView(super.viewModel, {super.key});
@@ -34,32 +33,21 @@ class EventAppointmentDetailView extends BaseView<EventAppointmentDetailViewMode
     }
 
     return SafeScaffold(
-      appBar: AppBar(
-        title: Text(appointment.title),
-        centerTitle: false,
-      ),
+      appBar: AppBar(title: Text(appointment.title), centerTitle: false),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(Dimensions.screenMargin),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              appointment.title,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+            Text(appointment.title, style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: Dimensions.space4),
             Text(
               _formatDateTime(appointment.eventDate, appointment.endDate),
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             if (appointment.description.isNotEmpty) ...<Widget>[
               const SizedBox(height: Dimensions.space16),
-              Text(
-                appointment.description,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
+              Text(appointment.description, style: Theme.of(context).textTheme.bodyMedium),
             ],
           ],
         ),

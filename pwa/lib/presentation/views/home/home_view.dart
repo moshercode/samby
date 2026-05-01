@@ -187,7 +187,7 @@ class _MembersTab extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final Member m = viewModel.members[index];
                 return ListTile(
-                  title: Text(m.memberName),
+                  title: Text(m.name),
                   subtitle: Text(m.email),
                   trailing: m.isBlocked
                       ? Icon(Icons.block_rounded, color: Theme.of(context).colorScheme.error)
@@ -229,14 +229,14 @@ class _AssociationTab extends StatelessWidget {
           Text(l.associationDetailRequirements, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: Dimensions.space12),
           SwitchListTile(
-            title: Text(l.associationDetailRequireDni),
-            value: viewModel.association?.requireDni ?? false,
+            title: Text(l.associationDetailRequireIdDoc),
+            value: viewModel.association?.requireIdDoc ?? false,
             onChanged: null,
             contentPadding: EdgeInsets.zero,
           ),
           SwitchListTile(
-            title: Text(l.associationDetailRequireDniImage),
-            value: viewModel.association?.requireDniImage ?? false,
+            title: Text(l.associationDetailRequireIdDocImage),
+            value: viewModel.association?.requireIdDocImage ?? false,
             onChanged: null,
             contentPadding: EdgeInsets.zero,
           ),
@@ -287,7 +287,7 @@ class _ProfileTab extends StatelessWidget {
           children: <Widget>[
             if (member != null) ...<Widget>[
               Text(
-                member.memberName,
+                member.name,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: Dimensions.space4),

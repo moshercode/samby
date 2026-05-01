@@ -152,11 +152,11 @@ class L10nFr extends Localization {
   @override
   String get accessRequestBirthDateHint => 'JJ/MM/AAAA';
   @override
-  String get accessRequestDNI => 'Carte d\'identité / Passeport';
+  String get accessRequestIdDoc => "Carte d'identité / Passeport";
   @override
-  String get accessRequestUploadDNI => "Télécharger la photo d'identité";
+  String get accessRequestUploadIdDoc => "Télécharger la photo d'identité";
   @override
-  String get accessRequestDNIUploaded => 'Pièce d\'identité téléchargée';
+  String get accessRequestIdDocUploaded => "Pièce d'identité téléchargée";
   @override
   String get accessRequestMinorWarning => "Vous avez moins de 18 ans. Nous avons besoin des informations de votre tuteur légal";
   @override
@@ -164,9 +164,9 @@ class L10nFr extends Localization {
   @override
   String get accessRequestGuardianFullName => 'Nom complet du tuteur';
   @override
-  String get accessRequestGuardianDNI => "Pièce d'identité du tuteur";
+  String get accessRequestGuardianIdDoc => "Pièce d'identité du tuteur";
   @override
-  String get accessRequestUploadGuardianDNI => "Télécharger la pièce d'identité du tuteur";
+  String get accessRequestUploadGuardianIdDoc => "Télécharger la pièce d'identité du tuteur";
   @override
   String get accessRequestBlock2Title => 'Conditions';
   @override
@@ -185,7 +185,7 @@ class L10nFr extends Localization {
   @override
   String get pendingTitle => 'Demande envoyée';
   @override
-  String get pendingSubtitle => 'Votre demande est en cours d\'examen';
+  String get pendingSubtitle => "Votre demande est en cours d'examen";
   @override
   String get pendingMessage => "Un manager de l'association examinera votre demande et vous recevrez une notification dès qu'elle sera acceptée";
 
@@ -196,7 +196,7 @@ class L10nFr extends Localization {
   @override
   String get rejectedSubtitle => "Votre demande n'a pas été acceptée";
   @override
-  String get rejectedMessage => 'Si vous pensez que c\'est une erreur, vous pouvez soumettre une nouvelle demande';
+  String get rejectedMessage => "Si vous pensez que c'est une erreur, vous pouvez soumettre une nouvelle demande";
   @override
   String get rejectedReapply => 'Redemander';
   @override
@@ -297,9 +297,9 @@ class L10nFr extends Localization {
   @override
   String get associationDetailRequirements => 'Exigences de candidature';
   @override
-  String get associationDetailRequireDni => "Exiger une pièce d'identité";
+  String get associationDetailRequireIdDoc => "Exiger une pièce d'identité";
   @override
-  String get associationDetailRequireDniImage => "Exiger l'image de la pièce d'identité";
+  String get associationDetailRequireIdDocImage => "Exiger l'image de la pièce d'identité";
   @override
   String get associationDetailRequireGuardian => 'Exiger les données du tuteur';
 
@@ -315,9 +315,9 @@ class L10nFr extends Localization {
   // Onboarding extras
 
   @override
-  String get onboardingRequireDni => "Exiger une pièce d'identité";
+  String get onboardingRequireIdDoc => "Exiger une pièce d'identité";
   @override
-  String get onboardingRequireDniImage => "Exiger l'image de la pièce d'identité";
+  String get onboardingRequireIdDocImage => "Exiger l'image de la pièce d'identité";
   @override
   String get onboardingRequireGuardian => 'Exiger les données du tuteur pour les mineurs';
 

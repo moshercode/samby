@@ -1,6 +1,6 @@
 import 'package:samby/presentation/resources/l10n/localization.dart';
 import 'package:samby/presentation/resources/theme/app_dimensions.dart';
-import 'package:samby/presentation/viewmodels/onboarding/onboarding_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/association/onboarding_viewmodel.dart';
 import 'package:samby/presentation/views/base/base_view.dart';
 import 'package:samby/presentation/widgets/common/app_text_input.dart';
 import 'package:samby/presentation/widgets/common/button.dart';
@@ -38,11 +38,7 @@ class OnboardingView extends BaseView<OnboardingViewModel> {
                 // Block 1 — Association info
                 Text(l.onboardingBlock1Title, style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: Dimensions.space12),
-                AppTextInput(
-                  label: l.onboardingAssociationName,
-                  textInputAction: TextInputAction.next,
-                  onChanged: (v) => viewModel.name = v,
-                ),
+                AppTextInput(label: l.onboardingAssociationName, textInputAction: TextInputAction.next, onChanged: (v) => viewModel.name = v),
                 const SizedBox(height: Dimensions.space12),
                 AppTextInput(
                   label: l.onboardingAssociationShortName,
@@ -58,31 +54,26 @@ class OnboardingView extends BaseView<OnboardingViewModel> {
                   textInputAction: TextInputAction.next,
                   onChanged: (v) => viewModel.subdomain = v,
                   errorText: viewModel.subdomainError != null
-                      ? (viewModel.subdomainError == 'taken'
-                          ? l.onboardingSubdomainTaken
-                          : l.onboardingSubdomainInvalid)
+                      ? (viewModel.subdomainError == 'taken' ? l.onboardingSubdomainTaken : l.onboardingSubdomainInvalid)
                       : null,
                   suffixWidget: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: Dimensions.space12),
-                    child: Align(
-                      widthFactor: 1,
-                      child: Text('.samby.app', style: Theme.of(context).textTheme.bodySmall),
-                    ),
+                    child: Align(widthFactor: 1, child: Text('.samby.app', style: Theme.of(context).textTheme.bodySmall)),
                   ),
                 ),
                 const SizedBox(height: Dimensions.space24),
 
                 // Application requirements
                 SwitchListTile(
-                  title: Text(l.onboardingRequireDni),
-                  value: viewModel.requireDni,
-                  onChanged: (bool v) => viewModel.requireDni = v,
+                  title: Text(l.onboardingRequireIdDoc),
+                  value: viewModel.requireIdDoc,
+                  onChanged: (bool v) => viewModel.requireIdDoc = v,
                   contentPadding: EdgeInsets.zero,
                 ),
                 SwitchListTile(
-                  title: Text(l.onboardingRequireDniImage),
-                  value: viewModel.requireDniImage,
-                  onChanged: viewModel.requireDni ? (bool v) => viewModel.requireDniImage = v : null,
+                  title: Text(l.onboardingRequireIdDocImage),
+                  value: viewModel.requireIdDocImage,
+                  onChanged: viewModel.requireIdDoc ? (bool v) => viewModel.requireIdDocImage = v : null,
                   contentPadding: EdgeInsets.zero,
                 ),
                 SwitchListTile(
@@ -115,11 +106,7 @@ class OnboardingView extends BaseView<OnboardingViewModel> {
                 ),
                 const SizedBox(height: Dimensions.space32),
 
-                Button(
-                  title: l.onboardingSubmit,
-                  loading: viewModel.isLoading(),
-                  onTap: viewModel.isValid ? viewModel.submit : null,
-                ),
+                Button(title: l.onboardingSubmit, loading: viewModel.isLoading(), onTap: viewModel.isValid ? viewModel.submit : null),
                 const SizedBox(height: Dimensions.space24),
               ],
             ),
@@ -184,17 +171,8 @@ class _ConditionBlockState extends State<_ConditionBlock> {
             padding: const EdgeInsets.only(bottom: Dimensions.space8),
             child: Row(
               children: <Widget>[
-                Expanded(
-                  child: Text(
-                    '${entry.key + 1}. ${entry.value}',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () => widget.onRemove(entry.key),
-                  icon: const Icon(Icons.delete_outline_rounded),
-                  iconSize: Dimensions.iconMd,
-                ),
+                Expanded(child: Text('${entry.key + 1}. ${entry.value}', style: Theme.of(context).textTheme.bodyMedium)),
+                IconButton(onPressed: () => widget.onRemove(entry.key), icon: const Icon(Icons.delete_outline_rounded), iconSize: Dimensions.iconMd),
               ],
             ),
           ),
@@ -202,12 +180,7 @@ class _ConditionBlockState extends State<_ConditionBlock> {
         Row(
           children: <Widget>[
             Expanded(
-              child: AppTextInput(
-                label: widget.hint,
-                controller: _controller,
-                maxLines: 2,
-                textInputAction: TextInputAction.done,
-              ),
+              child: AppTextInput(label: widget.hint, controller: _controller, maxLines: 2, textInputAction: TextInputAction.done),
             ),
             const SizedBox(width: Dimensions.space8),
             Button.outlined(

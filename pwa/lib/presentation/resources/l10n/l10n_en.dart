@@ -152,11 +152,11 @@ class L10nEn extends Localization {
   @override
   String get accessRequestBirthDateHint => 'DD/MM/YYYY';
   @override
-  String get accessRequestDNI => 'ID / Passport';
+  String get accessRequestIdDoc => 'ID / Passport';
   @override
-  String get accessRequestUploadDNI => 'Upload ID photo';
+  String get accessRequestUploadIdDoc => 'Upload ID photo';
   @override
-  String get accessRequestDNIUploaded => 'ID uploaded successfully';
+  String get accessRequestIdDocUploaded => 'ID uploaded successfully';
   @override
   String get accessRequestMinorWarning => 'You are under 18. We need your legal guardian details';
   @override
@@ -164,9 +164,9 @@ class L10nEn extends Localization {
   @override
   String get accessRequestGuardianFullName => "Guardian's full name";
   @override
-  String get accessRequestGuardianDNI => "Guardian's ID";
+  String get accessRequestGuardianIdDoc => "Guardian's ID";
   @override
-  String get accessRequestUploadGuardianDNI => "Upload guardian's ID photo";
+  String get accessRequestUploadGuardianIdDoc => "Upload guardian's ID photo";
   @override
   String get accessRequestBlock2Title => 'Conditions';
   @override
@@ -297,9 +297,9 @@ class L10nEn extends Localization {
   @override
   String get associationDetailRequirements => 'Application requirements';
   @override
-  String get associationDetailRequireDni => 'Require ID document';
+  String get associationDetailRequireIdDoc => 'Require ID document';
   @override
-  String get associationDetailRequireDniImage => 'Require ID document image';
+  String get associationDetailRequireIdDocImage => 'Require ID document image';
   @override
   String get associationDetailRequireGuardian => 'Require guardian data';
 
@@ -315,9 +315,9 @@ class L10nEn extends Localization {
   // Onboarding extras
 
   @override
-  String get onboardingRequireDni => 'Require ID document';
+  String get onboardingRequireIdDoc => 'Require ID document';
   @override
-  String get onboardingRequireDniImage => 'Require ID document image';
+  String get onboardingRequireIdDocImage => 'Require ID document image';
   @override
   String get onboardingRequireGuardian => 'Require guardian data for minors';
 

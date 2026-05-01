@@ -4,7 +4,7 @@ import 'package:samby/domain/entities/event.dart';
 import 'package:samby/domain/entities/membership.dart';
 import 'package:samby/presentation/resources/l10n/localization.dart';
 import 'package:samby/presentation/resources/theme/app_dimensions.dart';
-import 'package:samby/presentation/viewmodels/member_detail/member_detail_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/members/member_detail_viewmodel.dart';
 import 'package:samby/presentation/views/base/base_view.dart';
 import 'package:samby/presentation/widgets/common/app_card.dart';
 import 'package:samby/presentation/widgets/common/safe_scaffold.dart';
@@ -22,7 +22,7 @@ class MemberDetailView extends BaseView<MemberDetailViewModel> {
     final Membership m = viewModel.member;
 
     return SafeScaffold(
-      appBar: AppBar(title: Text(m.memberName), centerTitle: false),
+      appBar: AppBar(title: Text(m.name), centerTitle: false),
       body: viewModel.isLoading()
           ? const Center(child: CircularProgressIndicator())
           : ListView(
@@ -78,8 +78,8 @@ class _ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String? imageUrl = membership.profileImageUrl;
-    final String initials = membership.memberName.isNotEmpty
-        ? membership.memberName.trim().split(' ').map((String w) => w[0]).take(2).join().toUpperCase()
+    final String initials = membership.name.isNotEmpty
+        ? membership.name.trim().split(' ').map((String w) => w[0]).take(2).join().toUpperCase()
         : '?';
 
     return Center(
@@ -112,7 +112,7 @@ class _InfoCard extends StatelessWidget {
     return AppCard(
       child: Column(
         children: <Widget>[
-          _InfoRow(icon: Icons.person_outline_rounded, value: membership.memberName),
+          _InfoRow(icon: Icons.person_outline_rounded, value: membership.name),
           const Divider(height: Dimensions.space16),
           _InfoRow(icon: Icons.email_outlined, value: membership.email),
           if (membership.phone.isNotEmpty) ...<Widget>[

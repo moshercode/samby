@@ -152,11 +152,11 @@ class L10nCa extends Localization {
   @override
   String get accessRequestBirthDateHint => 'DD/MM/AAAA';
   @override
-  String get accessRequestDNI => 'DNI / NIE';
+  String get accessRequestIdDoc => 'DNI / NIE';
   @override
-  String get accessRequestUploadDNI => 'Puja la foto del DNI';
+  String get accessRequestUploadIdDoc => 'Puja la foto del DNI';
   @override
-  String get accessRequestDNIUploaded => 'DNI pujat correctament';
+  String get accessRequestIdDocUploaded => 'DNI pujat correctament';
   @override
   String get accessRequestMinorWarning => "Ets menor d'edat. Necessitem les dades del teu tutor legal";
   @override
@@ -164,9 +164,9 @@ class L10nCa extends Localization {
   @override
   String get accessRequestGuardianFullName => 'Nom complet del tutor';
   @override
-  String get accessRequestGuardianDNI => 'DNI del tutor';
+  String get accessRequestGuardianIdDoc => 'DNI del tutor';
   @override
-  String get accessRequestUploadGuardianDNI => 'Puja la foto del DNI del tutor';
+  String get accessRequestUploadGuardianIdDoc => 'Puja la foto del DNI del tutor';
   @override
   String get accessRequestBlock2Title => 'Condicions';
   @override
@@ -297,9 +297,9 @@ class L10nCa extends Localization {
   @override
   String get associationDetailRequirements => 'Requisits de sol·licitud';
   @override
-  String get associationDetailRequireDni => 'Requerir DNI';
+  String get associationDetailRequireIdDoc => 'Requerir DNI';
   @override
-  String get associationDetailRequireDniImage => 'Requerir imatge del DNI';
+  String get associationDetailRequireIdDocImage => 'Requerir imatge del DNI';
   @override
   String get associationDetailRequireGuardian => 'Requerir dades del tutor';
 
@@ -315,9 +315,9 @@ class L10nCa extends Localization {
   // Onboarding extras
 
   @override
-  String get onboardingRequireDni => 'Requerir DNI';
+  String get onboardingRequireIdDoc => 'Requerir DNI';
   @override
-  String get onboardingRequireDniImage => 'Requerir imatge del DNI';
+  String get onboardingRequireIdDocImage => 'Requerir imatge del DNI';
   @override
   String get onboardingRequireGuardian => 'Requerir dades del tutor per a menors';
 

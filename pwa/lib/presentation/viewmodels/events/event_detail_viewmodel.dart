@@ -95,7 +95,7 @@ class EventDetailViewModel extends ViewModel {
     final String? memberId = _memberId;
     if (memberId == null) return;
     final Completer<void> completer = Completer<void>();
-    sl<EventRepository>().getEventAccessRequest(
+    sl<EventRepository>().getEventMember(
       eventId,
       memberId,
       onComplete: (EventAccessRequest? req, dynamic _) {

@@ -118,8 +118,8 @@ class AssociationRepositoryImpl implements AssociationRepository {
   @override
   void updateAssociation(
     String associationId, {
-    required bool requireDni,
-    required bool requireDniImage,
+    required bool requireIdDoc,
+    required bool requireIdDocImage,
     required bool requireGuardian,
     required Function(AppError? error) onComplete,
   }) async {
@@ -128,8 +128,8 @@ class AssociationRepositoryImpl implements AssociationRepository {
         DataconnectOps.updateAssociation,
         variables: {
           DataconnectKeys.id: associationId,
-          DataconnectKeys.requireDni: requireDni,
-          DataconnectKeys.requireDniImage: requireDniImage,
+          DataconnectKeys.requireIdDoc: requireIdDoc,
+          DataconnectKeys.requireIdDocImage: requireIdDocImage,
           DataconnectKeys.requireGuardian: requireGuardian,
         },
       );

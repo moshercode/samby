@@ -31,13 +31,13 @@ mutation UpdateAssociationImages(
 
 mutation UpdateAssociation(
   $id: UUID!
-  $requireDni: Boolean!
-  $requireDniImage: Boolean!
+  $requireIdDoc: Boolean!
+  $requireIdDocImage: Boolean!
   $requireGuardian: Boolean!
 ) @auth(level: USER) {
   association_update(key: { id: $id }, data: {
-    requireDni: $requireDni
-    requireDniImage: $requireDniImage
+    requireIdDoc: $requireIdDoc
+    requireIdDocImage: $requireIdDocImage
     requireGuardian: $requireGuardian
   })
 }
@@ -69,25 +69,25 @@ mutation CreateFounderMember(
   member_insert(data: {
     associationId: $associationId
     email: $email
-    name: $name
     phone: ""
     role: MANAGER
     status: "approved"
     isBlocked: false
     isFounder: true
+    name: $name
     conditionsAcceptedAt: $conditionsAcceptedAt
   })
 }
 
 mutation UpdateMemberApplication(
   $id: UUID!
-  $memberName: String!
-  $memberBirthDate: Date!
-  $memberDni: String!
-  $memberDniImageUrl: String!
+  $name: String!
+  $birthDate: Date!
+  $idDoc: String!
+  $idDocImageUrl: String!
   $guardianName: String
-  $guardianDni: String
-  $guardianDniImageUrl: String
+  $guardianIdDoc: String
+  $guardianIdDocImageUrl: String
   $signatureUrl: String!
   $conditionsAcceptedAt: Timestamp!
   $minorConditionsAcceptedAt: Timestamp
@@ -95,13 +95,13 @@ mutation UpdateMemberApplication(
 ) @auth(level: USER) {
   member_update(key: { id: $id }, data: {
     status: "pending"
-    memberName: $memberName
-    memberBirthDate: $memberBirthDate
-    memberDni: $memberDni
-    memberDniImageUrl: $memberDniImageUrl
+    name: $name
+    birthDate: $birthDate
+    idDoc: $idDoc
+    idDocImageUrl: $idDocImageUrl
     guardianName: $guardianName
-    guardianDni: $guardianDni
-    guardianDniImageUrl: $guardianDniImageUrl
+    guardianIdDoc: $guardianIdDoc
+    guardianIdDocImageUrl: $guardianIdDocImageUrl
     signatureUrl: $signatureUrl
     conditionsAcceptedAt: $conditionsAcceptedAt
     minorConditionsAcceptedAt: $minorConditionsAcceptedAt
@@ -111,13 +111,13 @@ mutation UpdateMemberApplication(
 
 mutation ResetMemberApplication(
   $id: UUID!
-  $memberName: String!
-  $memberBirthDate: Date!
-  $memberDni: String!
-  $memberDniImageUrl: String!
+  $name: String!
+  $birthDate: Date!
+  $idDoc: String!
+  $idDocImageUrl: String!
   $guardianName: String
-  $guardianDni: String
-  $guardianDniImageUrl: String
+  $guardianIdDoc: String
+  $guardianIdDocImageUrl: String
   $signatureUrl: String!
   $conditionsAcceptedAt: Timestamp!
   $minorConditionsAcceptedAt: Timestamp
@@ -125,13 +125,13 @@ mutation ResetMemberApplication(
 ) @auth(level: USER) {
   member_update(key: { id: $id }, data: {
     status: "pending"
-    memberName: $memberName
-    memberBirthDate: $memberBirthDate
-    memberDni: $memberDni
-    memberDniImageUrl: $memberDniImageUrl
+    name: $name
+    birthDate: $birthDate
+    idDoc: $idDoc
+    idDocImageUrl: $idDocImageUrl
     guardianName: $guardianName
-    guardianDni: $guardianDni
-    guardianDniImageUrl: $guardianDniImageUrl
+    guardianIdDoc: $guardianIdDoc
+    guardianIdDocImageUrl: $guardianIdDocImageUrl
     signatureUrl: $signatureUrl
     conditionsAcceptedAt: $conditionsAcceptedAt
     minorConditionsAcceptedAt: $minorConditionsAcceptedAt
@@ -210,6 +210,7 @@ mutation AddEventMember($eventId: UUID!, $memberId: UUID!) @auth(level: USER) {
   eventMember_insert(data: {
     eventId: $eventId
     memberId: $memberId
+    status: "approved"
   })
 }
 
@@ -221,10 +222,11 @@ mutation RequestEventAccess(
   $eventId: UUID!
   $memberId: UUID!
 ) @auth(level: USER) {
-  eventAccessRequest_insert(data: {
+  eventMember_insert(data: {
     eventId: $eventId
     memberId: $memberId
     status: "pending"
+    requestedAt: null
   })
 }
 
@@ -234,7 +236,7 @@ mutation ResolveEventAccess(
   $resolvedBy: UUID!
   $resolvedAt: Timestamp!
 ) @auth(level: USER) {
-  eventAccessRequest_update(key: { id: $id }, data: {
+  eventMember_update(key: { id: $id }, data: {
     status: $status
     resolvedById: $resolvedBy
     resolvedAt: $resolvedAt

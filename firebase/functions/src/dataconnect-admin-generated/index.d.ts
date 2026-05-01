@@ -7,6 +7,15 @@ export type UUIDString = string;
 export type Int64String = string;
 export type DateString = string;
 
+export enum EventStatus {
+  ACTIVE = "ACTIVE",
+  FINISHED = "FINISHED",
+  CANCELLED = "CANCELLED",
+}
+export enum MemberRole {
+  MANAGER = "MANAGER",
+  MEMBER = "MEMBER",
+}
 
 export interface AddAssociationConditionData {
   associationCondition_insert: {
@@ -29,22 +38,12 @@ export interface AddEventMemberData {
 
 export interface AddEventMemberVariables {
   eventId: UUIDString;
-  membershipId: UUIDString;
-}
-
-export interface AppUser_Key {
-  id: UUIDString;
-  __typename?: 'AppUser_Key';
+  memberId: UUIDString;
 }
 
 export interface AssociationCondition_Key {
   id: UUIDString;
   __typename?: 'AssociationCondition_Key';
-}
-
-export interface AssociationMembership_Key {
-  id: UUIDString;
-  __typename?: 'AssociationMembership_Key';
 }
 
 export interface Association_Key {
@@ -55,28 +54,6 @@ export interface Association_Key {
 export interface BroadcastMessage_Key {
   id: UUIDString;
   __typename?: 'BroadcastMessage_Key';
-}
-
-export interface CalendarEventComment_Key {
-  id: UUIDString;
-  __typename?: 'CalendarEventComment_Key';
-}
-
-export interface CalendarEvent_Key {
-  id: UUIDString;
-  __typename?: 'CalendarEvent_Key';
-}
-
-export interface CreateAppUserData {
-  appUser_insert: {
-    id: UUIDString;
-  };
-}
-
-export interface CreateAppUserVariables {
-  email: string;
-  name: string;
-  phone: string;
 }
 
 export interface CreateAssociationData {
@@ -94,13 +71,13 @@ export interface CreateAssociationVariables {
   founderEmail: string;
 }
 
-export interface CreateCalendarEventData {
-  calendarEvent_insert: {
+export interface CreateEventAppointmentData {
+  eventAppointment_insert: {
     id: UUIDString;
   };
 }
 
-export interface CreateCalendarEventVariables {
+export interface CreateEventAppointmentVariables {
   eventId: UUIDString;
   title: string;
   description: string;
@@ -120,43 +97,24 @@ export interface CreateEventVariables {
   title: string;
   description: string;
   imageUrl: string;
-  startDate: TimestampString;
+  startDate?: TimestampString | null;
   endDate?: TimestampString | null;
+  freeEntry: boolean;
+  entryCondition?: string | null;
   createdBy: UUIDString;
 }
 
-export interface CreateFounderMembershipData {
-  associationMembership_insert: {
+export interface CreateFounderMemberData {
+  member_insert: {
     id: UUIDString;
   };
 }
 
-export interface CreateFounderMembershipVariables {
+export interface CreateFounderMemberVariables {
   associationId: UUIDString;
-  userId: UUIDString;
-  userName: string;
+  name: string;
+  email: string;
   conditionsAcceptedAt: TimestampString;
-}
-
-export interface CreateMembershipData {
-  associationMembership_insert: {
-    id: UUIDString;
-  };
-}
-
-export interface CreateMembershipVariables {
-  associationId: UUIDString;
-  userId: UUIDString;
-  memberName: string;
-  memberBirthDate: DateString;
-  memberDNI: string;
-  memberDNIImageUrl: string;
-  guardianName?: string | null;
-  guardianDNI?: string | null;
-  guardianDNIImageUrl?: string | null;
-  signatureUrl: string;
-  conditionsAcceptedAt: TimestampString;
-  minorConditionsAcceptedAt?: TimestampString | null;
 }
 
 export interface DeleteAssociationConditionData {
@@ -167,6 +125,16 @@ export interface DeleteAssociationConditionData {
 
 export interface DeleteAssociationConditionVariables {
   id: UUIDString;
+}
+
+export interface EventAppointmentComment_Key {
+  id: UUIDString;
+  __typename?: 'EventAppointmentComment_Key';
+}
+
+export interface EventAppointment_Key {
+  id: UUIDString;
+  __typename?: 'EventAppointment_Key';
 }
 
 export interface EventMember_Key {
@@ -190,6 +158,10 @@ export interface GetAssociationByFounderEmailData {
     primaryColor: string;
     secondaryColor: string;
     founderEmail: string;
+    requireIdDoc: boolean;
+    requireIdDocImage: boolean;
+    requireGuardian: boolean;
+    active: boolean;
     createdAt: TimestampString;
   } & Association_Key;
 }
@@ -209,6 +181,10 @@ export interface GetAssociationBySubdomainData {
     primaryColor: string;
     secondaryColor: string;
     founderEmail: string;
+    requireIdDoc: boolean;
+    requireIdDocImage: boolean;
+    requireGuardian: boolean;
+    active: boolean;
     createdAt: TimestampString;
   } & Association_Key;
 }
@@ -236,13 +212,18 @@ export interface GetAssociationEventsData {
     title: string;
     description: string;
     imageUrl: string;
-    startDate: TimestampString;
+    startDate?: TimestampString | null;
     endDate?: TimestampString | null;
+    status: EventStatus;
+    freeEntry: boolean;
+    entryCondition?: string | null;
+    updatedAt?: TimestampString | null;
     createdAt: TimestampString;
     eventMembers_on_event: ({
-      membership: {
+      status: string;
+      member: {
         id: UUIDString;
-      } & AssociationMembership_Key;
+      } & Member_Key;
     })[];
   } & Event_Key)[];
 }
@@ -252,35 +233,67 @@ export interface GetAssociationEventsVariables {
 }
 
 export interface GetAssociationMembersData {
-  associationMemberships: ({
+  members: ({
     id: UUIDString;
-    role: string;
+    email: string;
+    phone: string;
+    role: MemberRole;
     status: string;
     isBlocked: boolean;
     isFounder: boolean;
-    memberName: string;
-    memberBirthDate: DateString;
-    memberDNI: string;
-    memberDNIImageUrl: string;
+    createdAt: TimestampString;
+    name?: string | null;
+    birthDate?: DateString | null;
+    idDoc?: string | null;
+    idDocImageUrl?: string | null;
+    profileImageUrl?: string | null;
     guardianName?: string | null;
-    guardianDNI?: string | null;
-    guardianDNIImageUrl?: string | null;
-    signatureUrl: string;
-    conditionsAcceptedAt: TimestampString;
+    guardianIdDoc?: string | null;
+    guardianIdDocImageUrl?: string | null;
+    signatureUrl?: string | null;
+    conditionsAcceptedAt?: TimestampString | null;
     minorConditionsAcceptedAt?: TimestampString | null;
     internalNotes?: string | null;
-    requestedAt: TimestampString;
+    requestedAt?: TimestampString | null;
     resolvedAt?: TimestampString | null;
-    user: {
-      id: UUIDString;
-      email: string;
-      name: string;
-    } & AppUser_Key;
-  } & AssociationMembership_Key)[];
+  } & Member_Key)[];
 }
 
 export interface GetAssociationMembersVariables {
   associationId: UUIDString;
+}
+
+export interface GetEventAppointmentDetailData {
+  eventAppointment?: {
+    id: UUIDString;
+    event: {
+      id: UUIDString;
+      title: string;
+    } & Event_Key;
+      title: string;
+      description: string;
+      eventDate: TimestampString;
+      endDate?: TimestampString | null;
+      createdAt: TimestampString;
+      eventAppointmentComments_on_eventAppointment: ({
+        id: UUIDString;
+        author: {
+          id: UUIDString;
+          name?: string | null;
+          profileImageUrl?: string | null;
+        } & Member_Key;
+          content: string;
+          imageUrls?: string | null;
+          parentComment?: {
+            id: UUIDString;
+          } & EventAppointmentComment_Key;
+            createdAt: TimestampString;
+      } & EventAppointmentComment_Key)[];
+  } & EventAppointment_Key;
+}
+
+export interface GetEventAppointmentDetailVariables {
+  appointmentId: UUIDString;
 }
 
 export interface GetEventDetailData {
@@ -289,23 +302,28 @@ export interface GetEventDetailData {
     title: string;
     description: string;
     imageUrl: string;
-    startDate: TimestampString;
+    startDate?: TimestampString | null;
     endDate?: TimestampString | null;
+    status: EventStatus;
+    freeEntry: boolean;
+    entryCondition?: string | null;
+    updatedAt?: TimestampString | null;
     createdAt: TimestampString;
-    calendarEvents_on_event: ({
+    eventAppointments_on_event: ({
       id: UUIDString;
       title: string;
       description: string;
       eventDate: TimestampString;
       endDate?: TimestampString | null;
       createdAt: TimestampString;
-    } & CalendarEvent_Key)[];
+    } & EventAppointment_Key)[];
       eventMembers_on_event: ({
         id: UUIDString;
-        membership: {
+        status: string;
+        member: {
           id: UUIDString;
-          memberName: string;
-        } & AssociationMembership_Key;
+          name?: string | null;
+        } & Member_Key;
       } & EventMember_Key)[];
   } & Event_Key;
 }
@@ -314,88 +332,133 @@ export interface GetEventDetailVariables {
   eventId: UUIDString;
 }
 
-export interface GetManagerMembershipsData {
-  associationMemberships: ({
+export interface GetEventMemberData {
+  eventMembers: ({
     id: UUIDString;
-    role: string;
     status: string;
+    requestedAt?: TimestampString | null;
+    resolvedAt?: TimestampString | null;
+  } & EventMember_Key)[];
+}
+
+export interface GetEventMemberVariables {
+  eventId: UUIDString;
+  memberId: UUIDString;
+}
+
+export interface GetMemberData {
+  member?: {
+    id: UUIDString;
     association: {
       id: UUIDString;
-      name: string;
-      shortName: string;
-      subdomain: string;
-      logoUrl: string;
-      iconUrl: string;
-      primaryColor: string;
-      secondaryColor: string;
     } & Association_Key;
-  } & AssociationMembership_Key)[];
+      email: string;
+      phone: string;
+      role: MemberRole;
+      status: string;
+      isBlocked: boolean;
+      isFounder: boolean;
+      createdAt: TimestampString;
+      name?: string | null;
+      birthDate?: DateString | null;
+      idDoc?: string | null;
+      idDocImageUrl?: string | null;
+      profileImageUrl?: string | null;
+      guardianName?: string | null;
+      guardianIdDoc?: string | null;
+      guardianIdDocImageUrl?: string | null;
+      signatureUrl?: string | null;
+      conditionsAcceptedAt?: TimestampString | null;
+      minorConditionsAcceptedAt?: TimestampString | null;
+      internalNotes?: string | null;
+      requestedAt?: TimestampString | null;
+      resolvedAt?: TimestampString | null;
+  } & Member_Key;
 }
 
-export interface GetManagerMembershipsVariables {
-  userId: UUIDString;
+export interface GetMemberEventsData {
+  eventMembers: ({
+    event: {
+      id: UUIDString;
+      title: string;
+      description: string;
+      imageUrl: string;
+      startDate?: TimestampString | null;
+      endDate?: TimestampString | null;
+      status: EventStatus;
+      freeEntry: boolean;
+      entryCondition?: string | null;
+      updatedAt?: TimestampString | null;
+      createdAt: TimestampString;
+    } & Event_Key;
+  })[];
 }
 
-export interface GetMembershipData {
-  associationMembership?: {
-    id: UUIDString;
-    role: string;
-    status: string;
-    isBlocked: boolean;
-    isFounder: boolean;
-    memberName: string;
-    memberBirthDate: DateString;
-    memberDNI: string;
-    memberDNIImageUrl: string;
-    guardianName?: string | null;
-    guardianDNI?: string | null;
-    guardianDNIImageUrl?: string | null;
-    signatureUrl: string;
-    conditionsAcceptedAt: TimestampString;
-    minorConditionsAcceptedAt?: TimestampString | null;
-    internalNotes?: string | null;
-    requestedAt: TimestampString;
-    resolvedAt?: TimestampString | null;
-  } & AssociationMembership_Key;
+export interface GetMemberEventsVariables {
+  memberId: UUIDString;
 }
 
-export interface GetMembershipVariables {
-  associationId: UUIDString;
-  userId: UUIDString;
+export interface GetMemberVariables {
+  memberId: UUIDString;
 }
 
-export interface GetUserByEmailData {
-  appUsers: ({
-    id: UUIDString;
-    email: string;
-    name: string;
-    phone: string;
-    createdAt: TimestampString;
-  } & AppUser_Key)[];
+export interface Member_Key {
+  id: UUIDString;
+  __typename?: 'Member_Key';
 }
 
-export interface GetUserByEmailVariables {
-  email: string;
+export interface RemoveEventMemberData {
+  eventMember_deleteMany: number;
 }
 
-export interface ResetMembershipData {
-  associationMembership_update?: {
+export interface RemoveEventMemberVariables {
+  eventId: UUIDString;
+  memberId: UUIDString;
+}
+
+export interface RequestEventAccessData {
+  eventMember_insert: {
     id: UUIDString;
   };
 }
 
-export interface ResetMembershipVariables {
+export interface RequestEventAccessVariables {
+  eventId: UUIDString;
+  memberId: UUIDString;
+}
+
+export interface ResetMemberApplicationData {
+  member_update?: {
+    id: UUIDString;
+  };
+}
+
+export interface ResetMemberApplicationVariables {
   id: UUIDString;
-  memberName: string;
-  memberBirthDate: DateString;
-  memberDNI: string;
-  memberDNIImageUrl: string;
+  name: string;
+  birthDate: DateString;
+  idDoc: string;
+  idDocImageUrl: string;
   guardianName?: string | null;
-  guardianDNI?: string | null;
-  guardianDNIImageUrl?: string | null;
+  guardianIdDoc?: string | null;
+  guardianIdDocImageUrl?: string | null;
   signatureUrl: string;
   conditionsAcceptedAt: TimestampString;
   minorConditionsAcceptedAt?: TimestampString | null;
+  requestedAt: TimestampString;
+}
+
+export interface ResolveEventAccessData {
+  eventMember_update?: {
+    id: UUIDString;
+  };
+}
+
+export interface ResolveEventAccessVariables {
+  id: UUIDString;
+  status: string;
+  resolvedBy: UUIDString;
+  resolvedAt: TimestampString;
 }
 
 export interface SendBroadcastData {
@@ -411,6 +474,12 @@ export interface SendBroadcastVariables {
   body: string;
 }
 
+export interface UpdateAssociationData {
+  association_update?: {
+    id: UUIDString;
+  };
+}
+
 export interface UpdateAssociationImagesData {
   association_update?: {
     id: UUIDString;
@@ -423,67 +492,102 @@ export interface UpdateAssociationImagesVariables {
   iconUrl: string;
 }
 
-export interface UpdateMembershipBlockData {
-  associationMembership_update?: {
+export interface UpdateAssociationVariables {
+  id: UUIDString;
+  requireIdDoc: boolean;
+  requireIdDocImage: boolean;
+  requireGuardian: boolean;
+}
+
+export interface UpdateEventStatusData {
+  event_update?: {
     id: UUIDString;
   };
 }
 
-export interface UpdateMembershipBlockVariables {
+export interface UpdateEventStatusVariables {
+  id: UUIDString;
+  status: EventStatus;
+  updatedAt: TimestampString;
+}
+
+export interface UpdateMemberApplicationData {
+  member_update?: {
+    id: UUIDString;
+  };
+}
+
+export interface UpdateMemberApplicationVariables {
+  id: UUIDString;
+  name: string;
+  birthDate: DateString;
+  idDoc: string;
+  idDocImageUrl: string;
+  guardianName?: string | null;
+  guardianIdDoc?: string | null;
+  guardianIdDocImageUrl?: string | null;
+  signatureUrl: string;
+  conditionsAcceptedAt: TimestampString;
+  minorConditionsAcceptedAt?: TimestampString | null;
+  requestedAt: TimestampString;
+}
+
+export interface UpdateMemberBlockData {
+  member_update?: {
+    id: UUIDString;
+  };
+}
+
+export interface UpdateMemberBlockVariables {
   id: UUIDString;
   isBlocked: boolean;
 }
 
-export interface UpdateMembershipNotesData {
-  associationMembership_update?: {
+export interface UpdateMemberFcmTokenData {
+  member_update?: {
     id: UUIDString;
   };
 }
 
-export interface UpdateMembershipNotesVariables {
+export interface UpdateMemberFcmTokenVariables {
   id: UUIDString;
-  internalNotes: string;
-}
-
-export interface UpdateMembershipRoleData {
-  associationMembership_update?: {
-    id: UUIDString;
-  };
-}
-
-export interface UpdateMembershipRoleVariables {
-  id: UUIDString;
-  role: string;
-}
-
-export interface UpdateMembershipStatusData {
-  associationMembership_update?: {
-    id: UUIDString;
-  };
-}
-
-export interface UpdateMembershipStatusVariables {
-  id: UUIDString;
-  status: string;
-  resolvedBy: UUIDString;
-  resolvedAt: TimestampString;
-}
-
-export interface UpsertFcmTokenData {
-  userFcmToken_upsert: {
-    id: UUIDString;
-  };
-}
-
-export interface UpsertFcmTokenVariables {
-  userId: UUIDString;
   token: string;
   updatedAt: TimestampString;
 }
 
-export interface UserFcmToken_Key {
+export interface UpdateMemberNotesData {
+  member_update?: {
+    id: UUIDString;
+  };
+}
+
+export interface UpdateMemberNotesVariables {
   id: UUIDString;
-  __typename?: 'UserFcmToken_Key';
+  internalNotes: string;
+}
+
+export interface UpdateMemberRoleData {
+  member_update?: {
+    id: UUIDString;
+  };
+}
+
+export interface UpdateMemberRoleVariables {
+  id: UUIDString;
+  role: MemberRole;
+}
+
+export interface UpdateMemberStatusData {
+  member_update?: {
+    id: UUIDString;
+  };
+}
+
+export interface UpdateMemberStatusVariables {
+  id: UUIDString;
+  status: string;
+  resolvedBy: UUIDString;
+  resolvedAt: TimestampString;
 }
 
 /** Generated Node Admin SDK operation action function for the 'CreateAssociation' Mutation. Allow users to execute without passing in DataConnect. */
@@ -496,6 +600,11 @@ export function updateAssociationImages(dc: DataConnect, vars: UpdateAssociation
 /** Generated Node Admin SDK operation action function for the 'UpdateAssociationImages' Mutation. Allow users to pass in custom DataConnect instances. */
 export function updateAssociationImages(vars: UpdateAssociationImagesVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateAssociationImagesData>>;
 
+/** Generated Node Admin SDK operation action function for the 'UpdateAssociation' Mutation. Allow users to execute without passing in DataConnect. */
+export function updateAssociation(dc: DataConnect, vars: UpdateAssociationVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateAssociationData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateAssociation' Mutation. Allow users to pass in custom DataConnect instances. */
+export function updateAssociation(vars: UpdateAssociationVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateAssociationData>>;
+
 /** Generated Node Admin SDK operation action function for the 'AddAssociationCondition' Mutation. Allow users to execute without passing in DataConnect. */
 export function addAssociationCondition(dc: DataConnect, vars: AddAssociationConditionVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<AddAssociationConditionData>>;
 /** Generated Node Admin SDK operation action function for the 'AddAssociationCondition' Mutation. Allow users to pass in custom DataConnect instances. */
@@ -506,65 +615,80 @@ export function deleteAssociationCondition(dc: DataConnect, vars: DeleteAssociat
 /** Generated Node Admin SDK operation action function for the 'DeleteAssociationCondition' Mutation. Allow users to pass in custom DataConnect instances. */
 export function deleteAssociationCondition(vars: DeleteAssociationConditionVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<DeleteAssociationConditionData>>;
 
-/** Generated Node Admin SDK operation action function for the 'CreateAppUser' Mutation. Allow users to execute without passing in DataConnect. */
-export function createAppUser(dc: DataConnect, vars: CreateAppUserVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateAppUserData>>;
-/** Generated Node Admin SDK operation action function for the 'CreateAppUser' Mutation. Allow users to pass in custom DataConnect instances. */
-export function createAppUser(vars: CreateAppUserVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateAppUserData>>;
+/** Generated Node Admin SDK operation action function for the 'CreateFounderMember' Mutation. Allow users to execute without passing in DataConnect. */
+export function createFounderMember(dc: DataConnect, vars: CreateFounderMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateFounderMemberData>>;
+/** Generated Node Admin SDK operation action function for the 'CreateFounderMember' Mutation. Allow users to pass in custom DataConnect instances. */
+export function createFounderMember(vars: CreateFounderMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateFounderMemberData>>;
 
-/** Generated Node Admin SDK operation action function for the 'CreateMembership' Mutation. Allow users to execute without passing in DataConnect. */
-export function createMembership(dc: DataConnect, vars: CreateMembershipVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateMembershipData>>;
-/** Generated Node Admin SDK operation action function for the 'CreateMembership' Mutation. Allow users to pass in custom DataConnect instances. */
-export function createMembership(vars: CreateMembershipVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateMembershipData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateMemberApplication' Mutation. Allow users to execute without passing in DataConnect. */
+export function updateMemberApplication(dc: DataConnect, vars: UpdateMemberApplicationVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMemberApplicationData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateMemberApplication' Mutation. Allow users to pass in custom DataConnect instances. */
+export function updateMemberApplication(vars: UpdateMemberApplicationVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMemberApplicationData>>;
 
-/** Generated Node Admin SDK operation action function for the 'CreateFounderMembership' Mutation. Allow users to execute without passing in DataConnect. */
-export function createFounderMembership(dc: DataConnect, vars: CreateFounderMembershipVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateFounderMembershipData>>;
-/** Generated Node Admin SDK operation action function for the 'CreateFounderMembership' Mutation. Allow users to pass in custom DataConnect instances. */
-export function createFounderMembership(vars: CreateFounderMembershipVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateFounderMembershipData>>;
+/** Generated Node Admin SDK operation action function for the 'ResetMemberApplication' Mutation. Allow users to execute without passing in DataConnect. */
+export function resetMemberApplication(dc: DataConnect, vars: ResetMemberApplicationVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<ResetMemberApplicationData>>;
+/** Generated Node Admin SDK operation action function for the 'ResetMemberApplication' Mutation. Allow users to pass in custom DataConnect instances. */
+export function resetMemberApplication(vars: ResetMemberApplicationVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<ResetMemberApplicationData>>;
 
-/** Generated Node Admin SDK operation action function for the 'UpdateMembershipStatus' Mutation. Allow users to execute without passing in DataConnect. */
-export function updateMembershipStatus(dc: DataConnect, vars: UpdateMembershipStatusVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMembershipStatusData>>;
-/** Generated Node Admin SDK operation action function for the 'UpdateMembershipStatus' Mutation. Allow users to pass in custom DataConnect instances. */
-export function updateMembershipStatus(vars: UpdateMembershipStatusVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMembershipStatusData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateMemberStatus' Mutation. Allow users to execute without passing in DataConnect. */
+export function updateMemberStatus(dc: DataConnect, vars: UpdateMemberStatusVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMemberStatusData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateMemberStatus' Mutation. Allow users to pass in custom DataConnect instances. */
+export function updateMemberStatus(vars: UpdateMemberStatusVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMemberStatusData>>;
 
-/** Generated Node Admin SDK operation action function for the 'UpdateMembershipRole' Mutation. Allow users to execute without passing in DataConnect. */
-export function updateMembershipRole(dc: DataConnect, vars: UpdateMembershipRoleVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMembershipRoleData>>;
-/** Generated Node Admin SDK operation action function for the 'UpdateMembershipRole' Mutation. Allow users to pass in custom DataConnect instances. */
-export function updateMembershipRole(vars: UpdateMembershipRoleVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMembershipRoleData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateMemberRole' Mutation. Allow users to execute without passing in DataConnect. */
+export function updateMemberRole(dc: DataConnect, vars: UpdateMemberRoleVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMemberRoleData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateMemberRole' Mutation. Allow users to pass in custom DataConnect instances. */
+export function updateMemberRole(vars: UpdateMemberRoleVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMemberRoleData>>;
 
-/** Generated Node Admin SDK operation action function for the 'UpdateMembershipBlock' Mutation. Allow users to execute without passing in DataConnect. */
-export function updateMembershipBlock(dc: DataConnect, vars: UpdateMembershipBlockVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMembershipBlockData>>;
-/** Generated Node Admin SDK operation action function for the 'UpdateMembershipBlock' Mutation. Allow users to pass in custom DataConnect instances. */
-export function updateMembershipBlock(vars: UpdateMembershipBlockVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMembershipBlockData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateMemberBlock' Mutation. Allow users to execute without passing in DataConnect. */
+export function updateMemberBlock(dc: DataConnect, vars: UpdateMemberBlockVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMemberBlockData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateMemberBlock' Mutation. Allow users to pass in custom DataConnect instances. */
+export function updateMemberBlock(vars: UpdateMemberBlockVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMemberBlockData>>;
 
-/** Generated Node Admin SDK operation action function for the 'UpdateMembershipNotes' Mutation. Allow users to execute without passing in DataConnect. */
-export function updateMembershipNotes(dc: DataConnect, vars: UpdateMembershipNotesVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMembershipNotesData>>;
-/** Generated Node Admin SDK operation action function for the 'UpdateMembershipNotes' Mutation. Allow users to pass in custom DataConnect instances. */
-export function updateMembershipNotes(vars: UpdateMembershipNotesVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMembershipNotesData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateMemberNotes' Mutation. Allow users to execute without passing in DataConnect. */
+export function updateMemberNotes(dc: DataConnect, vars: UpdateMemberNotesVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMemberNotesData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateMemberNotes' Mutation. Allow users to pass in custom DataConnect instances. */
+export function updateMemberNotes(vars: UpdateMemberNotesVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMemberNotesData>>;
 
-/** Generated Node Admin SDK operation action function for the 'ResetMembership' Mutation. Allow users to execute without passing in DataConnect. */
-export function resetMembership(dc: DataConnect, vars: ResetMembershipVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<ResetMembershipData>>;
-/** Generated Node Admin SDK operation action function for the 'ResetMembership' Mutation. Allow users to pass in custom DataConnect instances. */
-export function resetMembership(vars: ResetMembershipVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<ResetMembershipData>>;
-
-/** Generated Node Admin SDK operation action function for the 'UpsertFcmToken' Mutation. Allow users to execute without passing in DataConnect. */
-export function upsertFcmToken(dc: DataConnect, vars: UpsertFcmTokenVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpsertFcmTokenData>>;
-/** Generated Node Admin SDK operation action function for the 'UpsertFcmToken' Mutation. Allow users to pass in custom DataConnect instances. */
-export function upsertFcmToken(vars: UpsertFcmTokenVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpsertFcmTokenData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateMemberFcmToken' Mutation. Allow users to execute without passing in DataConnect. */
+export function updateMemberFcmToken(dc: DataConnect, vars: UpdateMemberFcmTokenVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMemberFcmTokenData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateMemberFcmToken' Mutation. Allow users to pass in custom DataConnect instances. */
+export function updateMemberFcmToken(vars: UpdateMemberFcmTokenVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateMemberFcmTokenData>>;
 
 /** Generated Node Admin SDK operation action function for the 'CreateEvent' Mutation. Allow users to execute without passing in DataConnect. */
 export function createEvent(dc: DataConnect, vars: CreateEventVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateEventData>>;
 /** Generated Node Admin SDK operation action function for the 'CreateEvent' Mutation. Allow users to pass in custom DataConnect instances. */
 export function createEvent(vars: CreateEventVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateEventData>>;
 
+/** Generated Node Admin SDK operation action function for the 'UpdateEventStatus' Mutation. Allow users to execute without passing in DataConnect. */
+export function updateEventStatus(dc: DataConnect, vars: UpdateEventStatusVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateEventStatusData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateEventStatus' Mutation. Allow users to pass in custom DataConnect instances. */
+export function updateEventStatus(vars: UpdateEventStatusVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateEventStatusData>>;
+
 /** Generated Node Admin SDK operation action function for the 'AddEventMember' Mutation. Allow users to execute without passing in DataConnect. */
 export function addEventMember(dc: DataConnect, vars: AddEventMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<AddEventMemberData>>;
 /** Generated Node Admin SDK operation action function for the 'AddEventMember' Mutation. Allow users to pass in custom DataConnect instances. */
 export function addEventMember(vars: AddEventMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<AddEventMemberData>>;
 
-/** Generated Node Admin SDK operation action function for the 'CreateCalendarEvent' Mutation. Allow users to execute without passing in DataConnect. */
-export function createCalendarEvent(dc: DataConnect, vars: CreateCalendarEventVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateCalendarEventData>>;
-/** Generated Node Admin SDK operation action function for the 'CreateCalendarEvent' Mutation. Allow users to pass in custom DataConnect instances. */
-export function createCalendarEvent(vars: CreateCalendarEventVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateCalendarEventData>>;
+/** Generated Node Admin SDK operation action function for the 'RemoveEventMember' Mutation. Allow users to execute without passing in DataConnect. */
+export function removeEventMember(dc: DataConnect, vars: RemoveEventMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<RemoveEventMemberData>>;
+/** Generated Node Admin SDK operation action function for the 'RemoveEventMember' Mutation. Allow users to pass in custom DataConnect instances. */
+export function removeEventMember(vars: RemoveEventMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<RemoveEventMemberData>>;
+
+/** Generated Node Admin SDK operation action function for the 'RequestEventAccess' Mutation. Allow users to execute without passing in DataConnect. */
+export function requestEventAccess(dc: DataConnect, vars: RequestEventAccessVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<RequestEventAccessData>>;
+/** Generated Node Admin SDK operation action function for the 'RequestEventAccess' Mutation. Allow users to pass in custom DataConnect instances. */
+export function requestEventAccess(vars: RequestEventAccessVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<RequestEventAccessData>>;
+
+/** Generated Node Admin SDK operation action function for the 'ResolveEventAccess' Mutation. Allow users to execute without passing in DataConnect. */
+export function resolveEventAccess(dc: DataConnect, vars: ResolveEventAccessVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<ResolveEventAccessData>>;
+/** Generated Node Admin SDK operation action function for the 'ResolveEventAccess' Mutation. Allow users to pass in custom DataConnect instances. */
+export function resolveEventAccess(vars: ResolveEventAccessVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<ResolveEventAccessData>>;
+
+/** Generated Node Admin SDK operation action function for the 'CreateEventAppointment' Mutation. Allow users to execute without passing in DataConnect. */
+export function createEventAppointment(dc: DataConnect, vars: CreateEventAppointmentVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateEventAppointmentData>>;
+/** Generated Node Admin SDK operation action function for the 'CreateEventAppointment' Mutation. Allow users to pass in custom DataConnect instances. */
+export function createEventAppointment(vars: CreateEventAppointmentVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateEventAppointmentData>>;
 
 /** Generated Node Admin SDK operation action function for the 'SendBroadcast' Mutation. Allow users to execute without passing in DataConnect. */
 export function sendBroadcast(dc: DataConnect, vars: SendBroadcastVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<SendBroadcastData>>;
@@ -581,20 +705,15 @@ export function getAssociationBySubdomain(dc: DataConnect, vars: GetAssociationB
 /** Generated Node Admin SDK operation action function for the 'GetAssociationBySubdomain' Query. Allow users to pass in custom DataConnect instances. */
 export function getAssociationBySubdomain(vars: GetAssociationBySubdomainVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationBySubdomainData>>;
 
-/** Generated Node Admin SDK operation action function for the 'GetMembership' Query. Allow users to execute without passing in DataConnect. */
-export function getMembership(dc: DataConnect, vars: GetMembershipVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetMembershipData>>;
-/** Generated Node Admin SDK operation action function for the 'GetMembership' Query. Allow users to pass in custom DataConnect instances. */
-export function getMembership(vars: GetMembershipVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetMembershipData>>;
+/** Generated Node Admin SDK operation action function for the 'GetMember' Query. Allow users to execute without passing in DataConnect. */
+export function getMember(dc: DataConnect, vars: GetMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetMemberData>>;
+/** Generated Node Admin SDK operation action function for the 'GetMember' Query. Allow users to pass in custom DataConnect instances. */
+export function getMember(vars: GetMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetMemberData>>;
 
 /** Generated Node Admin SDK operation action function for the 'GetAssociationConditions' Query. Allow users to execute without passing in DataConnect. */
 export function getAssociationConditions(dc: DataConnect, vars: GetAssociationConditionsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationConditionsData>>;
 /** Generated Node Admin SDK operation action function for the 'GetAssociationConditions' Query. Allow users to pass in custom DataConnect instances. */
 export function getAssociationConditions(vars: GetAssociationConditionsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationConditionsData>>;
-
-/** Generated Node Admin SDK operation action function for the 'GetManagerMemberships' Query. Allow users to execute without passing in DataConnect. */
-export function getManagerMemberships(dc: DataConnect, vars: GetManagerMembershipsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetManagerMembershipsData>>;
-/** Generated Node Admin SDK operation action function for the 'GetManagerMemberships' Query. Allow users to pass in custom DataConnect instances. */
-export function getManagerMemberships(vars: GetManagerMembershipsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetManagerMembershipsData>>;
 
 /** Generated Node Admin SDK operation action function for the 'GetAssociationMembers' Query. Allow users to execute without passing in DataConnect. */
 export function getAssociationMembers(dc: DataConnect, vars: GetAssociationMembersVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationMembersData>>;
@@ -611,8 +730,18 @@ export function getEventDetail(dc: DataConnect, vars: GetEventDetailVariables, o
 /** Generated Node Admin SDK operation action function for the 'GetEventDetail' Query. Allow users to pass in custom DataConnect instances. */
 export function getEventDetail(vars: GetEventDetailVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetEventDetailData>>;
 
-/** Generated Node Admin SDK operation action function for the 'GetUserByEmail' Query. Allow users to execute without passing in DataConnect. */
-export function getUserByEmail(dc: DataConnect, vars: GetUserByEmailVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetUserByEmailData>>;
-/** Generated Node Admin SDK operation action function for the 'GetUserByEmail' Query. Allow users to pass in custom DataConnect instances. */
-export function getUserByEmail(vars: GetUserByEmailVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetUserByEmailData>>;
+/** Generated Node Admin SDK operation action function for the 'GetMemberEvents' Query. Allow users to execute without passing in DataConnect. */
+export function getMemberEvents(dc: DataConnect, vars: GetMemberEventsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetMemberEventsData>>;
+/** Generated Node Admin SDK operation action function for the 'GetMemberEvents' Query. Allow users to pass in custom DataConnect instances. */
+export function getMemberEvents(vars: GetMemberEventsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetMemberEventsData>>;
+
+/** Generated Node Admin SDK operation action function for the 'GetEventMember' Query. Allow users to execute without passing in DataConnect. */
+export function getEventMember(dc: DataConnect, vars: GetEventMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetEventMemberData>>;
+/** Generated Node Admin SDK operation action function for the 'GetEventMember' Query. Allow users to pass in custom DataConnect instances. */
+export function getEventMember(vars: GetEventMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetEventMemberData>>;
+
+/** Generated Node Admin SDK operation action function for the 'GetEventAppointmentDetail' Query. Allow users to execute without passing in DataConnect. */
+export function getEventAppointmentDetail(dc: DataConnect, vars: GetEventAppointmentDetailVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetEventAppointmentDetailData>>;
+/** Generated Node Admin SDK operation action function for the 'GetEventAppointmentDetail' Query. Allow users to pass in custom DataConnect instances. */
+export function getEventAppointmentDetail(vars: GetEventAppointmentDetailVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetEventAppointmentDetailData>>;
 

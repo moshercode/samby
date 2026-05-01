@@ -53,15 +53,15 @@ class OnboardingViewModel extends ViewModel {
     notifyListeners();
   }
 
-  bool _requireDni = false;
-  bool _requireDniImage = false;
+  bool _requireIdDoc = false;
+  bool _requireIdDocImage = false;
   bool _requireGuardian = false;
 
-  bool get requireDni => _requireDni;
-  set requireDni(bool v) { _requireDni = v; notifyListeners(); }
+  bool get requireIdDoc => _requireIdDoc;
+  set requireIdDoc(bool v) { _requireIdDoc = v; notifyListeners(); }
 
-  bool get requireDniImage => _requireDniImage;
-  set requireDniImage(bool v) { _requireDniImage = v; notifyListeners(); }
+  bool get requireIdDocImage => _requireIdDocImage;
+  set requireIdDocImage(bool v) { _requireIdDocImage = v; notifyListeners(); }
 
   bool get requireGuardian => _requireGuardian;
   set requireGuardian(bool v) { _requireGuardian = v; notifyListeners(); }
@@ -183,8 +183,8 @@ class OnboardingViewModel extends ViewModel {
     final Completer<void> completer = Completer<void>();
     sl<AssociationRepository>().updateAssociation(
       associationId,
-      requireDni: _requireDni,
-      requireDniImage: _requireDniImage,
+      requireIdDoc: _requireIdDoc,
+      requireIdDocImage: _requireIdDocImage,
       requireGuardian: _requireGuardian,
       onComplete: (_) => completer.complete(),
     );

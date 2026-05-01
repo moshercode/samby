@@ -52,14 +52,14 @@ abstract class EventRepository {
     required Function(AppError? error) onComplete,
   });
 
-  void getEventAccessRequest(
+  void getEventMember(
     String eventId,
     String memberId, {
     required Function(EventAccessRequest? request, AppError? error) onComplete,
   });
 
   void resolveEventAccess(
-    String requestId,
+    String eventMemberId,
     String status,
     String resolvedBy,
     String resolvedAt, {

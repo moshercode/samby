@@ -4,33 +4,33 @@ import 'package:samby/core/utils/ui_utils.dart';
 import 'package:samby/domain/entities/membership.dart';
 import 'package:samby/presentation/managers/navigation_manager.dart';
 import 'package:samby/presentation/viewmodels/access_request/access_request_viewmodel.dart';
-import 'package:samby/presentation/viewmodels/association_detail/association_detail_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/association/association_detail_viewmodel.dart';
 import 'package:samby/presentation/viewmodels/authentication/authentication_viewmodel.dart';
 import 'package:samby/presentation/viewmodels/base/view_model.dart';
-import 'package:samby/presentation/viewmodels/create_event/create_event_viewmodel.dart';
-import 'package:samby/presentation/viewmodels/create_event_appointment/create_event_appointment_viewmodel.dart';
-import 'package:samby/presentation/viewmodels/event_appointment_detail/event_appointment_detail_viewmodel.dart';
-import 'package:samby/presentation/viewmodels/event_detail/event_detail_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/events/create_event_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/events/create_event_appointment_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/events/event_appointment_detail_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/events/event_detail_viewmodel.dart';
 import 'package:samby/presentation/viewmodels/home/home_viewmodel.dart';
-import 'package:samby/presentation/viewmodels/member_detail/member_detail_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/members/member_detail_viewmodel.dart';
 import 'package:samby/presentation/viewmodels/members/members_viewmodel.dart';
-import 'package:samby/presentation/viewmodels/membership_status/membership_status_viewmodel.dart';
-import 'package:samby/presentation/viewmodels/onboarding/onboarding_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/members/membership_status_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/association/onboarding_viewmodel.dart';
 import 'package:samby/presentation/viewmodels/splash/splash_viewmodel.dart';
-import 'package:samby/presentation/views/access_request/access_request_view.dart';
-import 'package:samby/presentation/views/association_detail/association_detail_view.dart';
+import 'package:samby/presentation/views/members/access_request_view.dart';
+import 'package:samby/presentation/views/association/association_detail_view.dart';
 import 'package:samby/presentation/views/authentication/authentication_view.dart';
 import 'package:samby/presentation/views/base/base_view.dart';
-import 'package:samby/presentation/views/create_event/create_event_view.dart';
-import 'package:samby/presentation/views/create_event_appointment/create_event_appointment_view.dart';
-import 'package:samby/presentation/views/event_appointment_detail/event_appointment_detail_view.dart';
-import 'package:samby/presentation/views/event_detail/event_detail_view.dart';
+import 'package:samby/presentation/views/events/create_event_view.dart';
+import 'package:samby/presentation/views/events/create_event_appointment_view.dart';
+import 'package:samby/presentation/views/events/event_appointment_detail_view.dart';
+import 'package:samby/presentation/views/events/event_detail_view.dart';
 import 'package:samby/presentation/views/home/home_view.dart';
 import 'package:samby/presentation/views/image_detail/image_detail_view.dart';
-import 'package:samby/presentation/views/member_detail/member_detail_view.dart';
+import 'package:samby/presentation/views/members/member_detail_view.dart';
 import 'package:samby/presentation/views/members/members_view.dart';
-import 'package:samby/presentation/views/membership_status/membership_status_view.dart';
-import 'package:samby/presentation/views/onboarding/onboarding_view.dart';
+import 'package:samby/presentation/views/members/membership_status_view.dart';
+import 'package:samby/presentation/views/association/onboarding_view.dart';
 import 'package:samby/presentation/views/splash/splash_view.dart';
 
 enum PresentationMode { push, modal, fade }
@@ -56,95 +56,47 @@ abstract class NavigationUtils {
   }
 
   static Future<void> showOnboardingView(ViewModel from) {
-    return _showView(
-      from: from,
-      view: OnboardingView(OnboardingViewModel()),
-      mode: PresentationMode.fade,
-      clearStack: true,
-    );
+    return _showView(from: from, view: OnboardingView(OnboardingViewModel()), mode: PresentationMode.fade, clearStack: true);
   }
 
   static Future<void> showAccessRequestView(ViewModel from) {
-    return _showView(
-      from: from,
-      view: AccessRequestView(AccessRequestViewModel()),
-      mode: PresentationMode.fade,
-      clearStack: true,
-    );
+    return _showView(from: from, view: AccessRequestView(AccessRequestViewModel()), mode: PresentationMode.fade, clearStack: true);
   }
 
   static Future<void> showMembershipStatusView(ViewModel from) {
-    return _showView(
-      from: from,
-      view: MembershipStatusView(MembershipStatusViewModel()),
-      mode: PresentationMode.fade,
-      clearStack: true,
-    );
+    return _showView(from: from, view: MembershipStatusView(MembershipStatusViewModel()), mode: PresentationMode.fade, clearStack: true);
   }
 
   static Future<void> showHomeView(ViewModel from) {
-    return _showView(
-      from: from,
-      view: HomeView(HomeViewModel()),
-      mode: PresentationMode.fade,
-      clearStack: true,
-    );
+    return _showView(from: from, view: HomeView(HomeViewModel()), mode: PresentationMode.fade, clearStack: true);
   }
 
   static Future<void> showMembersView(ViewModel from) {
-    return _showView(
-      from: from,
-      view: MembersView(MembersViewModel()),
-      mode: PresentationMode.push,
-    );
+    return _showView(from: from, view: MembersView(MembersViewModel()), mode: PresentationMode.push);
   }
 
   static Future<void> showEventDetailView(ViewModel from, String eventId) {
-    return _showView(
-      from: from,
-      view: EventDetailView(EventDetailViewModel(eventId)),
-      mode: PresentationMode.push,
-    );
+    return _showView(from: from, view: EventDetailView(EventDetailViewModel(eventId)), mode: PresentationMode.push);
   }
 
   static Future<void> showCreateEventView(ViewModel from) {
-    return _showView(
-      from: from,
-      view: CreateEventView(CreateEventViewModel()),
-      mode: PresentationMode.modal,
-    );
+    return _showView(from: from, view: CreateEventView(CreateEventViewModel()), mode: PresentationMode.modal);
   }
 
   static Future<void> showCreateEventAppointmentView(ViewModel from, String eventId) {
-    return _showView(
-      from: from,
-      view: CreateEventAppointmentView(CreateEventAppointmentViewModel(eventId)),
-      mode: PresentationMode.modal,
-    );
+    return _showView(from: from, view: CreateEventAppointmentView(CreateEventAppointmentViewModel(eventId)), mode: PresentationMode.modal);
   }
 
   static Future<void> showEventAppointmentDetailView(ViewModel from, String appointmentId) {
-    return _showView(
-      from: from,
-      view: EventAppointmentDetailView(EventAppointmentDetailViewModel(appointmentId)),
-      mode: PresentationMode.push,
-    );
+    return _showView(from: from, view: EventAppointmentDetailView(EventAppointmentDetailViewModel(appointmentId)), mode: PresentationMode.push);
   }
 
   static Future<void> showAssociationDetailView(ViewModel from) {
-    return _showView(
-      from: from,
-      view: AssociationDetailView(AssociationDetailViewModel()),
-      mode: PresentationMode.push,
-    );
+    return _showView(from: from, view: AssociationDetailView(AssociationDetailViewModel()), mode: PresentationMode.push);
   }
 
   static Future<void> showMemberDetailView(ViewModel from, Member member) {
-    return _showView(
-      from: from,
-      view: MemberDetailView(MemberDetailViewModel(member)),
-      mode: PresentationMode.push,
-    );
+    return _showView(from: from, view: MemberDetailView(MemberDetailViewModel(member)), mode: PresentationMode.push);
   }
 
   static Future<void> showImageDetailView(ViewModel from, String imageUrl) {
@@ -159,8 +111,7 @@ abstract class NavigationUtils {
   static Future<void> showDashboardView(ViewModel from) => showHomeView(from);
   static Future<void> showPendingApprovalView(ViewModel from) => showMembershipStatusView(from);
   static Future<void> showRejectedView(ViewModel from) => showMembershipStatusView(from);
-  static Future<void> showCreateCalendarEventView(ViewModel from, String eventId) =>
-      showCreateEventAppointmentView(from, eventId);
+  static Future<void> showCreateCalendarEventView(ViewModel from, String eventId) => showCreateEventAppointmentView(from, eventId);
 
   // Private methods
 
@@ -215,16 +166,12 @@ abstract class NavigationUtils {
             return FadeTransition(opacity: animation, child: child);
           case PresentationMode.modal:
             return SlideTransition(
-              position: animation.drive(
-                Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).chain(CurveTween(curve: Curves.ease)),
-              ),
+              position: animation.drive(Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).chain(CurveTween(curve: Curves.ease))),
               child: child,
             );
           case PresentationMode.push:
             return SlideTransition(
-              position: animation.drive(
-                Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).chain(CurveTween(curve: Curves.ease)),
-              ),
+              position: animation.drive(Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).chain(CurveTween(curve: Curves.ease))),
               child: child,
             );
         }

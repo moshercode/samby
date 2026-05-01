@@ -40,7 +40,7 @@ abstract class DataconnectOps {
   static const String updateEventStatus = 'UpdateEventStatus';
   static const String requestEventAccess = 'RequestEventAccess';
   static const String resolveEventAccess = 'ResolveEventAccess';
-  static const String getEventAccessRequest = 'GetEventAccessRequest';
+  static const String getEventMember = 'GetEventMember';
 
   // Event Appointments
   static const String createEventAppointment = 'CreateEventAppointment';
@@ -74,13 +74,12 @@ abstract class DataconnectKeys {
   static const String resolvedBy = 'resolvedBy';
   static const String resolvedAt = 'resolvedAt';
   static const String internalNotes = 'internalNotes';
-  static const String memberName = 'memberName';
-  static const String memberBirthDate = 'memberBirthDate';
-  static const String memberDni = 'memberDni';
-  static const String memberDniImageUrl = 'memberDniImageUrl';
+  static const String birthDate = 'birthDate';
+  static const String idDoc = 'idDoc';
+  static const String idDocImageUrl = 'idDocImageUrl';
   static const String guardianName = 'guardianName';
-  static const String guardianDni = 'guardianDni';
-  static const String guardianDniImageUrl = 'guardianDniImageUrl';
+  static const String guardianIdDoc = 'guardianIdDoc';
+  static const String guardianIdDocImageUrl = 'guardianIdDocImageUrl';
   static const String signatureUrl = 'signatureUrl';
   static const String conditionsAcceptedAt = 'conditionsAcceptedAt';
   static const String minorConditionsAcceptedAt = 'minorConditionsAcceptedAt';
@@ -101,8 +100,8 @@ abstract class DataconnectKeys {
   static const String sentBy = 'sentBy';
   static const String freeEntry = 'freeEntry';
   static const String entryCondition = 'entryCondition';
-  static const String requireDni = 'requireDni';
-  static const String requireDniImage = 'requireDniImage';
+  static const String requireIdDoc = 'requireIdDoc';
+  static const String requireIdDocImage = 'requireIdDocImage';
   static const String requireGuardian = 'requireGuardian';
   static const String appointmentId = 'appointmentId';
 }
@@ -118,7 +117,6 @@ abstract class DataconnectResponseKeys {
   static const String events = 'events';
   static const String eventMembers = 'eventMembers';
   static const String eventAppointment = 'eventAppointment';
-  static const String eventAccessRequests = 'eventAccessRequests';
 }
 
 // ── Datasource ────────────────────────────────────────────────────────────────

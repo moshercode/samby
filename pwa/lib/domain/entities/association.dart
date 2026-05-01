@@ -12,8 +12,8 @@ class Association implements Entity {
   late String primaryColor;
   late String secondaryColor;
   late String founderEmail;
-  late bool requireDni;
-  late bool requireDniImage;
+  late bool requireIdDoc;
+  late bool requireIdDocImage;
   late bool requireGuardian;
   late bool active;
 
@@ -30,8 +30,8 @@ class Association implements Entity {
     primaryColor = map['primaryColor'] as String;
     secondaryColor = map['secondaryColor'] as String;
     founderEmail = map['founderEmail'] as String? ?? '';
-    requireDni = map['requireDni'] as bool? ?? false;
-    requireDniImage = map['requireDniImage'] as bool? ?? false;
+    requireIdDoc = map['requireIdDoc'] as bool? ?? false;
+    requireIdDocImage = map['requireIdDocImage'] as bool? ?? false;
     requireGuardian = map['requireGuardian'] as bool? ?? false;
     active = map['active'] as bool? ?? false;
   }

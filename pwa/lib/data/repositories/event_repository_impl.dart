@@ -197,37 +197,37 @@ class EventRepositoryImpl implements EventRepository {
   }
 
   @override
-  void getEventAccessRequest(
+  void getEventMember(
     String eventId,
     String memberId, {
     required Function(EventAccessRequest? request, AppError? error) onComplete,
   }) async {
     try {
       final Map<String, dynamic>? data = await _datasource.executeQuery(
-        DataconnectOps.getEventAccessRequest,
+        DataconnectOps.getEventMember,
         variables: {
           DataconnectKeys.eventId: eventId,
           DataconnectKeys.memberId: memberId,
         },
       );
       final List<dynamic> raw =
-          data?[DataconnectResponseKeys.eventAccessRequests] as List<dynamic>? ?? <dynamic>[];
+          data?[DataconnectResponseKeys.eventMembers] as List<dynamic>? ?? <dynamic>[];
       final EventAccessRequest? request = raw.isNotEmpty
           ? EventAccessRequest.fromMap(raw.first as Map<String, dynamic>)
           : null;
       onComplete(request, null);
     } on AppError catch (e) {
-      Log.error('EventRepositoryImpl.getEventAccessRequest: $e');
+      Log.error('EventRepositoryImpl.getEventMember: $e');
       onComplete(null, e);
     } catch (e) {
-      Log.error('EventRepositoryImpl.getEventAccessRequest unknown: $e');
+      Log.error('EventRepositoryImpl.getEventMember unknown: $e');
       onComplete(null, DataError(e.toString()));
     }
   }
 
   @override
   void resolveEventAccess(
-    String requestId,
+    String eventMemberId,
     String status,
     String resolvedBy,
     String resolvedAt, {
@@ -237,7 +237,7 @@ class EventRepositoryImpl implements EventRepository {
       await _datasource.executeMutation(
         DataconnectOps.resolveEventAccess,
         variables: {
-          DataconnectKeys.id: requestId,
+          DataconnectKeys.id: eventMemberId,
           DataconnectKeys.status: status,
           DataconnectKeys.resolvedBy: resolvedBy,
           DataconnectKeys.resolvedAt: resolvedAt,

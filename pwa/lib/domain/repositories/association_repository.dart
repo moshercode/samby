@@ -38,8 +38,8 @@ abstract class AssociationRepository {
 
   void updateAssociation(
     String associationId, {
-    required bool requireDni,
-    required bool requireDniImage,
+    required bool requireIdDoc,
+    required bool requireIdDocImage,
     required bool requireGuardian,
     required Function(AppError? error) onComplete,
   });

@@ -10,19 +10,18 @@ class Member implements Entity {
   late String id;
   late String associationId;
   late String email;
-  late String name;
   late String phone;
   late MemberRole role;
   late MemberStatus status;
   late bool isBlocked;
   late bool isFounder;
-  late String memberName;
-  late String memberDni;
-  String? memberDniImageUrl;
+  late String name;
+  late String idDoc;
+  String? idDocImageUrl;
   String? profileImageUrl;
   String? phone2;
   String? guardianName;
-  String? guardianDni;
+  String? guardianIdDoc;
   String? internalNotes;
   DateTime? requestedAt;
 
@@ -42,7 +41,6 @@ class Member implements Entity {
     final Map<String, dynamic>? assocMap = map['association'] as Map<String, dynamic>?;
     associationId = assocMap?['id'] as String? ?? map['associationId'] as String? ?? '';
     email = map['email'] as String? ?? '';
-    name = map['name'] as String? ?? '';
     phone = map['phone'] as String? ?? '';
     role = MemberRole.values.firstWhere(
       (MemberRole r) => r.name == (map['role'] as String?)?.toLowerCase(),
@@ -54,14 +52,13 @@ class Member implements Entity {
     );
     isBlocked = map['isBlocked'] as bool? ?? false;
     isFounder = map['isFounder'] as bool? ?? false;
-    final String? rawMemberName = map['memberName'] as String?;
-    memberName = rawMemberName?.isNotEmpty == true ? rawMemberName! : name;
-    memberDni = map['memberDni'] as String? ?? '';
-    memberDniImageUrl = map['memberDniImageUrl'] as String?;
+    name = map['name'] as String? ?? '';
+    idDoc = map['idDoc'] as String? ?? '';
+    idDocImageUrl = map['idDocImageUrl'] as String?;
     profileImageUrl = map['profileImageUrl'] as String?;
     phone2 = map['phone2'] as String?;
     guardianName = map['guardianName'] as String?;
-    guardianDni = map['guardianDni'] as String?;
+    guardianIdDoc = map['guardianIdDoc'] as String?;
     internalNotes = map['internalNotes'] as String?;
     final String? reqStr = map['requestedAt'] as String?;
     requestedAt = reqStr != null ? DateTime.tryParse(reqStr) : null;

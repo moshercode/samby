@@ -9,8 +9,8 @@ query GetAssociationByFounderEmail($founderEmail: String!) @auth(level: USER) {
     primaryColor
     secondaryColor
     founderEmail
-    requireDni
-    requireDniImage
+    requireIdDoc
+    requireIdDocImage
     requireGuardian
     active
     createdAt
@@ -28,8 +28,8 @@ query GetAssociationBySubdomain($subdomain: String!) @auth(level: PUBLIC) {
     primaryColor
     secondaryColor
     founderEmail
-    requireDni
-    requireDniImage
+    requireIdDoc
+    requireIdDocImage
     requireGuardian
     active
     createdAt
@@ -41,21 +41,20 @@ query GetMember($memberId: UUID!) @auth(level: USER) {
     id
     association { id }
     email
-    name
     phone
     role
     status
     isBlocked
     isFounder
     createdAt
-    memberName
-    memberBirthDate
-    memberDni
-    memberDniImageUrl
+    name
+    birthDate
+    idDoc
+    idDocImageUrl
     profileImageUrl
     guardianName
-    guardianDni
-    guardianDniImageUrl
+    guardianIdDoc
+    guardianIdDocImageUrl
     signatureUrl
     conditionsAcceptedAt
     minorConditionsAcceptedAt
@@ -78,21 +77,20 @@ query GetAssociationMembers($associationId: UUID!) @auth(level: USER) {
   members(where: { associationId: { eq: $associationId } }, orderBy: [{ createdAt: DESC }]) {
     id
     email
-    name
     phone
     role
     status
     isBlocked
     isFounder
     createdAt
-    memberName
-    memberBirthDate
-    memberDni
-    memberDniImageUrl
+    name
+    birthDate
+    idDoc
+    idDocImageUrl
     profileImageUrl
     guardianName
-    guardianDni
-    guardianDniImageUrl
+    guardianIdDoc
+    guardianIdDocImageUrl
     signatureUrl
     conditionsAcceptedAt
     minorConditionsAcceptedAt
@@ -116,6 +114,7 @@ query GetAssociationEvents($associationId: UUID!) @auth(level: USER) {
     updatedAt
     createdAt
     eventMembers_on_event {
+      status
       member { id }
     }
   }
@@ -144,7 +143,8 @@ query GetEventDetail($eventId: UUID!) @auth(level: USER) {
     }
     eventMembers_on_event {
       id
-      member { id name memberName }
+      status
+      member { id name }
     }
   }
 }
@@ -167,10 +167,10 @@ query GetMemberEvents($memberId: UUID!) @auth(level: USER) {
   }
 }
 
-query GetEventAccessRequest($eventId: UUID!, $memberId: UUID!) @auth(level: USER) {
-  eventAccessRequests(
+query GetEventMember($eventId: UUID!, $memberId: UUID!) @auth(level: USER) {
+  eventMembers(
     where: { eventId: { eq: $eventId }, memberId: { eq: $memberId } }
-    first: 1
+    limit: 1
   ) {
     id
     status
@@ -190,9 +190,10 @@ query GetEventAppointmentDetail($appointmentId: UUID!) @auth(level: USER) {
     createdAt
     eventAppointmentComments_on_eventAppointment(orderBy: [{ createdAt: ASC }]) {
       id
-      author { id name memberName profileImageUrl }
+      author { id name profileImageUrl }
       content
       imageUrls
+      parentComment { id }
       createdAt
     }
   }

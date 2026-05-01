@@ -3,14 +3,14 @@
 #
 # Replace the placeholder UUIDs with real values:
 #   ASSOCIATION_ID  → your association's UUID (from GetAssociationBySubdomain)
-#   USER_MANAGER_ID → your manager AppUser.id (from GetUserByEmail)
-#   USER_MEMBER1_ID → a test member AppUser.id (insert via SeedAppUser1 first)
-#   USER_MEMBER2_ID → another test member AppUser.id (insert via SeedAppUser2 first)
+#   USER_MANAGER_ID → your manager Member.id
+#   USER_MEMBER1_ID → a test member Member.id
+#   USER_MEMBER2_ID → another test member Member.id
 #
 # Recommended execution order:
 #   1. SeedCondition1..5
 #   2. SeedEvent1..3
-#   3. SeedAppUser1, SeedAppUser2  →  note returned IDs
+#   3. SeedMember1, SeedMember2  →  note returned IDs
 #   4. SeedMembership1, SeedMembership2  (fill in member IDs above first)
 
 # ── Association conditions ─────────────────────────────────────────────────────
@@ -67,8 +67,11 @@ mutation SeedEvent1 {
     associationId: "ASSOCIATION_ID"
     title: "Reunión ordinaria de socios"
     description: "Reunión ordinaria de socios para revisar el estado de la asociación y aprobar el presupuesto del próximo trimestre. La asistencia es obligatoria para los miembros de la junta."
-    eventDate: "2026-05-15T18:00:00Z"
+    startDate: "2026-05-15T18:00:00Z"
     endDate: "2026-05-15T20:00:00Z"
+    status: ACTIVE
+    freeEntry: true
+    imageUrl: ""
     createdById: "USER_MANAGER_ID"
   })
 }
@@ -78,8 +81,11 @@ mutation SeedEvent2 {
     associationId: "ASSOCIATION_ID"
     title: "Taller de formación"
     description: "Taller práctico sobre las nuevas normativas vigentes. Asistencia recomendada para todos los miembros activos de la asociación."
-    eventDate: "2026-06-03T10:00:00Z"
+    startDate: "2026-06-03T10:00:00Z"
     endDate: "2026-06-03T13:00:00Z"
+    status: ACTIVE
+    freeEntry: true
+    imageUrl: ""
     createdById: "USER_MANAGER_ID"
   })
 }
@@ -89,61 +95,48 @@ mutation SeedEvent3 {
     associationId: "ASSOCIATION_ID"
     title: "Celebración anual"
     description: "Celebración del aniversario de la asociación con cena de gala y entrega de reconocimientos a los socios más destacados del año."
-    eventDate: "2026-07-20T20:30:00Z"
+    startDate: "2026-07-20T20:30:00Z"
     endDate: "2026-07-21T00:00:00Z"
+    status: ACTIVE
+    freeEntry: true
+    imageUrl: ""
     createdById: "USER_MANAGER_ID"
   })
 }
 
-# ── Test AppUsers (run these first to get IDs for memberships) ─────────────────
-
-mutation SeedAppUser1 {
-  appUser_insert(data: {
-    email: "ana.garcia@test.com"
-    name: "Ana García López"
-    phone: "+34 600 111 222"
-  })
-}
-
-mutation SeedAppUser2 {
-  appUser_insert(data: {
-    email: "carlos.martinez@test.com"
-    name: "Carlos Martínez Ruiz"
-    phone: "+34 600 333 444"
-  })
-}
-
-# ── Memberships (replace USER_MEMBER1_ID / USER_MEMBER2_ID first) ──────────────
+# ── Members (replace USER_MEMBER1_ID / USER_MEMBER2_ID first) ──────────────
 
 mutation SeedMembership1 {
-  associationMembership_insert(data: {
+  member_insert(data: {
     associationId: "ASSOCIATION_ID"
-    userId: "USER_MEMBER1_ID"
-    role: "member"
+    email: "ana.garcia@test.com"
+    phone: "+34 600 111 222"
+    role: MEMBER
     status: "approved"
     isBlocked: false
     isFounder: false
-    memberName: "Ana García López"
-    memberBirthDate: "1992-04-18"
-    memberDNI: "12345678A"
-    memberDNIImageUrl: ""
+    name: "Ana García López"
+    birthDate: "1992-04-18"
+    idDoc: "12345678A"
+    idDocImageUrl: ""
     signatureUrl: ""
     conditionsAcceptedAt: "2026-01-10T12:00:00Z"
   })
 }
 
 mutation SeedMembership2 {
-  associationMembership_insert(data: {
+  member_insert(data: {
     associationId: "ASSOCIATION_ID"
-    userId: "USER_MEMBER2_ID"
-    role: "member"
+    email: "carlos.martinez@test.com"
+    phone: "+34 600 333 444"
+    role: MEMBER
     status: "pending"
     isBlocked: false
     isFounder: false
-    memberName: "Carlos Martínez Ruiz"
-    memberBirthDate: "1988-11-02"
-    memberDNI: "87654321B"
-    memberDNIImageUrl: ""
+    name: "Carlos Martínez Ruiz"
+    birthDate: "1988-11-02"
+    idDoc: "87654321B"
+    idDocImageUrl: ""
     signatureUrl: ""
     conditionsAcceptedAt: "2026-03-22T09:30:00Z"
   })

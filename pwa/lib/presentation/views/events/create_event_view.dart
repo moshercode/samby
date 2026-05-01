@@ -2,14 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:samby/presentation/resources/l10n/localization.dart';
 import 'package:samby/presentation/resources/theme/app_dimensions.dart';
-import 'package:samby/presentation/viewmodels/create_event/create_event_viewmodel.dart';
+import 'package:samby/presentation/viewmodels/events/create_event_viewmodel.dart';
 import 'package:samby/presentation/views/base/base_view.dart';
 import 'package:samby/presentation/widgets/common/app_text_input.dart';
 import 'package:samby/presentation/widgets/common/button.dart';
 import 'package:samby/presentation/widgets/common/safe_scaffold.dart';
 
 class CreateEventView extends BaseView<CreateEventViewModel> {
-
   // Constructor
 
   const CreateEventView(super.viewModel, {super.key});
@@ -29,11 +28,7 @@ class CreateEventView extends BaseView<CreateEventViewModel> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              AppTextInput(
-                label: l.fieldTitle,
-                textInputAction: TextInputAction.next,
-                onChanged: viewModel.onTitleChanged,
-              ),
+              AppTextInput(label: l.fieldTitle, textInputAction: TextInputAction.next, onChanged: viewModel.onTitleChanged),
               const SizedBox(height: Dimensions.space12),
               AppTextInput(
                 label: l.fieldDescription,
@@ -48,10 +43,7 @@ class CreateEventView extends BaseView<CreateEventViewModel> {
               const SizedBox(height: Dimensions.space16),
               Text(l.createEventStartDate, style: Theme.of(context).textTheme.titleSmall),
               const SizedBox(height: Dimensions.space8),
-              _DateButton(
-                date: viewModel.startDate,
-                onPick: viewModel.setStartDate,
-              ),
+              _DateButton(date: viewModel.startDate, onPick: viewModel.setStartDate),
               const SizedBox(height: Dimensions.space12),
               Text(l.createEventEndDate, style: Theme.of(context).textTheme.titleSmall),
               const SizedBox(height: Dimensions.space8),
@@ -70,18 +62,10 @@ class CreateEventView extends BaseView<CreateEventViewModel> {
               ),
               if (!viewModel.freeEntry) ...<Widget>[
                 const SizedBox(height: Dimensions.space8),
-                AppTextInput(
-                  label: l.createEventEntryCondition,
-                  maxLines: 2,
-                  onChanged: viewModel.onEntryConditionChanged,
-                ),
+                AppTextInput(label: l.createEventEntryCondition, maxLines: 2, onChanged: viewModel.onEntryConditionChanged),
               ],
               const SizedBox(height: Dimensions.space32),
-              Button(
-                title: l.createEventSubmit,
-                loading: viewModel.isLoading(),
-                onTap: viewModel.isValid ? viewModel.submit : null,
-              ),
+              Button(title: l.createEventSubmit, loading: viewModel.isLoading(), onTap: viewModel.isValid ? viewModel.submit : null),
               const SizedBox(height: Dimensions.space24),
             ],
           ),
@@ -92,7 +76,6 @@ class CreateEventView extends BaseView<CreateEventViewModel> {
 }
 
 class _ImagePicker extends StatelessWidget {
-
   // Constants
 
   static const double _kImagePreviewHeight = 160;
@@ -130,10 +113,7 @@ class _ImagePicker extends StatelessWidget {
               onTap: viewModel.pickAndUploadImage,
               child: Container(
                 padding: const EdgeInsets.all(Dimensions.space8),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  borderRadius: BorderRadius.circular(Dimensions.radiusSm),
-                ),
+                decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(Dimensions.radiusSm)),
                 child: const Icon(Icons.edit_rounded, size: Dimensions.iconMd),
               ),
             ),
@@ -152,7 +132,6 @@ class _ImagePicker extends StatelessWidget {
 }
 
 class _DateButton extends StatelessWidget {
-
   // Variables
 
   final DateTime? date;
@@ -162,12 +141,7 @@ class _DateButton extends StatelessWidget {
 
   // Constructor
 
-  const _DateButton({
-    required this.date,
-    required this.onPick,
-    this.onClear,
-    this.clearLabel,
-  });
+  const _DateButton({required this.date, required this.onPick, this.onClear, this.clearLabel});
 
   // Build
 
@@ -192,11 +166,7 @@ class _DateButton extends StatelessWidget {
         ),
         if (onClear != null) ...<Widget>[
           const SizedBox(width: Dimensions.space8),
-          IconButton(
-            onPressed: onClear,
-            icon: const Icon(Icons.close_rounded),
-            tooltip: clearLabel,
-          ),
+          IconButton(onPressed: onClear, icon: const Icon(Icons.close_rounded), tooltip: clearLabel),
         ],
       ],
     );
