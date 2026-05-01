@@ -7,7 +7,7 @@ class Event implements Entity {
   // Variables
 
   late String id;
-  late String associationId;
+  late String bandId;
   late String title;
   late String description;
   late String imageUrl;
@@ -33,7 +33,7 @@ class Event implements Entity {
   @override
   Event.fromMap(Map<String, dynamic> map) {
     id = map['id'] as String;
-    associationId = (map['association'] as Map<String, dynamic>?)?['id'] as String? ?? map['associationId'] as String? ?? '';
+    bandId = (map['band'] as Map<String, dynamic>?)?['id'] as String? ?? map['bandId'] as String? ?? '';
     title = map['title'] as String;
     description = map['description'] as String;
     imageUrl = map['imageUrl'] as String? ?? '';

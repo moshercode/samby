@@ -20,40 +20,40 @@ const connectorConfig = {
 };
 exports.connectorConfig = connectorConfig;
 
-function createAssociation(dcOrVarsOrOptions, varsOrOptions, options) {
+function createBand(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('CreateAssociation', inputVars, inputOpts);
+  return dcInstance.executeMutation('CreateBand', inputVars, inputOpts);
 }
-exports.createAssociation = createAssociation;
+exports.createBand = createBand;
 
-function updateAssociationImages(dcOrVarsOrOptions, varsOrOptions, options) {
+function updateBandImages(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('UpdateAssociationImages', inputVars, inputOpts);
+  return dcInstance.executeMutation('UpdateBandImages', inputVars, inputOpts);
 }
-exports.updateAssociationImages = updateAssociationImages;
+exports.updateBandImages = updateBandImages;
 
-function updateAssociation(dcOrVarsOrOptions, varsOrOptions, options) {
+function updateBand(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('UpdateAssociation', inputVars, inputOpts);
+  return dcInstance.executeMutation('UpdateBand', inputVars, inputOpts);
 }
-exports.updateAssociation = updateAssociation;
+exports.updateBand = updateBand;
 
-function addAssociationCondition(dcOrVarsOrOptions, varsOrOptions, options) {
+function addBandCondition(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('AddAssociationCondition', inputVars, inputOpts);
+  return dcInstance.executeMutation('AddBandCondition', inputVars, inputOpts);
 }
-exports.addAssociationCondition = addAssociationCondition;
+exports.addBandCondition = addBandCondition;
 
-function deleteAssociationCondition(dcOrVarsOrOptions, varsOrOptions, options) {
+function deleteBandCondition(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('DeleteAssociationCondition', inputVars, inputOpts);
+  return dcInstance.executeMutation('DeleteBandCondition', inputVars, inputOpts);
 }
-exports.deleteAssociationCondition = deleteAssociationCondition;
+exports.deleteBandCondition = deleteBandCondition;
 
 function createFounderMember(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
@@ -167,19 +167,19 @@ function sendBroadcast(dcOrVarsOrOptions, varsOrOptions, options) {
 }
 exports.sendBroadcast = sendBroadcast;
 
-function getAssociationByFounderEmail(dcOrVarsOrOptions, varsOrOptions, options) {
+function getBandByFounderEmail(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetAssociationByFounderEmail', inputVars, inputOpts);
+  return dcInstance.executeQuery('GetBandByFounderEmail', inputVars, inputOpts);
 }
-exports.getAssociationByFounderEmail = getAssociationByFounderEmail;
+exports.getBandByFounderEmail = getBandByFounderEmail;
 
-function getAssociationBySubdomain(dcOrVarsOrOptions, varsOrOptions, options) {
+function getBandBySubdomain(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetAssociationBySubdomain', inputVars, inputOpts);
+  return dcInstance.executeQuery('GetBandBySubdomain', inputVars, inputOpts);
 }
-exports.getAssociationBySubdomain = getAssociationBySubdomain;
+exports.getBandBySubdomain = getBandBySubdomain;
 
 function getMember(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
@@ -188,26 +188,26 @@ function getMember(dcOrVarsOrOptions, varsOrOptions, options) {
 }
 exports.getMember = getMember;
 
-function getAssociationConditions(dcOrVarsOrOptions, varsOrOptions, options) {
+function getBandConditions(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetAssociationConditions', inputVars, inputOpts);
+  return dcInstance.executeQuery('GetBandConditions', inputVars, inputOpts);
 }
-exports.getAssociationConditions = getAssociationConditions;
+exports.getBandConditions = getBandConditions;
 
-function getAssociationMembers(dcOrVarsOrOptions, varsOrOptions, options) {
+function getBandMembers(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetAssociationMembers', inputVars, inputOpts);
+  return dcInstance.executeQuery('GetBandMembers', inputVars, inputOpts);
 }
-exports.getAssociationMembers = getAssociationMembers;
+exports.getBandMembers = getBandMembers;
 
-function getAssociationEvents(dcOrVarsOrOptions, varsOrOptions, options) {
+function getBandEvents(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetAssociationEvents', inputVars, inputOpts);
+  return dcInstance.executeQuery('GetBandEvents', inputVars, inputOpts);
 }
-exports.getAssociationEvents = getAssociationEvents;
+exports.getBandEvents = getBandEvents;
 
 function getEventDetail(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);

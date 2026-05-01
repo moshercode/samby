@@ -5,91 +5,91 @@ import 'package:samby/domain/entities/association.dart';
 import 'package:samby/domain/entities/association_condition.dart';
 import 'package:samby/domain/repositories/association_repository.dart';
 
-class AssociationRepositoryImpl implements AssociationRepository {
+class BandRepositoryImpl implements BandRepository {
   // Variables
 
   final DataconnectDatasource _datasource;
 
   // Constructor
 
-  AssociationRepositoryImpl(this._datasource);
+  BandRepositoryImpl(this._datasource);
 
   // Public methods
 
   @override
-  void findAssociationBySubdomain(
+  void findBandBySubdomain(
     String subdomain, {
-    required Function(Association? association, AppError? error) onComplete,
+    required Function(Band? band, AppError? error) onComplete,
   }) async {
     try {
       final Map<String, dynamic>? data = await _datasource.executeQuery(
-        DataconnectOps.getAssociationBySubdomain,
+        DataconnectOps.getBandBySubdomain,
         variables: {DataconnectKeys.subdomain: subdomain},
       );
       final Map<String, dynamic>? raw =
-          data?[DataconnectResponseKeys.association] as Map<String, dynamic>?;
-      final Association? association = raw != null ? Association.fromMap(raw) : null;
-      onComplete(association, null);
+          data?[DataconnectResponseKeys.band] as Map<String, dynamic>?;
+      final Band? band = raw != null ? Band.fromMap(raw) : null;
+      onComplete(band, null);
     } on AppError catch (e) {
-      Log.error('AssociationRepositoryImpl.findAssociationBySubdomain: $e');
+      Log.error('BandRepositoryImpl.findBandBySubdomain: $e');
       onComplete(null, e);
     } catch (e) {
-      Log.error('AssociationRepositoryImpl.findAssociationBySubdomain unknown: $e');
+      Log.error('BandRepositoryImpl.findBandBySubdomain unknown: $e');
       onComplete(null, DataError(e.toString()));
     }
   }
 
   @override
-  void findAssociationByFounderEmail(
+  void findBandByFounderEmail(
     String founderEmail, {
-    required Function(Association? association, AppError? error) onComplete,
+    required Function(Band? band, AppError? error) onComplete,
   }) async {
     try {
       final Map<String, dynamic>? data = await _datasource.executeQuery(
-        DataconnectOps.getAssociationByFounderEmail,
+        DataconnectOps.getBandByFounderEmail,
         variables: {DataconnectKeys.founderEmail: founderEmail},
       );
       final Map<String, dynamic>? raw =
-          data?[DataconnectResponseKeys.association] as Map<String, dynamic>?;
-      final Association? association = raw != null ? Association.fromMap(raw) : null;
-      onComplete(association, null);
+          data?[DataconnectResponseKeys.band] as Map<String, dynamic>?;
+      final Band? band = raw != null ? Band.fromMap(raw) : null;
+      onComplete(band, null);
     } on AppError catch (e) {
-      Log.error('AssociationRepositoryImpl.findAssociationByFounderEmail: $e');
+      Log.error('BandRepositoryImpl.findBandByFounderEmail: $e');
       onComplete(null, e);
     } catch (e) {
-      Log.error('AssociationRepositoryImpl.findAssociationByFounderEmail unknown: $e');
+      Log.error('BandRepositoryImpl.findBandByFounderEmail unknown: $e');
       onComplete(null, DataError(e.toString()));
     }
   }
 
   @override
-  void getAssociationConditions(
-    String associationId, {
-    required Function(List<AssociationCondition> conditions, AppError? error) onComplete,
+  void getBandConditions(
+    String bandId, {
+    required Function(List<BandCondition> conditions, AppError? error) onComplete,
   }) async {
     try {
       final Map<String, dynamic>? data = await _datasource.executeQuery(
-        DataconnectOps.getAssociationConditions,
-        variables: {DataconnectKeys.associationId: associationId},
+        DataconnectOps.getBandConditions,
+        variables: {DataconnectKeys.bandId: bandId},
       );
       final List<dynamic> raw =
-          data?[DataconnectResponseKeys.associationConditions] as List<dynamic>? ?? <dynamic>[];
-      final List<AssociationCondition> conditions = raw
-          .map((dynamic c) => AssociationCondition.fromMap(c as Map<String, dynamic>))
+          data?[DataconnectResponseKeys.bandConditions] as List<dynamic>? ?? <dynamic>[];
+      final List<BandCondition> conditions = raw
+          .map((dynamic c) => BandCondition.fromMap(c as Map<String, dynamic>))
           .toList();
       onComplete(conditions, null);
     } on AppError catch (e) {
-      Log.error('AssociationRepositoryImpl.getAssociationConditions: $e');
-      onComplete(<AssociationCondition>[], e);
+      Log.error('BandRepositoryImpl.getBandConditions: $e');
+      onComplete(<BandCondition>[], e);
     } catch (e) {
-      Log.error('AssociationRepositoryImpl.getAssociationConditions unknown: $e');
-      onComplete(<AssociationCondition>[], DataError(e.toString()));
+      Log.error('BandRepositoryImpl.getBandConditions unknown: $e');
+      onComplete(<BandCondition>[], DataError(e.toString()));
     }
   }
 
   @override
-  void createCondition(
-    String associationId,
+  void createBandCondition(
+    String bandId,
     String type,
     String content,
     int sortOrder, {
@@ -97,9 +97,9 @@ class AssociationRepositoryImpl implements AssociationRepository {
   }) async {
     try {
       await _datasource.executeMutation(
-        DataconnectOps.createAssociationCondition,
+        DataconnectOps.createBandCondition,
         variables: {
-          DataconnectKeys.associationId: associationId,
+          DataconnectKeys.bandId: bandId,
           DataconnectKeys.type: type,
           DataconnectKeys.content: content,
           DataconnectKeys.sortOrder: sortOrder,
@@ -107,17 +107,17 @@ class AssociationRepositoryImpl implements AssociationRepository {
       );
       onComplete(null);
     } on AppError catch (e) {
-      Log.error('AssociationRepositoryImpl.createCondition: $e');
+      Log.error('BandRepositoryImpl.createBandCondition: $e');
       onComplete(e);
     } catch (e) {
-      Log.error('AssociationRepositoryImpl.createCondition unknown: $e');
+      Log.error('BandRepositoryImpl.createBandCondition unknown: $e');
       onComplete(DataError(e.toString()));
     }
   }
 
   @override
-  void updateAssociation(
-    String associationId, {
+  void updateBand(
+    String bandId, {
     required bool requireIdDoc,
     required bool requireIdDocImage,
     required bool requireGuardian,
@@ -125,9 +125,9 @@ class AssociationRepositoryImpl implements AssociationRepository {
   }) async {
     try {
       await _datasource.executeMutation(
-        DataconnectOps.updateAssociation,
+        DataconnectOps.updateBand,
         variables: {
-          DataconnectKeys.id: associationId,
+          DataconnectKeys.id: bandId,
           DataconnectKeys.requireIdDoc: requireIdDoc,
           DataconnectKeys.requireIdDocImage: requireIdDocImage,
           DataconnectKeys.requireGuardian: requireGuardian,
@@ -135,27 +135,27 @@ class AssociationRepositoryImpl implements AssociationRepository {
       );
       onComplete(null);
     } on AppError catch (e) {
-      Log.error('AssociationRepositoryImpl.updateAssociation: $e');
+      Log.error('BandRepositoryImpl.updateBand: $e');
       onComplete(e);
     } catch (e) {
-      Log.error('AssociationRepositoryImpl.updateAssociation unknown: $e');
+      Log.error('BandRepositoryImpl.updateBand unknown: $e');
       onComplete(DataError(e.toString()));
     }
   }
 
   @override
-  void createAssociation(
+  void createBand(
     String name,
     String shortName,
     String subdomain,
     String primaryColor,
     String secondaryColor,
     String founderEmail, {
-    required Function(String? associationId, AppError? error) onComplete,
+    required Function(String? bandId, AppError? error) onComplete,
   }) async {
     try {
       final Map<String, dynamic>? data = await _datasource.executeMutation(
-        DataconnectOps.createAssociation,
+        DataconnectOps.createBand,
         variables: {
           DataconnectKeys.name: name,
           DataconnectKeys.shortName: shortName,
@@ -165,13 +165,13 @@ class AssociationRepositoryImpl implements AssociationRepository {
           DataconnectKeys.founderEmail: founderEmail,
         },
       );
-      final String? id = (data?['association_insert'] as Map<String, dynamic>?)?['id'] as String?;
+      final String? id = (data?['band_insert'] as Map<String, dynamic>?)?['id'] as String?;
       onComplete(id, null);
     } on AppError catch (e) {
-      Log.error('AssociationRepositoryImpl.createAssociation: $e');
+      Log.error('BandRepositoryImpl.createBand: $e');
       onComplete(null, e);
     } catch (e) {
-      Log.error('AssociationRepositoryImpl.createAssociation unknown: $e');
+      Log.error('BandRepositoryImpl.createBand unknown: $e');
       onComplete(null, DataError(e.toString()));
     }
   }

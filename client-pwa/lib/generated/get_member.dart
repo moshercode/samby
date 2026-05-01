@@ -20,7 +20,7 @@ class GetMemberVariablesBuilder {
 @immutable
 class GetMemberMember {
   final String id;
-  final GetMemberMemberAssociation association;
+  final GetMemberMemberBand band;
   final String email;
   final String phone;
   final EnumValue<MemberRole> role;
@@ -45,7 +45,7 @@ class GetMemberMember {
   GetMemberMember.fromJson(dynamic json):
   
   id = nativeFromJson<String>(json['id']),
-  association = GetMemberMemberAssociation.fromJson(json['association']),
+  band = GetMemberMemberBand.fromJson(json['band']),
   email = nativeFromJson<String>(json['email']),
   phone = nativeFromJson<String>(json['phone']),
   role = memberRoleDeserializer(json['role']),
@@ -78,7 +78,7 @@ class GetMemberMember {
 
     final GetMemberMember otherTyped = other as GetMemberMember;
     return id == otherTyped.id && 
-    association == otherTyped.association && 
+    band == otherTyped.band && 
     email == otherTyped.email && 
     phone == otherTyped.phone && 
     role == otherTyped.role && 
@@ -103,13 +103,13 @@ class GetMemberMember {
     
   }
   @override
-  int get hashCode => Object.hashAll([id.hashCode, association.hashCode, email.hashCode, phone.hashCode, role.hashCode, status.hashCode, isBlocked.hashCode, isFounder.hashCode, createdAt.hashCode, name.hashCode, birthDate.hashCode, idDoc.hashCode, idDocImageUrl.hashCode, profileImageUrl.hashCode, guardianName.hashCode, guardianIdDoc.hashCode, guardianIdDocImageUrl.hashCode, signatureUrl.hashCode, conditionsAcceptedAt.hashCode, minorConditionsAcceptedAt.hashCode, internalNotes.hashCode, requestedAt.hashCode, resolvedAt.hashCode]);
+  int get hashCode => Object.hashAll([id.hashCode, band.hashCode, email.hashCode, phone.hashCode, role.hashCode, status.hashCode, isBlocked.hashCode, isFounder.hashCode, createdAt.hashCode, name.hashCode, birthDate.hashCode, idDoc.hashCode, idDocImageUrl.hashCode, profileImageUrl.hashCode, guardianName.hashCode, guardianIdDoc.hashCode, guardianIdDocImageUrl.hashCode, signatureUrl.hashCode, conditionsAcceptedAt.hashCode, minorConditionsAcceptedAt.hashCode, internalNotes.hashCode, requestedAt.hashCode, resolvedAt.hashCode]);
   
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
     json['id'] = nativeToJson<String>(id);
-    json['association'] = association.toJson();
+    json['band'] = band.toJson();
     json['email'] = nativeToJson<String>(email);
     json['phone'] = nativeToJson<String>(phone);
     json['role'] = 
@@ -166,7 +166,7 @@ class GetMemberMember {
 
   GetMemberMember({
     required this.id,
-    required this.association,
+    required this.band,
     required this.email,
     required this.phone,
     required this.role,
@@ -192,9 +192,9 @@ class GetMemberMember {
 }
 
 @immutable
-class GetMemberMemberAssociation {
+class GetMemberMemberBand {
   final String id;
-  GetMemberMemberAssociation.fromJson(dynamic json):
+  GetMemberMemberBand.fromJson(dynamic json):
   
   id = nativeFromJson<String>(json['id']);
   @override
@@ -206,7 +206,7 @@ class GetMemberMemberAssociation {
       return false;
     }
 
-    final GetMemberMemberAssociation otherTyped = other as GetMemberMemberAssociation;
+    final GetMemberMemberBand otherTyped = other as GetMemberMemberBand;
     return id == otherTyped.id;
     
   }
@@ -220,7 +220,7 @@ class GetMemberMemberAssociation {
     return json;
   }
 
-  GetMemberMemberAssociation({
+  GetMemberMemberBand({
     required this.id,
   });
 }

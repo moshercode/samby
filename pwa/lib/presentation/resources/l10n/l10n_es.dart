@@ -35,9 +35,9 @@ class L10nEs extends Localization {
   // Splash
 
   @override
-  String get splashAssociationNotFound => 'Asociación no encontrada';
+  String get splashBandNotFound => 'Asociación no encontrada';
   @override
-  String get splashAssociationNotFoundSubtitle => 'El enlace que has usado no corresponde a ninguna asociación registrada en Samby';
+  String get splashBandNotFoundSubtitle => 'El enlace que has usado no corresponde a ninguna asociación registrada en Samby';
 
   // Auth
 
@@ -109,15 +109,15 @@ class L10nEs extends Localization {
   @override
   String get onboardingBlock1Title => 'Información de la asociación';
   @override
-  String get onboardingAssociationName => 'Nombre completo';
+  String get onboardingBandName => 'Nombre completo';
   @override
-  String get onboardingAssociationShortName => 'Nombre corto';
+  String get onboardingBandShortName => 'Nombre corto';
   @override
-  String get onboardingAssociationShortNameHint => 'Ej: La Comparsa';
+  String get onboardingBandShortNameHint => 'Ej: La Comparsa';
   @override
-  String get onboardingAssociationSubdomain => 'Dirección web';
+  String get onboardingBandSubdomain => 'Dirección web';
   @override
-  String get onboardingAssociationSubdomainHint => 'Ej: lacomparsa';
+  String get onboardingBandSubdomainHint => 'Ej: lacomparsa';
   @override
   String get onboardingPrimaryColor => 'Color primario';
   @override
@@ -242,7 +242,7 @@ class L10nEs extends Localization {
   @override
   String get homeTabMembers => 'Socios';
   @override
-  String get homeTabAssociation => 'Asociación';
+  String get homeTabBand => 'Asociación';
   @override
   String get homeTabProfile => 'Perfil';
 
@@ -293,15 +293,15 @@ class L10nEs extends Localization {
   // Association Detail
 
   @override
-  String get associationDetailTitle => 'Asociación';
+  String get bandDetailTitle => 'Asociación';
   @override
-  String get associationDetailRequirements => 'Requisitos de solicitud';
+  String get bandDetailRequirements => 'Requisitos de solicitud';
   @override
-  String get associationDetailRequireIdDoc => 'Requerir DNI';
+  String get bandDetailRequireIdDoc => 'Requerir DNI';
   @override
-  String get associationDetailRequireIdDocImage => 'Requerir imagen del DNI';
+  String get bandDetailRequireIdDocImage => 'Requerir imagen del DNI';
   @override
-  String get associationDetailRequireGuardian => 'Requerir datos del tutor';
+  String get bandDetailRequireGuardian => 'Requerir datos del tutor';
 
   // Profile
 

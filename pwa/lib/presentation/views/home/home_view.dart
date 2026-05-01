@@ -34,7 +34,7 @@ class HomeView extends BaseView<HomeViewModel> {
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.business_rounded),
-          label: l.homeTabAssociation,
+          label: l.homeTabBand,
         ),
       ],
       BottomNavigationBarItem(
@@ -49,7 +49,7 @@ class HomeView extends BaseView<HomeViewModel> {
         children: <Widget>[
           _EventsTab(viewModel: viewModel, l: l),
           if (viewModel.isManager) _MembersTab(viewModel: viewModel, l: l),
-          if (viewModel.isManager) _AssociationTab(viewModel: viewModel, l: l),
+          if (viewModel.isManager) _BandTab(viewModel: viewModel, l: l),
           _ProfileTab(viewModel: viewModel, l: l),
         ],
       ),
@@ -82,7 +82,7 @@ class _EventsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(viewModel.association?.shortName ?? l.homeTabEvents),
+        title: Text(viewModel.band?.shortName ?? l.homeTabEvents),
         centerTitle: false,
         actions: <Widget>[
           if (viewModel.isManager)
@@ -203,7 +203,7 @@ class _MembersTab extends StatelessWidget {
 
 // ── Association tab ───────────────────────────────────────────────────────────
 
-class _AssociationTab extends StatelessWidget {
+class _BandTab extends StatelessWidget {
 
   // Variables
 
@@ -212,7 +212,7 @@ class _AssociationTab extends StatelessWidget {
 
   // Constructor
 
-  const _AssociationTab({required this.viewModel, required this.l});
+  const _BandTab({required this.viewModel, required this.l});
 
   // Build
 
@@ -220,35 +220,35 @@ class _AssociationTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(l.associationDetailTitle),
+        title: Text(l.bandDetailTitle),
         centerTitle: false,
       ),
       body: ListView(
         padding: const EdgeInsets.all(Dimensions.screenMargin),
         children: <Widget>[
-          Text(l.associationDetailRequirements, style: Theme.of(context).textTheme.titleMedium),
+          Text(l.bandDetailRequirements, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: Dimensions.space12),
           SwitchListTile(
-            title: Text(l.associationDetailRequireIdDoc),
-            value: viewModel.association?.requireIdDoc ?? false,
+            title: Text(l.bandDetailRequireIdDoc),
+            value: viewModel.band?.requireIdDoc ?? false,
             onChanged: null,
             contentPadding: EdgeInsets.zero,
           ),
           SwitchListTile(
-            title: Text(l.associationDetailRequireIdDocImage),
-            value: viewModel.association?.requireIdDocImage ?? false,
+            title: Text(l.bandDetailRequireIdDocImage),
+            value: viewModel.band?.requireIdDocImage ?? false,
             onChanged: null,
             contentPadding: EdgeInsets.zero,
           ),
           SwitchListTile(
-            title: Text(l.associationDetailRequireGuardian),
-            value: viewModel.association?.requireGuardian ?? false,
+            title: Text(l.bandDetailRequireGuardian),
+            value: viewModel.band?.requireGuardian ?? false,
             onChanged: null,
             contentPadding: EdgeInsets.zero,
           ),
           const SizedBox(height: Dimensions.space16),
           OutlinedButton(
-            onPressed: () => NavigationUtils.showAssociationDetailView(viewModel),
+            onPressed: () => NavigationUtils.showBandDetailView(viewModel),
             child: Text(l.edit),
           ),
         ],

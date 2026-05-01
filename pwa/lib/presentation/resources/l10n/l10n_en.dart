@@ -35,9 +35,9 @@ class L10nEn extends Localization {
   // Splash
 
   @override
-  String get splashAssociationNotFound => 'Association not found';
+  String get splashBandNotFound => 'Association not found';
   @override
-  String get splashAssociationNotFoundSubtitle => 'The link you used does not correspond to any association registered on Samby';
+  String get splashBandNotFoundSubtitle => 'The link you used does not correspond to any association registered on Samby';
 
   // Auth
 
@@ -109,15 +109,15 @@ class L10nEn extends Localization {
   @override
   String get onboardingBlock1Title => 'Association information';
   @override
-  String get onboardingAssociationName => 'Full name';
+  String get onboardingBandName => 'Full name';
   @override
-  String get onboardingAssociationShortName => 'Short name';
+  String get onboardingBandShortName => 'Short name';
   @override
-  String get onboardingAssociationShortNameHint => 'e.g. The Comparsa';
+  String get onboardingBandShortNameHint => 'e.g. The Comparsa';
   @override
-  String get onboardingAssociationSubdomain => 'Web address';
+  String get onboardingBandSubdomain => 'Web address';
   @override
-  String get onboardingAssociationSubdomainHint => 'e.g. lacomparsa';
+  String get onboardingBandSubdomainHint => 'e.g. lacomparsa';
   @override
   String get onboardingPrimaryColor => 'Primary color';
   @override
@@ -242,7 +242,7 @@ class L10nEn extends Localization {
   @override
   String get homeTabMembers => 'Members';
   @override
-  String get homeTabAssociation => 'Association';
+  String get homeTabBand => 'Association';
   @override
   String get homeTabProfile => 'Profile';
 
@@ -293,15 +293,15 @@ class L10nEn extends Localization {
   // Association Detail
 
   @override
-  String get associationDetailTitle => 'Association';
+  String get bandDetailTitle => 'Association';
   @override
-  String get associationDetailRequirements => 'Application requirements';
+  String get bandDetailRequirements => 'Application requirements';
   @override
-  String get associationDetailRequireIdDoc => 'Require ID document';
+  String get bandDetailRequireIdDoc => 'Require ID document';
   @override
-  String get associationDetailRequireIdDocImage => 'Require ID document image';
+  String get bandDetailRequireIdDocImage => 'Require ID document image';
   @override
-  String get associationDetailRequireGuardian => 'Require guardian data';
+  String get bandDetailRequireGuardian => 'Require guardian data';
 
   // Profile
 

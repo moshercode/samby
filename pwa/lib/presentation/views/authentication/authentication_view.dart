@@ -21,7 +21,7 @@ class AuthenticationView extends BaseView<AuthenticationViewModel> {
   @override
   Widget buildView(BuildContext context) {
     final Localization l = Localization.of(context);
-    final String? logoUrl = SessionDataManager.instance.association?.logoUrl;
+    final String? logoUrl = SessionDataManager.instance.band?.logoUrl;
 
     return SafeScaffold(
       body: Center(

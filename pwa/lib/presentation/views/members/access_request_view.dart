@@ -159,7 +159,7 @@ class _AccessRequestConditions extends StatelessWidget {
         const SizedBox(height: Dimensions.space12),
         if (viewModel.generalConditions.isNotEmpty) ...<Widget>[
           ...viewModel.generalConditions.map(
-            (AssociationCondition c) => Padding(
+            (BandCondition c) => Padding(
               padding: const EdgeInsets.only(bottom: Dimensions.space8),
               child: Text('• ${c.content}', style: Theme.of(context).textTheme.bodySmall),
             ),
@@ -175,7 +175,7 @@ class _AccessRequestConditions extends StatelessWidget {
         if (viewModel.isMinor && viewModel.minorConditions.isNotEmpty) ...<Widget>[
           const SizedBox(height: Dimensions.space12),
           ...viewModel.minorConditions.map(
-            (AssociationCondition c) => Padding(
+            (BandCondition c) => Padding(
               padding: const EdgeInsets.only(bottom: Dimensions.space8),
               child: Text('• ${c.content}', style: Theme.of(context).textTheme.bodySmall),
             ),

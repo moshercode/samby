@@ -21,11 +21,11 @@ SambyConnector.instance.dataConnect.useDataConnectEmulator(host, port);
 You can also call queries and mutations by using the connector class.
 ## Queries
 
-### GetAssociationByFounderEmail
+### GetBandByFounderEmail
 #### Required Arguments
 ```dart
 String founderEmail = ...;
-SambyConnector.instance.getAssociationByFounderEmail(
+SambyConnector.instance.getBandByFounderEmail(
   founderEmail: founderEmail,
 ).execute();
 ```
@@ -33,7 +33,7 @@ SambyConnector.instance.getAssociationByFounderEmail(
 
 
 #### Return Type
-`execute()` returns a `QueryResult<GetAssociationByFounderEmailData, GetAssociationByFounderEmailVariables>`
+`execute()` returns a `QueryResult<GetBandByFounderEmailData, GetBandByFounderEmailVariables>`
 ```dart
 /// Result of an Operation Request (query/mutation).
 class OperationResult<Data, Variables> {
@@ -48,10 +48,10 @@ class QueryResult<Data, Variables> extends OperationResult<Data, Variables> {
   QueryResult(super.dataConnect, super.data, super.ref);
 }
 
-final result = await SambyConnector.instance.getAssociationByFounderEmail(
+final result = await SambyConnector.instance.getBandByFounderEmail(
   founderEmail: founderEmail,
 );
-GetAssociationByFounderEmailData data = result.data;
+GetBandByFounderEmailData data = result.data;
 final ref = result.ref;
 ```
 
@@ -61,7 +61,7 @@ An example of how to use the `Ref` object is shown below:
 ```dart
 String founderEmail = ...;
 
-final ref = SambyConnector.instance.getAssociationByFounderEmail(
+final ref = SambyConnector.instance.getBandByFounderEmail(
   founderEmail: founderEmail,
 ).ref();
 ref.execute();
@@ -70,11 +70,11 @@ ref.subscribe(...);
 ```
 
 
-### GetAssociationBySubdomain
+### GetBandBySubdomain
 #### Required Arguments
 ```dart
 String subdomain = ...;
-SambyConnector.instance.getAssociationBySubdomain(
+SambyConnector.instance.getBandBySubdomain(
   subdomain: subdomain,
 ).execute();
 ```
@@ -82,7 +82,7 @@ SambyConnector.instance.getAssociationBySubdomain(
 
 
 #### Return Type
-`execute()` returns a `QueryResult<GetAssociationBySubdomainData, GetAssociationBySubdomainVariables>`
+`execute()` returns a `QueryResult<GetBandBySubdomainData, GetBandBySubdomainVariables>`
 ```dart
 /// Result of an Operation Request (query/mutation).
 class OperationResult<Data, Variables> {
@@ -97,10 +97,10 @@ class QueryResult<Data, Variables> extends OperationResult<Data, Variables> {
   QueryResult(super.dataConnect, super.data, super.ref);
 }
 
-final result = await SambyConnector.instance.getAssociationBySubdomain(
+final result = await SambyConnector.instance.getBandBySubdomain(
   subdomain: subdomain,
 );
-GetAssociationBySubdomainData data = result.data;
+GetBandBySubdomainData data = result.data;
 final ref = result.ref;
 ```
 
@@ -110,7 +110,7 @@ An example of how to use the `Ref` object is shown below:
 ```dart
 String subdomain = ...;
 
-final ref = SambyConnector.instance.getAssociationBySubdomain(
+final ref = SambyConnector.instance.getBandBySubdomain(
   subdomain: subdomain,
 ).ref();
 ref.execute();
@@ -168,19 +168,19 @@ ref.subscribe(...);
 ```
 
 
-### GetAssociationConditions
+### GetBandConditions
 #### Required Arguments
 ```dart
-String associationId = ...;
-SambyConnector.instance.getAssociationConditions(
-  associationId: associationId,
+String bandId = ...;
+SambyConnector.instance.getBandConditions(
+  bandId: bandId,
 ).execute();
 ```
 
 
 
 #### Return Type
-`execute()` returns a `QueryResult<GetAssociationConditionsData, GetAssociationConditionsVariables>`
+`execute()` returns a `QueryResult<GetBandConditionsData, GetBandConditionsVariables>`
 ```dart
 /// Result of an Operation Request (query/mutation).
 class OperationResult<Data, Variables> {
@@ -195,10 +195,10 @@ class QueryResult<Data, Variables> extends OperationResult<Data, Variables> {
   QueryResult(super.dataConnect, super.data, super.ref);
 }
 
-final result = await SambyConnector.instance.getAssociationConditions(
-  associationId: associationId,
+final result = await SambyConnector.instance.getBandConditions(
+  bandId: bandId,
 );
-GetAssociationConditionsData data = result.data;
+GetBandConditionsData data = result.data;
 final ref = result.ref;
 ```
 
@@ -206,10 +206,10 @@ final ref = result.ref;
 Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
 An example of how to use the `Ref` object is shown below:
 ```dart
-String associationId = ...;
+String bandId = ...;
 
-final ref = SambyConnector.instance.getAssociationConditions(
-  associationId: associationId,
+final ref = SambyConnector.instance.getBandConditions(
+  bandId: bandId,
 ).ref();
 ref.execute();
 
@@ -217,19 +217,19 @@ ref.subscribe(...);
 ```
 
 
-### GetAssociationMembers
+### GetBandMembers
 #### Required Arguments
 ```dart
-String associationId = ...;
-SambyConnector.instance.getAssociationMembers(
-  associationId: associationId,
+String bandId = ...;
+SambyConnector.instance.getBandMembers(
+  bandId: bandId,
 ).execute();
 ```
 
 
 
 #### Return Type
-`execute()` returns a `QueryResult<GetAssociationMembersData, GetAssociationMembersVariables>`
+`execute()` returns a `QueryResult<GetBandMembersData, GetBandMembersVariables>`
 ```dart
 /// Result of an Operation Request (query/mutation).
 class OperationResult<Data, Variables> {
@@ -244,10 +244,10 @@ class QueryResult<Data, Variables> extends OperationResult<Data, Variables> {
   QueryResult(super.dataConnect, super.data, super.ref);
 }
 
-final result = await SambyConnector.instance.getAssociationMembers(
-  associationId: associationId,
+final result = await SambyConnector.instance.getBandMembers(
+  bandId: bandId,
 );
-GetAssociationMembersData data = result.data;
+GetBandMembersData data = result.data;
 final ref = result.ref;
 ```
 
@@ -255,10 +255,10 @@ final ref = result.ref;
 Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
 An example of how to use the `Ref` object is shown below:
 ```dart
-String associationId = ...;
+String bandId = ...;
 
-final ref = SambyConnector.instance.getAssociationMembers(
-  associationId: associationId,
+final ref = SambyConnector.instance.getBandMembers(
+  bandId: bandId,
 ).ref();
 ref.execute();
 
@@ -266,19 +266,19 @@ ref.subscribe(...);
 ```
 
 
-### GetAssociationEvents
+### GetBandEvents
 #### Required Arguments
 ```dart
-String associationId = ...;
-SambyConnector.instance.getAssociationEvents(
-  associationId: associationId,
+String bandId = ...;
+SambyConnector.instance.getBandEvents(
+  bandId: bandId,
 ).execute();
 ```
 
 
 
 #### Return Type
-`execute()` returns a `QueryResult<GetAssociationEventsData, GetAssociationEventsVariables>`
+`execute()` returns a `QueryResult<GetBandEventsData, GetBandEventsVariables>`
 ```dart
 /// Result of an Operation Request (query/mutation).
 class OperationResult<Data, Variables> {
@@ -293,10 +293,10 @@ class QueryResult<Data, Variables> extends OperationResult<Data, Variables> {
   QueryResult(super.dataConnect, super.data, super.ref);
 }
 
-final result = await SambyConnector.instance.getAssociationEvents(
-  associationId: associationId,
+final result = await SambyConnector.instance.getBandEvents(
+  bandId: bandId,
 );
-GetAssociationEventsData data = result.data;
+GetBandEventsData data = result.data;
 final ref = result.ref;
 ```
 
@@ -304,10 +304,10 @@ final ref = result.ref;
 Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
 An example of how to use the `Ref` object is shown below:
 ```dart
-String associationId = ...;
+String bandId = ...;
 
-final ref = SambyConnector.instance.getAssociationEvents(
-  associationId: associationId,
+final ref = SambyConnector.instance.getBandEvents(
+  bandId: bandId,
 ).ref();
 ref.execute();
 
@@ -517,7 +517,7 @@ ref.subscribe(...);
 
 ## Mutations
 
-### CreateAssociation
+### CreateBand
 #### Required Arguments
 ```dart
 String name = ...;
@@ -526,7 +526,7 @@ String subdomain = ...;
 String primaryColor = ...;
 String secondaryColor = ...;
 String founderEmail = ...;
-SambyConnector.instance.createAssociation(
+SambyConnector.instance.createBand(
   name: name,
   shortName: shortName,
   subdomain: subdomain,
@@ -539,7 +539,7 @@ SambyConnector.instance.createAssociation(
 
 
 #### Return Type
-`execute()` returns a `OperationResult<CreateAssociationData, CreateAssociationVariables>`
+`execute()` returns a `OperationResult<CreateBandData, CreateBandVariables>`
 ```dart
 /// Result of an Operation Request (query/mutation).
 class OperationResult<Data, Variables> {
@@ -549,7 +549,7 @@ class OperationResult<Data, Variables> {
   FirebaseDataConnect dataConnect;
 }
 
-final result = await SambyConnector.instance.createAssociation(
+final result = await SambyConnector.instance.createBand(
   name: name,
   shortName: shortName,
   subdomain: subdomain,
@@ -557,7 +557,7 @@ final result = await SambyConnector.instance.createAssociation(
   secondaryColor: secondaryColor,
   founderEmail: founderEmail,
 );
-CreateAssociationData data = result.data;
+CreateBandData data = result.data;
 final ref = result.ref;
 ```
 
@@ -572,7 +572,7 @@ String primaryColor = ...;
 String secondaryColor = ...;
 String founderEmail = ...;
 
-final ref = SambyConnector.instance.createAssociation(
+final ref = SambyConnector.instance.createBand(
   name: name,
   shortName: shortName,
   subdomain: subdomain,
@@ -584,13 +584,13 @@ ref.execute();
 ```
 
 
-### UpdateAssociationImages
+### UpdateBandImages
 #### Required Arguments
 ```dart
 String id = ...;
 String logoUrl = ...;
 String iconUrl = ...;
-SambyConnector.instance.updateAssociationImages(
+SambyConnector.instance.updateBandImages(
   id: id,
   logoUrl: logoUrl,
   iconUrl: iconUrl,
@@ -600,7 +600,7 @@ SambyConnector.instance.updateAssociationImages(
 
 
 #### Return Type
-`execute()` returns a `OperationResult<UpdateAssociationImagesData, UpdateAssociationImagesVariables>`
+`execute()` returns a `OperationResult<UpdateBandImagesData, UpdateBandImagesVariables>`
 ```dart
 /// Result of an Operation Request (query/mutation).
 class OperationResult<Data, Variables> {
@@ -610,12 +610,12 @@ class OperationResult<Data, Variables> {
   FirebaseDataConnect dataConnect;
 }
 
-final result = await SambyConnector.instance.updateAssociationImages(
+final result = await SambyConnector.instance.updateBandImages(
   id: id,
   logoUrl: logoUrl,
   iconUrl: iconUrl,
 );
-UpdateAssociationImagesData data = result.data;
+UpdateBandImagesData data = result.data;
 final ref = result.ref;
 ```
 
@@ -627,7 +627,7 @@ String id = ...;
 String logoUrl = ...;
 String iconUrl = ...;
 
-final ref = SambyConnector.instance.updateAssociationImages(
+final ref = SambyConnector.instance.updateBandImages(
   id: id,
   logoUrl: logoUrl,
   iconUrl: iconUrl,
@@ -636,14 +636,14 @@ ref.execute();
 ```
 
 
-### UpdateAssociation
+### UpdateBand
 #### Required Arguments
 ```dart
 String id = ...;
 bool requireIdDoc = ...;
 bool requireIdDocImage = ...;
 bool requireGuardian = ...;
-SambyConnector.instance.updateAssociation(
+SambyConnector.instance.updateBand(
   id: id,
   requireIdDoc: requireIdDoc,
   requireIdDocImage: requireIdDocImage,
@@ -654,7 +654,7 @@ SambyConnector.instance.updateAssociation(
 
 
 #### Return Type
-`execute()` returns a `OperationResult<UpdateAssociationData, UpdateAssociationVariables>`
+`execute()` returns a `OperationResult<UpdateBandData, UpdateBandVariables>`
 ```dart
 /// Result of an Operation Request (query/mutation).
 class OperationResult<Data, Variables> {
@@ -664,13 +664,13 @@ class OperationResult<Data, Variables> {
   FirebaseDataConnect dataConnect;
 }
 
-final result = await SambyConnector.instance.updateAssociation(
+final result = await SambyConnector.instance.updateBand(
   id: id,
   requireIdDoc: requireIdDoc,
   requireIdDocImage: requireIdDocImage,
   requireGuardian: requireGuardian,
 );
-UpdateAssociationData data = result.data;
+UpdateBandData data = result.data;
 final ref = result.ref;
 ```
 
@@ -683,7 +683,7 @@ bool requireIdDoc = ...;
 bool requireIdDocImage = ...;
 bool requireGuardian = ...;
 
-final ref = SambyConnector.instance.updateAssociation(
+final ref = SambyConnector.instance.updateBand(
   id: id,
   requireIdDoc: requireIdDoc,
   requireIdDocImage: requireIdDocImage,
@@ -693,15 +693,15 @@ ref.execute();
 ```
 
 
-### AddAssociationCondition
+### AddBandCondition
 #### Required Arguments
 ```dart
-String associationId = ...;
+String bandId = ...;
 String type = ...;
 String content = ...;
 int sortOrder = ...;
-SambyConnector.instance.addAssociationCondition(
-  associationId: associationId,
+SambyConnector.instance.addBandCondition(
+  bandId: bandId,
   type: type,
   content: content,
   sortOrder: sortOrder,
@@ -711,7 +711,7 @@ SambyConnector.instance.addAssociationCondition(
 
 
 #### Return Type
-`execute()` returns a `OperationResult<AddAssociationConditionData, AddAssociationConditionVariables>`
+`execute()` returns a `OperationResult<AddBandConditionData, AddBandConditionVariables>`
 ```dart
 /// Result of an Operation Request (query/mutation).
 class OperationResult<Data, Variables> {
@@ -721,13 +721,13 @@ class OperationResult<Data, Variables> {
   FirebaseDataConnect dataConnect;
 }
 
-final result = await SambyConnector.instance.addAssociationCondition(
-  associationId: associationId,
+final result = await SambyConnector.instance.addBandCondition(
+  bandId: bandId,
   type: type,
   content: content,
   sortOrder: sortOrder,
 );
-AddAssociationConditionData data = result.data;
+AddBandConditionData data = result.data;
 final ref = result.ref;
 ```
 
@@ -735,13 +735,13 @@ final ref = result.ref;
 Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
 An example of how to use the `Ref` object is shown below:
 ```dart
-String associationId = ...;
+String bandId = ...;
 String type = ...;
 String content = ...;
 int sortOrder = ...;
 
-final ref = SambyConnector.instance.addAssociationCondition(
-  associationId: associationId,
+final ref = SambyConnector.instance.addBandCondition(
+  bandId: bandId,
   type: type,
   content: content,
   sortOrder: sortOrder,
@@ -750,11 +750,11 @@ ref.execute();
 ```
 
 
-### DeleteAssociationCondition
+### DeleteBandCondition
 #### Required Arguments
 ```dart
 String id = ...;
-SambyConnector.instance.deleteAssociationCondition(
+SambyConnector.instance.deleteBandCondition(
   id: id,
 ).execute();
 ```
@@ -762,7 +762,7 @@ SambyConnector.instance.deleteAssociationCondition(
 
 
 #### Return Type
-`execute()` returns a `OperationResult<DeleteAssociationConditionData, DeleteAssociationConditionVariables>`
+`execute()` returns a `OperationResult<DeleteBandConditionData, DeleteBandConditionVariables>`
 ```dart
 /// Result of an Operation Request (query/mutation).
 class OperationResult<Data, Variables> {
@@ -772,10 +772,10 @@ class OperationResult<Data, Variables> {
   FirebaseDataConnect dataConnect;
 }
 
-final result = await SambyConnector.instance.deleteAssociationCondition(
+final result = await SambyConnector.instance.deleteBandCondition(
   id: id,
 );
-DeleteAssociationConditionData data = result.data;
+DeleteBandConditionData data = result.data;
 final ref = result.ref;
 ```
 
@@ -785,7 +785,7 @@ An example of how to use the `Ref` object is shown below:
 ```dart
 String id = ...;
 
-final ref = SambyConnector.instance.deleteAssociationCondition(
+final ref = SambyConnector.instance.deleteBandCondition(
   id: id,
 ).ref();
 ref.execute();
@@ -795,12 +795,12 @@ ref.execute();
 ### CreateFounderMember
 #### Required Arguments
 ```dart
-String associationId = ...;
+String bandId = ...;
 String name = ...;
 String email = ...;
 Timestamp conditionsAcceptedAt = ...;
 SambyConnector.instance.createFounderMember(
-  associationId: associationId,
+  bandId: bandId,
   name: name,
   email: email,
   conditionsAcceptedAt: conditionsAcceptedAt,
@@ -821,7 +821,7 @@ class OperationResult<Data, Variables> {
 }
 
 final result = await SambyConnector.instance.createFounderMember(
-  associationId: associationId,
+  bandId: bandId,
   name: name,
   email: email,
   conditionsAcceptedAt: conditionsAcceptedAt,
@@ -834,13 +834,13 @@ final ref = result.ref;
 Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
 An example of how to use the `Ref` object is shown below:
 ```dart
-String associationId = ...;
+String bandId = ...;
 String name = ...;
 String email = ...;
 Timestamp conditionsAcceptedAt = ...;
 
 final ref = SambyConnector.instance.createFounderMember(
-  associationId: associationId,
+  bandId: bandId,
   name: name,
   email: email,
   conditionsAcceptedAt: conditionsAcceptedAt,
@@ -1336,14 +1336,14 @@ ref.execute();
 ### CreateEvent
 #### Required Arguments
 ```dart
-String associationId = ...;
+String bandId = ...;
 String title = ...;
 String description = ...;
 String imageUrl = ...;
 bool freeEntry = ...;
 String createdBy = ...;
 SambyConnector.instance.createEvent(
-  associationId: associationId,
+  bandId: bandId,
   title: title,
   description: description,
   imageUrl: imageUrl,
@@ -1374,7 +1374,7 @@ class CreateEventVariablesBuilder {
   ...
 }
 SambyConnector.instance.createEvent(
-  associationId: associationId,
+  bandId: bandId,
   title: title,
   description: description,
   imageUrl: imageUrl,
@@ -1399,7 +1399,7 @@ class OperationResult<Data, Variables> {
 }
 
 final result = await SambyConnector.instance.createEvent(
-  associationId: associationId,
+  bandId: bandId,
   title: title,
   description: description,
   imageUrl: imageUrl,
@@ -1414,7 +1414,7 @@ final ref = result.ref;
 Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
 An example of how to use the `Ref` object is shown below:
 ```dart
-String associationId = ...;
+String bandId = ...;
 String title = ...;
 String description = ...;
 String imageUrl = ...;
@@ -1422,7 +1422,7 @@ bool freeEntry = ...;
 String createdBy = ...;
 
 final ref = SambyConnector.instance.createEvent(
-  associationId: associationId,
+  bandId: bandId,
   title: title,
   description: description,
   imageUrl: imageUrl,
@@ -1770,12 +1770,12 @@ ref.execute();
 ### SendBroadcast
 #### Required Arguments
 ```dart
-String associationId = ...;
+String bandId = ...;
 String sentBy = ...;
 String title = ...;
 String body = ...;
 SambyConnector.instance.sendBroadcast(
-  associationId: associationId,
+  bandId: bandId,
   sentBy: sentBy,
   title: title,
   body: body,
@@ -1796,7 +1796,7 @@ class OperationResult<Data, Variables> {
 }
 
 final result = await SambyConnector.instance.sendBroadcast(
-  associationId: associationId,
+  bandId: bandId,
   sentBy: sentBy,
   title: title,
   body: body,
@@ -1809,13 +1809,13 @@ final ref = result.ref;
 Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
 An example of how to use the `Ref` object is shown below:
 ```dart
-String associationId = ...;
+String bandId = ...;
 String sentBy = ...;
 String title = ...;
 String body = ...;
 
 final ref = SambyConnector.instance.sendBroadcast(
-  associationId: associationId,
+  bandId: bandId,
   sentBy: sentBy,
   title: title,
   body: body,

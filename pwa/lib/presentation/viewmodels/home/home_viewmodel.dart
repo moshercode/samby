@@ -19,7 +19,7 @@ class HomeViewModel extends ViewModel {
   int get tabIndex => _tabIndex;
   bool get isManager => SessionDataManager.instance.member?.isManager ?? false;
   Member? get currentMember => SessionDataManager.instance.member;
-  Association? get association => SessionDataManager.instance.association;
+  Band? get band => SessionDataManager.instance.band;
 
   List<int> get tabIndices {
     if (isManager) return <int>[0, 1, 2, 3];
@@ -27,7 +27,7 @@ class HomeViewModel extends ViewModel {
   }
 
   int get membersTabIndex => isManager ? 1 : -1;
-  int get associationTabIndex => isManager ? 2 : -1;
+  int get bandTabIndex => isManager ? 2 : -1;
   int get profileTabIndex => isManager ? 3 : 1;
 
   List<Event> get activeEvents {
@@ -81,10 +81,10 @@ class HomeViewModel extends ViewModel {
   // Private methods
 
   void _loadEvents() {
-    final String? assocId = SessionDataManager.instance.association?.id;
-    if (assocId == null) return;
-    sl<EventRepository>().getAssociationEvents(
-      assocId,
+    final String? bandId = SessionDataManager.instance.band?.id;
+    if (bandId == null) return;
+    sl<EventRepository>().getBandEvents(
+      bandId,
       onComplete: (List<Event> events, dynamic _) {
         _allEvents = events;
         notifyListeners();
@@ -93,10 +93,10 @@ class HomeViewModel extends ViewModel {
   }
 
   void _loadMembers() {
-    final String? assocId = SessionDataManager.instance.association?.id;
-    if (assocId == null) return;
-    sl<MemberRepository>().getAssociationMembers(
-      assocId,
+    final String? bandId = SessionDataManager.instance.band?.id;
+    if (bandId == null) return;
+    sl<MemberRepository>().getBandMembers(
+      bandId,
       onComplete: (List<Member> members, dynamic _) {
         _members = members;
         _membersLoaded = true;

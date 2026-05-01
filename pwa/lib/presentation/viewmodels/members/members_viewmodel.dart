@@ -25,11 +25,11 @@ class MembersViewModel extends ViewModel {
   // Private methods
 
   void _loadMembers() {
-    final String? assocId = SessionDataManager.instance.association?.id;
-    if (assocId == null) return;
+    final String? bandId = SessionDataManager.instance.band?.id;
+    if (bandId == null) return;
     setLoading(true);
-    sl<MemberRepository>().getAssociationMembers(
-      assocId,
+    sl<MemberRepository>().getBandMembers(
+      bandId,
       onComplete: (List<Member> result, dynamic _) {
         members = result;
         setLoading(false);

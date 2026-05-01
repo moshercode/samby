@@ -72,11 +72,11 @@ class CreateEventViewModel extends ViewModel {
     isImageUploading = true;
     notifyListeners();
     final Uint8List bytes = await file.readAsBytes();
-    final String assocId = SessionDataManager.instance.association?.id ?? 'unknown';
+    final String bandId = SessionDataManager.instance.band?.id ?? 'unknown';
     final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     final String? url = await _uploadToStorage(
       bytes,
-      'events/$assocId/${timestamp}_cover.jpg',
+      'events/$bandId/${timestamp}_cover.jpg',
     );
     if (url != null) imageUrl = url;
     isImageUploading = false;
@@ -87,16 +87,16 @@ class CreateEventViewModel extends ViewModel {
     if (!isValid) return;
     setLoading(true);
 
-    final String? assocId = SessionDataManager.instance.association?.id;
+    final String? bandId = SessionDataManager.instance.band?.id;
     final String? userId = UserManager.instance.user?.uid;
-    if (assocId == null || userId == null) {
+    if (bandId == null || userId == null) {
       setLoading(false);
       return;
     }
 
     final Completer<String?> eventIdCompleter = Completer<String?>();
     sl<EventRepository>().createEvent(
-      associationId: assocId,
+      bandId: bandId,
       title: title.trim(),
       description: description.trim(),
       imageUrl: imageUrl ?? '',

@@ -11,16 +11,16 @@ enum DataconnectActionType { query, mutation }
 // ── Operation names ───────────────────────────────────────────────────────────
 
 abstract class DataconnectOps {
-  // Association
-  static const String getAssociationByFounderEmail = 'GetAssociationByFounderEmail';
-  static const String getAssociationBySubdomain = 'GetAssociationBySubdomain';
-  static const String getAssociationConditions = 'GetAssociationConditions';
-  static const String createAssociation = 'CreateAssociation';
-  static const String createAssociationCondition = 'AddAssociationCondition';
+  // Band
+  static const String getBandByFounderEmail = 'GetBandByFounderEmail';
+  static const String getBandBySubdomain = 'GetBandBySubdomain';
+  static const String getBandConditions = 'GetBandConditions';
+  static const String createBand = 'CreateBand';
+  static const String createBandCondition = 'AddBandCondition';
 
   // Member
   static const String getMember = 'GetMember';
-  static const String getAssociationMembers = 'GetAssociationMembers';
+  static const String getBandMembers = 'GetBandMembers';
   static const String getMemberEvents = 'GetMemberEvents';
   static const String updateMemberApplication = 'UpdateMemberApplication';
   static const String resetMemberApplication = 'ResetMemberApplication';
@@ -32,7 +32,7 @@ abstract class DataconnectOps {
   static const String updateMemberFcmToken = 'UpdateMemberFcmToken';
 
   // Events
-  static const String getAssociationEvents = 'GetAssociationEvents';
+  static const String getBandEvents = 'GetBandEvents';
   static const String getEventDetail = 'GetEventDetail';
   static const String createEvent = 'CreateEvent';
   static const String addEventMember = 'AddEventMember';
@@ -46,8 +46,8 @@ abstract class DataconnectOps {
   static const String createEventAppointment = 'CreateEventAppointment';
   static const String getEventAppointmentDetail = 'GetEventAppointmentDetail';
 
-  // Association
-  static const String updateAssociation = 'UpdateAssociation';
+  // Band
+  static const String updateBand = 'UpdateBand';
 
   // Broadcasts
   static const String sendBroadcast = 'SendBroadcast';
@@ -57,7 +57,7 @@ abstract class DataconnectOps {
 
 abstract class DataconnectKeys {
   static const String id = 'id';
-  static const String associationId = 'associationId';
+  static const String bandId = 'bandId';
   static const String memberId = 'memberId';
   static const String subdomain = 'subdomain';
   static const String founderEmail = 'founderEmail';
@@ -109,8 +109,8 @@ abstract class DataconnectKeys {
 // ── Response data keys ────────────────────────────────────────────────────────
 
 abstract class DataconnectResponseKeys {
-  static const String association = 'association';
-  static const String associationConditions = 'associationConditions';
+  static const String band = 'band';
+  static const String bandConditions = 'bandConditions';
   static const String member = 'member';
   static const String members = 'members';
   static const String event = 'event';

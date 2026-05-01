@@ -1,24 +1,24 @@
 part of 'samby.dart';
 
-class GetAssociationEventsVariablesBuilder {
-  String associationId;
+class GetBandEventsVariablesBuilder {
+  String bandId;
 
   final FirebaseDataConnect _dataConnect;
-  GetAssociationEventsVariablesBuilder(this._dataConnect, {required  this.associationId,});
-  Deserializer<GetAssociationEventsData> dataDeserializer = (dynamic json)  => GetAssociationEventsData.fromJson(jsonDecode(json));
-  Serializer<GetAssociationEventsVariables> varsSerializer = (GetAssociationEventsVariables vars) => jsonEncode(vars.toJson());
-  Future<QueryResult<GetAssociationEventsData, GetAssociationEventsVariables>> execute() {
+  GetBandEventsVariablesBuilder(this._dataConnect, {required  this.bandId,});
+  Deserializer<GetBandEventsData> dataDeserializer = (dynamic json)  => GetBandEventsData.fromJson(jsonDecode(json));
+  Serializer<GetBandEventsVariables> varsSerializer = (GetBandEventsVariables vars) => jsonEncode(vars.toJson());
+  Future<QueryResult<GetBandEventsData, GetBandEventsVariables>> execute() {
     return ref().execute();
   }
 
-  QueryRef<GetAssociationEventsData, GetAssociationEventsVariables> ref() {
-    GetAssociationEventsVariables vars= GetAssociationEventsVariables(associationId: associationId,);
-    return _dataConnect.query("GetAssociationEvents", dataDeserializer, varsSerializer, vars);
+  QueryRef<GetBandEventsData, GetBandEventsVariables> ref() {
+    GetBandEventsVariables vars= GetBandEventsVariables(bandId: bandId,);
+    return _dataConnect.query("GetBandEvents", dataDeserializer, varsSerializer, vars);
   }
 }
 
 @immutable
-class GetAssociationEventsEvents {
+class GetBandEventsEvents {
   final String id;
   final String title;
   final String description;
@@ -30,8 +30,8 @@ class GetAssociationEventsEvents {
   final String? entryCondition;
   final Timestamp? updatedAt;
   final Timestamp createdAt;
-  final List<GetAssociationEventsEventsEventMembersOnEvent> eventMembers_on_event;
-  GetAssociationEventsEvents.fromJson(dynamic json):
+  final List<GetBandEventsEventsEventMembersOnEvent> eventMembers_on_event;
+  GetBandEventsEvents.fromJson(dynamic json):
   
   id = nativeFromJson<String>(json['id']),
   title = nativeFromJson<String>(json['title']),
@@ -45,7 +45,7 @@ class GetAssociationEventsEvents {
   updatedAt = json['updatedAt'] == null ? null : Timestamp.fromJson(json['updatedAt']),
   createdAt = Timestamp.fromJson(json['createdAt']),
   eventMembers_on_event = (json['eventMembers_on_event'] as List<dynamic>)
-        .map((e) => GetAssociationEventsEventsEventMembersOnEvent.fromJson(e))
+        .map((e) => GetBandEventsEventsEventMembersOnEvent.fromJson(e))
         .toList();
   @override
   bool operator ==(Object other) {
@@ -56,7 +56,7 @@ class GetAssociationEventsEvents {
       return false;
     }
 
-    final GetAssociationEventsEvents otherTyped = other as GetAssociationEventsEvents;
+    final GetBandEventsEvents otherTyped = other as GetBandEventsEvents;
     return id == otherTyped.id && 
     title == otherTyped.title && 
     description == otherTyped.description && 
@@ -102,7 +102,7 @@ class GetAssociationEventsEvents {
     return json;
   }
 
-  GetAssociationEventsEvents({
+  GetBandEventsEvents({
     required this.id,
     required this.title,
     required this.description,
@@ -119,13 +119,13 @@ class GetAssociationEventsEvents {
 }
 
 @immutable
-class GetAssociationEventsEventsEventMembersOnEvent {
+class GetBandEventsEventsEventMembersOnEvent {
   final String status;
-  final GetAssociationEventsEventsEventMembersOnEventMember member;
-  GetAssociationEventsEventsEventMembersOnEvent.fromJson(dynamic json):
+  final GetBandEventsEventsEventMembersOnEventMember member;
+  GetBandEventsEventsEventMembersOnEvent.fromJson(dynamic json):
   
   status = nativeFromJson<String>(json['status']),
-  member = GetAssociationEventsEventsEventMembersOnEventMember.fromJson(json['member']);
+  member = GetBandEventsEventsEventMembersOnEventMember.fromJson(json['member']);
   @override
   bool operator ==(Object other) {
     if(identical(this, other)) {
@@ -135,7 +135,7 @@ class GetAssociationEventsEventsEventMembersOnEvent {
       return false;
     }
 
-    final GetAssociationEventsEventsEventMembersOnEvent otherTyped = other as GetAssociationEventsEventsEventMembersOnEvent;
+    final GetBandEventsEventsEventMembersOnEvent otherTyped = other as GetBandEventsEventsEventMembersOnEvent;
     return status == otherTyped.status && 
     member == otherTyped.member;
     
@@ -151,16 +151,16 @@ class GetAssociationEventsEventsEventMembersOnEvent {
     return json;
   }
 
-  GetAssociationEventsEventsEventMembersOnEvent({
+  GetBandEventsEventsEventMembersOnEvent({
     required this.status,
     required this.member,
   });
 }
 
 @immutable
-class GetAssociationEventsEventsEventMembersOnEventMember {
+class GetBandEventsEventsEventMembersOnEventMember {
   final String id;
-  GetAssociationEventsEventsEventMembersOnEventMember.fromJson(dynamic json):
+  GetBandEventsEventsEventMembersOnEventMember.fromJson(dynamic json):
   
   id = nativeFromJson<String>(json['id']);
   @override
@@ -172,7 +172,7 @@ class GetAssociationEventsEventsEventMembersOnEventMember {
       return false;
     }
 
-    final GetAssociationEventsEventsEventMembersOnEventMember otherTyped = other as GetAssociationEventsEventsEventMembersOnEventMember;
+    final GetBandEventsEventsEventMembersOnEventMember otherTyped = other as GetBandEventsEventsEventMembersOnEventMember;
     return id == otherTyped.id;
     
   }
@@ -186,18 +186,18 @@ class GetAssociationEventsEventsEventMembersOnEventMember {
     return json;
   }
 
-  GetAssociationEventsEventsEventMembersOnEventMember({
+  GetBandEventsEventsEventMembersOnEventMember({
     required this.id,
   });
 }
 
 @immutable
-class GetAssociationEventsData {
-  final List<GetAssociationEventsEvents> events;
-  GetAssociationEventsData.fromJson(dynamic json):
+class GetBandEventsData {
+  final List<GetBandEventsEvents> events;
+  GetBandEventsData.fromJson(dynamic json):
   
   events = (json['events'] as List<dynamic>)
-        .map((e) => GetAssociationEventsEvents.fromJson(e))
+        .map((e) => GetBandEventsEvents.fromJson(e))
         .toList();
   @override
   bool operator ==(Object other) {
@@ -208,7 +208,7 @@ class GetAssociationEventsData {
       return false;
     }
 
-    final GetAssociationEventsData otherTyped = other as GetAssociationEventsData;
+    final GetBandEventsData otherTyped = other as GetBandEventsData;
     return events == otherTyped.events;
     
   }
@@ -222,18 +222,18 @@ class GetAssociationEventsData {
     return json;
   }
 
-  GetAssociationEventsData({
+  GetBandEventsData({
     required this.events,
   });
 }
 
 @immutable
-class GetAssociationEventsVariables {
-  final String associationId;
+class GetBandEventsVariables {
+  final String bandId;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
-  GetAssociationEventsVariables.fromJson(Map<String, dynamic> json):
+  GetBandEventsVariables.fromJson(Map<String, dynamic> json):
   
-  associationId = nativeFromJson<String>(json['associationId']);
+  bandId = nativeFromJson<String>(json['bandId']);
   @override
   bool operator ==(Object other) {
     if(identical(this, other)) {
@@ -243,22 +243,22 @@ class GetAssociationEventsVariables {
       return false;
     }
 
-    final GetAssociationEventsVariables otherTyped = other as GetAssociationEventsVariables;
-    return associationId == otherTyped.associationId;
+    final GetBandEventsVariables otherTyped = other as GetBandEventsVariables;
+    return bandId == otherTyped.bandId;
     
   }
   @override
-  int get hashCode => associationId.hashCode;
+  int get hashCode => bandId.hashCode;
   
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    json['associationId'] = nativeToJson<String>(associationId);
+    json['bandId'] = nativeToJson<String>(bandId);
     return json;
   }
 
-  GetAssociationEventsVariables({
-    required this.associationId,
+  GetBandEventsVariables({
+    required this.bandId,
   });
 }
 

@@ -1,7 +1,7 @@
 part of 'samby.dart';
 
 class CreateEventVariablesBuilder {
-  String associationId;
+  String bandId;
   String title;
   String description;
   String imageUrl;
@@ -24,7 +24,7 @@ class CreateEventVariablesBuilder {
    return this;
   }
 
-  CreateEventVariablesBuilder(this._dataConnect, {required  this.associationId,required  this.title,required  this.description,required  this.imageUrl,required  this.freeEntry,required  this.createdBy,});
+  CreateEventVariablesBuilder(this._dataConnect, {required  this.bandId,required  this.title,required  this.description,required  this.imageUrl,required  this.freeEntry,required  this.createdBy,});
   Deserializer<CreateEventData> dataDeserializer = (dynamic json)  => CreateEventData.fromJson(jsonDecode(json));
   Serializer<CreateEventVariables> varsSerializer = (CreateEventVariables vars) => jsonEncode(vars.toJson());
   Future<OperationResult<CreateEventData, CreateEventVariables>> execute() {
@@ -32,7 +32,7 @@ class CreateEventVariablesBuilder {
   }
 
   MutationRef<CreateEventData, CreateEventVariables> ref() {
-    CreateEventVariables vars= CreateEventVariables(associationId: associationId,title: title,description: description,imageUrl: imageUrl,startDate: _startDate,endDate: _endDate,freeEntry: freeEntry,entryCondition: _entryCondition,createdBy: createdBy,);
+    CreateEventVariables vars= CreateEventVariables(bandId: bandId,title: title,description: description,imageUrl: imageUrl,startDate: _startDate,endDate: _endDate,freeEntry: freeEntry,entryCondition: _entryCondition,createdBy: createdBy,);
     return _dataConnect.mutation("CreateEvent", dataDeserializer, varsSerializer, vars);
   }
 }
@@ -107,7 +107,7 @@ class CreateEventData {
 
 @immutable
 class CreateEventVariables {
-  final String associationId;
+  final String bandId;
   final String title;
   final String description;
   final String imageUrl;
@@ -119,7 +119,7 @@ class CreateEventVariables {
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   CreateEventVariables.fromJson(Map<String, dynamic> json):
   
-  associationId = nativeFromJson<String>(json['associationId']),
+  bandId = nativeFromJson<String>(json['bandId']),
   title = nativeFromJson<String>(json['title']),
   description = nativeFromJson<String>(json['description']),
   imageUrl = nativeFromJson<String>(json['imageUrl']),
@@ -155,7 +155,7 @@ class CreateEventVariables {
     }
 
     final CreateEventVariables otherTyped = other as CreateEventVariables;
-    return associationId == otherTyped.associationId && 
+    return bandId == otherTyped.bandId && 
     title == otherTyped.title && 
     description == otherTyped.description && 
     imageUrl == otherTyped.imageUrl && 
@@ -167,12 +167,12 @@ class CreateEventVariables {
     
   }
   @override
-  int get hashCode => Object.hashAll([associationId.hashCode, title.hashCode, description.hashCode, imageUrl.hashCode, startDate.hashCode, endDate.hashCode, freeEntry.hashCode, entryCondition.hashCode, createdBy.hashCode]);
+  int get hashCode => Object.hashAll([bandId.hashCode, title.hashCode, description.hashCode, imageUrl.hashCode, startDate.hashCode, endDate.hashCode, freeEntry.hashCode, entryCondition.hashCode, createdBy.hashCode]);
   
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    json['associationId'] = nativeToJson<String>(associationId);
+    json['bandId'] = nativeToJson<String>(bandId);
     json['title'] = nativeToJson<String>(title);
     json['description'] = nativeToJson<String>(description);
     json['imageUrl'] = nativeToJson<String>(imageUrl);
@@ -191,7 +191,7 @@ class CreateEventVariables {
   }
 
   CreateEventVariables({
-    required this.associationId,
+    required this.bandId,
     required this.title,
     required this.description,
     required this.imageUrl,

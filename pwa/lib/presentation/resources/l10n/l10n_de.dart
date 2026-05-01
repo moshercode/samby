@@ -35,9 +35,9 @@ class L10nDe extends Localization {
   // Splash
 
   @override
-  String get splashAssociationNotFound => 'Verein nicht gefunden';
+  String get splashBandNotFound => 'Verein nicht gefunden';
   @override
-  String get splashAssociationNotFoundSubtitle => 'Der verwendete Link entspricht keinem bei Samby registrierten Verein';
+  String get splashBandNotFoundSubtitle => 'Der verwendete Link entspricht keinem bei Samby registrierten Verein';
 
   // Auth
 
@@ -109,15 +109,15 @@ class L10nDe extends Localization {
   @override
   String get onboardingBlock1Title => 'Vereinsinformationen';
   @override
-  String get onboardingAssociationName => 'Vollständiger Name';
+  String get onboardingBandName => 'Vollständiger Name';
   @override
-  String get onboardingAssociationShortName => 'Kurzname';
+  String get onboardingBandShortName => 'Kurzname';
   @override
-  String get onboardingAssociationShortNameHint => 'z.B. Die Comparsa';
+  String get onboardingBandShortNameHint => 'z.B. Die Comparsa';
   @override
-  String get onboardingAssociationSubdomain => 'Webadresse';
+  String get onboardingBandSubdomain => 'Webadresse';
   @override
-  String get onboardingAssociationSubdomainHint => 'z.B. lacomparsa';
+  String get onboardingBandSubdomainHint => 'z.B. lacomparsa';
   @override
   String get onboardingPrimaryColor => 'Primärfarbe';
   @override
@@ -242,7 +242,7 @@ class L10nDe extends Localization {
   @override
   String get homeTabMembers => 'Mitglieder';
   @override
-  String get homeTabAssociation => 'Verein';
+  String get homeTabBand => 'Verein';
   @override
   String get homeTabProfile => 'Profil';
 
@@ -293,15 +293,15 @@ class L10nDe extends Localization {
   // Association Detail
 
   @override
-  String get associationDetailTitle => 'Verein';
+  String get bandDetailTitle => 'Verein';
   @override
-  String get associationDetailRequirements => 'Anforderungen';
+  String get bandDetailRequirements => 'Anforderungen';
   @override
-  String get associationDetailRequireIdDoc => 'Ausweis erforderlich';
+  String get bandDetailRequireIdDoc => 'Ausweis erforderlich';
   @override
-  String get associationDetailRequireIdDocImage => 'Ausweisbild erforderlich';
+  String get bandDetailRequireIdDocImage => 'Ausweisbild erforderlich';
   @override
-  String get associationDetailRequireGuardian => 'Erziehungsberechtigte Daten erforderlich';
+  String get bandDetailRequireGuardian => 'Erziehungsberechtigte Daten erforderlich';
 
   // Profile
 

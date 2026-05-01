@@ -2,7 +2,7 @@ import 'package:samby/domain/entities/entity.dart';
 
 enum ConditionType { general, minor }
 
-class AssociationCondition implements Entity {
+class BandCondition implements Entity {
   // Variables
 
   late String id;
@@ -13,7 +13,7 @@ class AssociationCondition implements Entity {
   // Constructor
 
   @override
-  AssociationCondition.fromMap(Map<String, dynamic> map) {
+  BandCondition.fromMap(Map<String, dynamic> map) {
     id = map['id'] as String;
     type = map['type'] == 'minor' ? ConditionType.minor : ConditionType.general;
     content = map['content'] as String;

@@ -2,20 +2,20 @@ import 'package:samby/core/errors/app_errors.dart';
 import 'package:samby/domain/entities/association.dart';
 import 'package:samby/domain/repositories/association_repository.dart';
 
-class FindAssociationBySubdomainUseCase {
+class FindBandBySubdomainUseCase {
   // Variables
 
-  final AssociationRepository _repository;
+  final BandRepository _repository;
 
   // Constructor
 
-  FindAssociationBySubdomainUseCase(this._repository);
+  FindBandBySubdomainUseCase(this._repository);
 
   // Public methods
 
   void call(
     String subdomain, {
-    required Function(Association? association, AppError? error) onComplete,
+    required Function(Band? band, AppError? error) onComplete,
   }) =>
-      _repository.findAssociationBySubdomain(subdomain, onComplete: onComplete);
+      _repository.findBandBySubdomain(subdomain, onComplete: onComplete);
 }

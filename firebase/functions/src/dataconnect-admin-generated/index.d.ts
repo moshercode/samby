@@ -17,14 +17,14 @@ export enum MemberRole {
   MEMBER = "MEMBER",
 }
 
-export interface AddAssociationConditionData {
-  associationCondition_insert: {
+export interface AddBandConditionData {
+  bandCondition_insert: {
     id: UUIDString;
   };
 }
 
-export interface AddAssociationConditionVariables {
-  associationId: UUIDString;
+export interface AddBandConditionVariables {
+  bandId: UUIDString;
   type: string;
   content: string;
   sortOrder: number;
@@ -41,14 +41,14 @@ export interface AddEventMemberVariables {
   memberId: UUIDString;
 }
 
-export interface AssociationCondition_Key {
+export interface BandCondition_Key {
   id: UUIDString;
-  __typename?: 'AssociationCondition_Key';
+  __typename?: 'BandCondition_Key';
 }
 
-export interface Association_Key {
+export interface Band_Key {
   id: UUIDString;
-  __typename?: 'Association_Key';
+  __typename?: 'Band_Key';
 }
 
 export interface BroadcastMessage_Key {
@@ -56,13 +56,13 @@ export interface BroadcastMessage_Key {
   __typename?: 'BroadcastMessage_Key';
 }
 
-export interface CreateAssociationData {
-  association_insert: {
+export interface CreateBandData {
+  band_insert: {
     id: UUIDString;
   };
 }
 
-export interface CreateAssociationVariables {
+export interface CreateBandVariables {
   name: string;
   shortName: string;
   subdomain: string;
@@ -93,7 +93,7 @@ export interface CreateEventData {
 }
 
 export interface CreateEventVariables {
-  associationId: UUIDString;
+  bandId: UUIDString;
   title: string;
   description: string;
   imageUrl: string;
@@ -111,19 +111,19 @@ export interface CreateFounderMemberData {
 }
 
 export interface CreateFounderMemberVariables {
-  associationId: UUIDString;
+  bandId: UUIDString;
   name: string;
   email: string;
   conditionsAcceptedAt: TimestampString;
 }
 
-export interface DeleteAssociationConditionData {
-  associationCondition_delete?: {
+export interface DeleteBandConditionData {
+  bandCondition_delete?: {
     id: UUIDString;
   };
 }
 
-export interface DeleteAssociationConditionVariables {
+export interface DeleteBandConditionVariables {
   id: UUIDString;
 }
 
@@ -147,8 +147,8 @@ export interface Event_Key {
   __typename?: 'Event_Key';
 }
 
-export interface GetAssociationByFounderEmailData {
-  association?: {
+export interface GetBandByFounderEmailData {
+  band?: {
     id: UUIDString;
     name: string;
     shortName: string;
@@ -163,15 +163,15 @@ export interface GetAssociationByFounderEmailData {
     requireGuardian: boolean;
     active: boolean;
     createdAt: TimestampString;
-  } & Association_Key;
+  } & Band_Key;
 }
 
-export interface GetAssociationByFounderEmailVariables {
+export interface GetBandByFounderEmailVariables {
   founderEmail: string;
 }
 
-export interface GetAssociationBySubdomainData {
-  association?: {
+export interface GetBandBySubdomainData {
+  band?: {
     id: UUIDString;
     name: string;
     shortName: string;
@@ -186,27 +186,27 @@ export interface GetAssociationBySubdomainData {
     requireGuardian: boolean;
     active: boolean;
     createdAt: TimestampString;
-  } & Association_Key;
+  } & Band_Key;
 }
 
-export interface GetAssociationBySubdomainVariables {
+export interface GetBandBySubdomainVariables {
   subdomain: string;
 }
 
-export interface GetAssociationConditionsData {
-  associationConditions: ({
+export interface GetBandConditionsData {
+  bandConditions: ({
     id: UUIDString;
     type: string;
     content: string;
     sortOrder: number;
-  } & AssociationCondition_Key)[];
+  } & BandCondition_Key)[];
 }
 
-export interface GetAssociationConditionsVariables {
-  associationId: UUIDString;
+export interface GetBandConditionsVariables {
+  bandId: UUIDString;
 }
 
-export interface GetAssociationEventsData {
+export interface GetBandEventsData {
   events: ({
     id: UUIDString;
     title: string;
@@ -228,11 +228,11 @@ export interface GetAssociationEventsData {
   } & Event_Key)[];
 }
 
-export interface GetAssociationEventsVariables {
-  associationId: UUIDString;
+export interface GetBandEventsVariables {
+  bandId: UUIDString;
 }
 
-export interface GetAssociationMembersData {
+export interface GetBandMembersData {
   members: ({
     id: UUIDString;
     email: string;
@@ -259,8 +259,8 @@ export interface GetAssociationMembersData {
   } & Member_Key)[];
 }
 
-export interface GetAssociationMembersVariables {
-  associationId: UUIDString;
+export interface GetBandMembersVariables {
+  bandId: UUIDString;
 }
 
 export interface GetEventAppointmentDetailData {
@@ -349,9 +349,9 @@ export interface GetEventMemberVariables {
 export interface GetMemberData {
   member?: {
     id: UUIDString;
-    association: {
+    band: {
       id: UUIDString;
-    } & Association_Key;
+    } & Band_Key;
       email: string;
       phone: string;
       role: MemberRole;
@@ -468,31 +468,31 @@ export interface SendBroadcastData {
 }
 
 export interface SendBroadcastVariables {
-  associationId: UUIDString;
+  bandId: UUIDString;
   sentBy: UUIDString;
   title: string;
   body: string;
 }
 
-export interface UpdateAssociationData {
-  association_update?: {
+export interface UpdateBandData {
+  band_update?: {
     id: UUIDString;
   };
 }
 
-export interface UpdateAssociationImagesData {
-  association_update?: {
+export interface UpdateBandImagesData {
+  band_update?: {
     id: UUIDString;
   };
 }
 
-export interface UpdateAssociationImagesVariables {
+export interface UpdateBandImagesVariables {
   id: UUIDString;
   logoUrl: string;
   iconUrl: string;
 }
 
-export interface UpdateAssociationVariables {
+export interface UpdateBandVariables {
   id: UUIDString;
   requireIdDoc: boolean;
   requireIdDocImage: boolean;
@@ -590,30 +590,30 @@ export interface UpdateMemberStatusVariables {
   resolvedAt: TimestampString;
 }
 
-/** Generated Node Admin SDK operation action function for the 'CreateAssociation' Mutation. Allow users to execute without passing in DataConnect. */
-export function createAssociation(dc: DataConnect, vars: CreateAssociationVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateAssociationData>>;
-/** Generated Node Admin SDK operation action function for the 'CreateAssociation' Mutation. Allow users to pass in custom DataConnect instances. */
-export function createAssociation(vars: CreateAssociationVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateAssociationData>>;
+/** Generated Node Admin SDK operation action function for the 'CreateBand' Mutation. Allow users to execute without passing in DataConnect. */
+export function createBand(dc: DataConnect, vars: CreateBandVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateBandData>>;
+/** Generated Node Admin SDK operation action function for the 'CreateBand' Mutation. Allow users to pass in custom DataConnect instances. */
+export function createBand(vars: CreateBandVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateBandData>>;
 
-/** Generated Node Admin SDK operation action function for the 'UpdateAssociationImages' Mutation. Allow users to execute without passing in DataConnect. */
-export function updateAssociationImages(dc: DataConnect, vars: UpdateAssociationImagesVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateAssociationImagesData>>;
-/** Generated Node Admin SDK operation action function for the 'UpdateAssociationImages' Mutation. Allow users to pass in custom DataConnect instances. */
-export function updateAssociationImages(vars: UpdateAssociationImagesVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateAssociationImagesData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateBandImages' Mutation. Allow users to execute without passing in DataConnect. */
+export function updateBandImages(dc: DataConnect, vars: UpdateBandImagesVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateBandImagesData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateBandImages' Mutation. Allow users to pass in custom DataConnect instances. */
+export function updateBandImages(vars: UpdateBandImagesVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateBandImagesData>>;
 
-/** Generated Node Admin SDK operation action function for the 'UpdateAssociation' Mutation. Allow users to execute without passing in DataConnect. */
-export function updateAssociation(dc: DataConnect, vars: UpdateAssociationVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateAssociationData>>;
-/** Generated Node Admin SDK operation action function for the 'UpdateAssociation' Mutation. Allow users to pass in custom DataConnect instances. */
-export function updateAssociation(vars: UpdateAssociationVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateAssociationData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateBand' Mutation. Allow users to execute without passing in DataConnect. */
+export function updateBand(dc: DataConnect, vars: UpdateBandVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateBandData>>;
+/** Generated Node Admin SDK operation action function for the 'UpdateBand' Mutation. Allow users to pass in custom DataConnect instances. */
+export function updateBand(vars: UpdateBandVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<UpdateBandData>>;
 
-/** Generated Node Admin SDK operation action function for the 'AddAssociationCondition' Mutation. Allow users to execute without passing in DataConnect. */
-export function addAssociationCondition(dc: DataConnect, vars: AddAssociationConditionVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<AddAssociationConditionData>>;
-/** Generated Node Admin SDK operation action function for the 'AddAssociationCondition' Mutation. Allow users to pass in custom DataConnect instances. */
-export function addAssociationCondition(vars: AddAssociationConditionVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<AddAssociationConditionData>>;
+/** Generated Node Admin SDK operation action function for the 'AddBandCondition' Mutation. Allow users to execute without passing in DataConnect. */
+export function addBandCondition(dc: DataConnect, vars: AddBandConditionVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<AddBandConditionData>>;
+/** Generated Node Admin SDK operation action function for the 'AddBandCondition' Mutation. Allow users to pass in custom DataConnect instances. */
+export function addBandCondition(vars: AddBandConditionVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<AddBandConditionData>>;
 
-/** Generated Node Admin SDK operation action function for the 'DeleteAssociationCondition' Mutation. Allow users to execute without passing in DataConnect. */
-export function deleteAssociationCondition(dc: DataConnect, vars: DeleteAssociationConditionVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<DeleteAssociationConditionData>>;
-/** Generated Node Admin SDK operation action function for the 'DeleteAssociationCondition' Mutation. Allow users to pass in custom DataConnect instances. */
-export function deleteAssociationCondition(vars: DeleteAssociationConditionVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<DeleteAssociationConditionData>>;
+/** Generated Node Admin SDK operation action function for the 'DeleteBandCondition' Mutation. Allow users to execute without passing in DataConnect. */
+export function deleteBandCondition(dc: DataConnect, vars: DeleteBandConditionVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<DeleteBandConditionData>>;
+/** Generated Node Admin SDK operation action function for the 'DeleteBandCondition' Mutation. Allow users to pass in custom DataConnect instances. */
+export function deleteBandCondition(vars: DeleteBandConditionVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<DeleteBandConditionData>>;
 
 /** Generated Node Admin SDK operation action function for the 'CreateFounderMember' Mutation. Allow users to execute without passing in DataConnect. */
 export function createFounderMember(dc: DataConnect, vars: CreateFounderMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<CreateFounderMemberData>>;
@@ -695,35 +695,35 @@ export function sendBroadcast(dc: DataConnect, vars: SendBroadcastVariables, opt
 /** Generated Node Admin SDK operation action function for the 'SendBroadcast' Mutation. Allow users to pass in custom DataConnect instances. */
 export function sendBroadcast(vars: SendBroadcastVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<SendBroadcastData>>;
 
-/** Generated Node Admin SDK operation action function for the 'GetAssociationByFounderEmail' Query. Allow users to execute without passing in DataConnect. */
-export function getAssociationByFounderEmail(dc: DataConnect, vars: GetAssociationByFounderEmailVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationByFounderEmailData>>;
-/** Generated Node Admin SDK operation action function for the 'GetAssociationByFounderEmail' Query. Allow users to pass in custom DataConnect instances. */
-export function getAssociationByFounderEmail(vars: GetAssociationByFounderEmailVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationByFounderEmailData>>;
+/** Generated Node Admin SDK operation action function for the 'GetBandByFounderEmail' Query. Allow users to execute without passing in DataConnect. */
+export function getBandByFounderEmail(dc: DataConnect, vars: GetBandByFounderEmailVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetBandByFounderEmailData>>;
+/** Generated Node Admin SDK operation action function for the 'GetBandByFounderEmail' Query. Allow users to pass in custom DataConnect instances. */
+export function getBandByFounderEmail(vars: GetBandByFounderEmailVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetBandByFounderEmailData>>;
 
-/** Generated Node Admin SDK operation action function for the 'GetAssociationBySubdomain' Query. Allow users to execute without passing in DataConnect. */
-export function getAssociationBySubdomain(dc: DataConnect, vars: GetAssociationBySubdomainVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationBySubdomainData>>;
-/** Generated Node Admin SDK operation action function for the 'GetAssociationBySubdomain' Query. Allow users to pass in custom DataConnect instances. */
-export function getAssociationBySubdomain(vars: GetAssociationBySubdomainVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationBySubdomainData>>;
+/** Generated Node Admin SDK operation action function for the 'GetBandBySubdomain' Query. Allow users to execute without passing in DataConnect. */
+export function getBandBySubdomain(dc: DataConnect, vars: GetBandBySubdomainVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetBandBySubdomainData>>;
+/** Generated Node Admin SDK operation action function for the 'GetBandBySubdomain' Query. Allow users to pass in custom DataConnect instances. */
+export function getBandBySubdomain(vars: GetBandBySubdomainVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetBandBySubdomainData>>;
 
 /** Generated Node Admin SDK operation action function for the 'GetMember' Query. Allow users to execute without passing in DataConnect. */
 export function getMember(dc: DataConnect, vars: GetMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetMemberData>>;
 /** Generated Node Admin SDK operation action function for the 'GetMember' Query. Allow users to pass in custom DataConnect instances. */
 export function getMember(vars: GetMemberVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetMemberData>>;
 
-/** Generated Node Admin SDK operation action function for the 'GetAssociationConditions' Query. Allow users to execute without passing in DataConnect. */
-export function getAssociationConditions(dc: DataConnect, vars: GetAssociationConditionsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationConditionsData>>;
-/** Generated Node Admin SDK operation action function for the 'GetAssociationConditions' Query. Allow users to pass in custom DataConnect instances. */
-export function getAssociationConditions(vars: GetAssociationConditionsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationConditionsData>>;
+/** Generated Node Admin SDK operation action function for the 'GetBandConditions' Query. Allow users to execute without passing in DataConnect. */
+export function getBandConditions(dc: DataConnect, vars: GetBandConditionsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetBandConditionsData>>;
+/** Generated Node Admin SDK operation action function for the 'GetBandConditions' Query. Allow users to pass in custom DataConnect instances. */
+export function getBandConditions(vars: GetBandConditionsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetBandConditionsData>>;
 
-/** Generated Node Admin SDK operation action function for the 'GetAssociationMembers' Query. Allow users to execute without passing in DataConnect. */
-export function getAssociationMembers(dc: DataConnect, vars: GetAssociationMembersVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationMembersData>>;
-/** Generated Node Admin SDK operation action function for the 'GetAssociationMembers' Query. Allow users to pass in custom DataConnect instances. */
-export function getAssociationMembers(vars: GetAssociationMembersVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationMembersData>>;
+/** Generated Node Admin SDK operation action function for the 'GetBandMembers' Query. Allow users to execute without passing in DataConnect. */
+export function getBandMembers(dc: DataConnect, vars: GetBandMembersVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetBandMembersData>>;
+/** Generated Node Admin SDK operation action function for the 'GetBandMembers' Query. Allow users to pass in custom DataConnect instances. */
+export function getBandMembers(vars: GetBandMembersVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetBandMembersData>>;
 
-/** Generated Node Admin SDK operation action function for the 'GetAssociationEvents' Query. Allow users to execute without passing in DataConnect. */
-export function getAssociationEvents(dc: DataConnect, vars: GetAssociationEventsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationEventsData>>;
-/** Generated Node Admin SDK operation action function for the 'GetAssociationEvents' Query. Allow users to pass in custom DataConnect instances. */
-export function getAssociationEvents(vars: GetAssociationEventsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetAssociationEventsData>>;
+/** Generated Node Admin SDK operation action function for the 'GetBandEvents' Query. Allow users to execute without passing in DataConnect. */
+export function getBandEvents(dc: DataConnect, vars: GetBandEventsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetBandEventsData>>;
+/** Generated Node Admin SDK operation action function for the 'GetBandEvents' Query. Allow users to pass in custom DataConnect instances. */
+export function getBandEvents(vars: GetBandEventsVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetBandEventsData>>;
 
 /** Generated Node Admin SDK operation action function for the 'GetEventDetail' Query. Allow users to execute without passing in DataConnect. */
 export function getEventDetail(dc: DataConnect, vars: GetEventDetailVariables, options?: OperationOptions): Promise<ExecuteOperationResponse<GetEventDetailData>>;

@@ -7,8 +7,8 @@ abstract class MemberRepository {
     required Function(Member? member, AppError? error) onComplete,
   });
 
-  void getAssociationMembers(
-    String associationId, {
+  void getBandMembers(
+    String bandId, {
     required Function(List<Member> members, AppError? error) onComplete,
   });
 
@@ -71,7 +71,7 @@ abstract class MemberRepository {
   });
 
   void createFounderMember(
-    String associationId,
+    String bandId,
     String name,
     String email, {
     required Function(AppError? error) onComplete,

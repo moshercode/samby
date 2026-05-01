@@ -34,8 +34,8 @@ class AccessRequestViewModel extends ViewModel {
   bool _allGeneralConditionsAccepted = false;
   bool _allMinorConditionsAccepted = false;
 
-  List<AssociationCondition> generalConditions = <AssociationCondition>[];
-  List<AssociationCondition> minorConditions = <AssociationCondition>[];
+  List<BandCondition> generalConditions = <BandCondition>[];
+  List<BandCondition> minorConditions = <BandCondition>[];
 
   bool get isMinor {
     try {
@@ -67,9 +67,9 @@ class AccessRequestViewModel extends ViewModel {
   bool get hasExistingApplication =>
       SessionDataManager.instance.member?.status == MemberStatus.rejected;
 
-  bool get requireIdDoc => SessionDataManager.instance.association?.requireIdDoc ?? false;
-  bool get requireIdDocImage => SessionDataManager.instance.association?.requireIdDocImage ?? false;
-  bool get requireGuardian => SessionDataManager.instance.association?.requireGuardian ?? false;
+  bool get requireIdDoc => SessionDataManager.instance.band?.requireIdDoc ?? false;
+  bool get requireIdDocImage => SessionDataManager.instance.band?.requireIdDocImage ?? false;
+  bool get requireGuardian => SessionDataManager.instance.band?.requireGuardian ?? false;
 
   bool get isReadyToSubmit {
     final bool nameValid = name.trim().isNotEmpty;
@@ -230,16 +230,16 @@ class AccessRequestViewModel extends ViewModel {
   // Private methods
 
   void _loadConditions() {
-    final String? assocId = SessionDataManager.instance.association?.id;
-    if (assocId == null) return;
-    sl<AssociationRepository>().getAssociationConditions(
-      assocId,
-      onComplete: (List<AssociationCondition> conditions, dynamic _) {
+    final String? bandId = SessionDataManager.instance.band?.id;
+    if (bandId == null) return;
+    sl<BandRepository>().getBandConditions(
+      bandId,
+      onComplete: (List<BandCondition> conditions, dynamic _) {
         generalConditions = conditions
-            .where((AssociationCondition c) => c.type == ConditionType.general)
+            .where((BandCondition c) => c.type == ConditionType.general)
             .toList();
         minorConditions = conditions
-            .where((AssociationCondition c) => c.type == ConditionType.minor)
+            .where((BandCondition c) => c.type == ConditionType.minor)
             .toList();
         notifyListeners();
       },
@@ -248,8 +248,8 @@ class AccessRequestViewModel extends ViewModel {
 
   String _storagePath(String suffix) {
     final String uid = UserManager.instance.user?.uid ?? 'unknown';
-    final String assocId = SessionDataManager.instance.association?.id ?? 'unknown';
-    return 'memberships/$assocId/$uid/$suffix';
+    final String bandId = SessionDataManager.instance.band?.id ?? 'unknown';
+    return 'memberships/$bandId/$uid/$suffix';
   }
 
   Future<String?> _uploadToStorage(Uint8List bytes, String path) async {

@@ -83,14 +83,10 @@ final class UserManager {
     _auth = FirebaseAuth.instance;
   }
 
-  Future<void> loginWithEmail({
-    required String email,
-    required String password,
-    required Function({AuthenticationError? error}) onComplete,
-  }) async {
+  Future<void> loginWithEmail({required String email, required String password, required Function({AuthenticationError? error}) onComplete}) async {
     Log.debug('UserManager.loginWithEmail...');
-    final String? associationId = SessionDataManager.instance.association?.id;
-    if (associationId == null) {
+    final String? bandId = SessionDataManager.instance.band?.id;
+    if (bandId == null) {
       onComplete(error: AuthenticationError.unknown);
       return;
     }
@@ -99,11 +95,7 @@ final class UserManager {
     try {
       final HttpsCallableResult<dynamic> result = await FirebaseFunctions.instanceFor(
         region: 'europe-southwest1',
-      ).httpsCallable('memberLogin').call(<String, String>{
-        'email': email,
-        'password': password,
-        'associationId': associationId,
-      });
+      ).httpsCallable('memberLogin').call(<String, String>{'email': email, 'password': password, 'bandId': bandId});
       final String token = result.data['token'] as String;
       await FirebaseAuth.instance.signInWithCustomToken(token);
     } on FirebaseFunctionsException catch (e) {
@@ -126,8 +118,8 @@ final class UserManager {
     required Function({AuthenticationError? error}) onComplete,
   }) async {
     Log.debug('UserManager.registerWithEmail...');
-    final String? associationId = SessionDataManager.instance.association?.id;
-    if (associationId == null) {
+    final String? bandId = SessionDataManager.instance.band?.id;
+    if (bandId == null) {
       onComplete(error: AuthenticationError.unknown);
       return;
     }
@@ -136,13 +128,7 @@ final class UserManager {
     try {
       final HttpsCallableResult<dynamic> result = await FirebaseFunctions.instanceFor(
         region: 'europe-southwest1',
-      ).httpsCallable('memberRegister').call(<String, String>{
-        'name': name,
-        'phone': phone,
-        'email': email,
-        'password': password,
-        'associationId': associationId,
-      });
+      ).httpsCallable('memberRegister').call(<String, String>{'name': name, 'phone': phone, 'email': email, 'password': password, 'bandId': bandId});
       final String token = result.data['token'] as String;
       await FirebaseAuth.instance.signInWithCustomToken(token);
     } on FirebaseFunctionsException catch (e) {
@@ -163,8 +149,8 @@ final class UserManager {
     required Function({AuthenticationError? error}) onComplete,
   }) async {
     Log.debug('UserManager.requestPasswordReset...');
-    final String? associationId = SessionDataManager.instance.association?.id;
-    if (associationId == null) {
+    final String? bandId = SessionDataManager.instance.band?.id;
+    if (bandId == null) {
       onComplete(error: AuthenticationError.unknown);
       return;
     }
@@ -173,11 +159,7 @@ final class UserManager {
     try {
       await FirebaseFunctions.instanceFor(
         region: 'europe-southwest1',
-      ).httpsCallable('memberRequestPasswordReset').call(<String, String>{
-        'email': email,
-        'associationId': associationId,
-        'locale': locale,
-      });
+      ).httpsCallable('memberRequestPasswordReset').call(<String, String>{'email': email, 'bandId': bandId, 'locale': locale});
     } on FirebaseFunctionsException catch (e) {
       Log.error('UserManager.requestPasswordReset error: $e');
       error = AuthenticationError.fromCode(e.code);
@@ -197,8 +179,8 @@ final class UserManager {
     required Function({AuthenticationError? error}) onComplete,
   }) async {
     Log.debug('UserManager.resetPassword...');
-    final String? associationId = SessionDataManager.instance.association?.id;
-    if (associationId == null) {
+    final String? bandId = SessionDataManager.instance.band?.id;
+    if (bandId == null) {
       onComplete(error: AuthenticationError.unknown);
       return;
     }
@@ -207,12 +189,7 @@ final class UserManager {
     try {
       await FirebaseFunctions.instanceFor(
         region: 'europe-southwest1',
-      ).httpsCallable('memberResetPassword').call(<String, String>{
-        'email': email,
-        'associationId': associationId,
-        'token': token,
-        'newPassword': newPassword,
-      });
+      ).httpsCallable('memberResetPassword').call(<String, String>{'email': email, 'bandId': bandId, 'token': token, 'newPassword': newPassword});
     } on FirebaseFunctionsException catch (e) {
       Log.error('UserManager.resetPassword error: $e');
       error = AuthenticationError.fromCode(e.code);

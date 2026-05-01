@@ -44,7 +44,7 @@ class SplashViewModel extends ViewModel {
       return;
     }
 
-    SessionDataManager.instance.loadAssociation(subdomain, onComplete: _onAssociationLoaded);
+    SessionDataManager.instance.loadBand(subdomain, onComplete: _onBandLoaded);
   }
 
   String _resolveSubdomain() {
@@ -55,14 +55,14 @@ class SplashViewModel extends ViewModel {
     return kCreateSubdomain;
   }
 
-  Future<void> _onAssociationLoaded() async {
-    final Association? assoc = SessionDataManager.instance.association;
-    if (assoc == null) {
+  Future<void> _onBandLoaded() async {
+    final Band? band = SessionDataManager.instance.band;
+    if (band == null) {
       error = 'not_found';
       notifyListeners();
       return;
     }
-    await SambyThemeManager.instance.setThemeColors(assoc.primaryColor, assoc.secondaryColor);
+    await SambyThemeManager.instance.setThemeColors(band.primaryColor, band.secondaryColor);
     _checkAuth();
   }
 
@@ -115,11 +115,11 @@ class SplashViewModel extends ViewModel {
       NavigationUtils.showOnboardingView(this);
       return;
     }
-    sl<AssociationRepository>().findAssociationByFounderEmail(
+    sl<BandRepository>().findBandByFounderEmail(
       email,
-      onComplete: (Association? association, dynamic _) {
-        if (association != null) {
-          web.window.location.href = 'https://${association.subdomain}.samby.app';
+      onComplete: (Band? band, dynamic _) {
+        if (band != null) {
+          web.window.location.href = 'https://${band.subdomain}.samby.app';
         } else {
           NavigationUtils.showOnboardingView(this);
         }

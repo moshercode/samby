@@ -1,24 +1,24 @@
 part of 'samby.dart';
 
-class GetAssociationByFounderEmailVariablesBuilder {
+class GetBandByFounderEmailVariablesBuilder {
   String founderEmail;
 
   final FirebaseDataConnect _dataConnect;
-  GetAssociationByFounderEmailVariablesBuilder(this._dataConnect, {required  this.founderEmail,});
-  Deserializer<GetAssociationByFounderEmailData> dataDeserializer = (dynamic json)  => GetAssociationByFounderEmailData.fromJson(jsonDecode(json));
-  Serializer<GetAssociationByFounderEmailVariables> varsSerializer = (GetAssociationByFounderEmailVariables vars) => jsonEncode(vars.toJson());
-  Future<QueryResult<GetAssociationByFounderEmailData, GetAssociationByFounderEmailVariables>> execute() {
+  GetBandByFounderEmailVariablesBuilder(this._dataConnect, {required  this.founderEmail,});
+  Deserializer<GetBandByFounderEmailData> dataDeserializer = (dynamic json)  => GetBandByFounderEmailData.fromJson(jsonDecode(json));
+  Serializer<GetBandByFounderEmailVariables> varsSerializer = (GetBandByFounderEmailVariables vars) => jsonEncode(vars.toJson());
+  Future<QueryResult<GetBandByFounderEmailData, GetBandByFounderEmailVariables>> execute() {
     return ref().execute();
   }
 
-  QueryRef<GetAssociationByFounderEmailData, GetAssociationByFounderEmailVariables> ref() {
-    GetAssociationByFounderEmailVariables vars= GetAssociationByFounderEmailVariables(founderEmail: founderEmail,);
-    return _dataConnect.query("GetAssociationByFounderEmail", dataDeserializer, varsSerializer, vars);
+  QueryRef<GetBandByFounderEmailData, GetBandByFounderEmailVariables> ref() {
+    GetBandByFounderEmailVariables vars= GetBandByFounderEmailVariables(founderEmail: founderEmail,);
+    return _dataConnect.query("GetBandByFounderEmail", dataDeserializer, varsSerializer, vars);
   }
 }
 
 @immutable
-class GetAssociationByFounderEmailAssociation {
+class GetBandByFounderEmailBand {
   final String id;
   final String name;
   final String shortName;
@@ -33,7 +33,7 @@ class GetAssociationByFounderEmailAssociation {
   final bool requireGuardian;
   final bool active;
   final Timestamp createdAt;
-  GetAssociationByFounderEmailAssociation.fromJson(dynamic json):
+  GetBandByFounderEmailBand.fromJson(dynamic json):
   
   id = nativeFromJson<String>(json['id']),
   name = nativeFromJson<String>(json['name']),
@@ -58,7 +58,7 @@ class GetAssociationByFounderEmailAssociation {
       return false;
     }
 
-    final GetAssociationByFounderEmailAssociation otherTyped = other as GetAssociationByFounderEmailAssociation;
+    final GetBandByFounderEmailBand otherTyped = other as GetBandByFounderEmailBand;
     return id == otherTyped.id && 
     name == otherTyped.name && 
     shortName == otherTyped.shortName && 
@@ -98,7 +98,7 @@ class GetAssociationByFounderEmailAssociation {
     return json;
   }
 
-  GetAssociationByFounderEmailAssociation({
+  GetBandByFounderEmailBand({
     required this.id,
     required this.name,
     required this.shortName,
@@ -117,11 +117,11 @@ class GetAssociationByFounderEmailAssociation {
 }
 
 @immutable
-class GetAssociationByFounderEmailData {
-  final GetAssociationByFounderEmailAssociation? association;
-  GetAssociationByFounderEmailData.fromJson(dynamic json):
+class GetBandByFounderEmailData {
+  final GetBandByFounderEmailBand? band;
+  GetBandByFounderEmailData.fromJson(dynamic json):
   
-  association = json['association'] == null ? null : GetAssociationByFounderEmailAssociation.fromJson(json['association']);
+  band = json['band'] == null ? null : GetBandByFounderEmailBand.fromJson(json['band']);
   @override
   bool operator ==(Object other) {
     if(identical(this, other)) {
@@ -131,32 +131,32 @@ class GetAssociationByFounderEmailData {
       return false;
     }
 
-    final GetAssociationByFounderEmailData otherTyped = other as GetAssociationByFounderEmailData;
-    return association == otherTyped.association;
+    final GetBandByFounderEmailData otherTyped = other as GetBandByFounderEmailData;
+    return band == otherTyped.band;
     
   }
   @override
-  int get hashCode => association.hashCode;
+  int get hashCode => band.hashCode;
   
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    if (association != null) {
-      json['association'] = association!.toJson();
+    if (band != null) {
+      json['band'] = band!.toJson();
     }
     return json;
   }
 
-  GetAssociationByFounderEmailData({
-    this.association,
+  GetBandByFounderEmailData({
+    this.band,
   });
 }
 
 @immutable
-class GetAssociationByFounderEmailVariables {
+class GetBandByFounderEmailVariables {
   final String founderEmail;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
-  GetAssociationByFounderEmailVariables.fromJson(Map<String, dynamic> json):
+  GetBandByFounderEmailVariables.fromJson(Map<String, dynamic> json):
   
   founderEmail = nativeFromJson<String>(json['founderEmail']);
   @override
@@ -168,7 +168,7 @@ class GetAssociationByFounderEmailVariables {
       return false;
     }
 
-    final GetAssociationByFounderEmailVariables otherTyped = other as GetAssociationByFounderEmailVariables;
+    final GetBandByFounderEmailVariables otherTyped = other as GetBandByFounderEmailVariables;
     return founderEmail == otherTyped.founderEmail;
     
   }
@@ -182,7 +182,7 @@ class GetAssociationByFounderEmailVariables {
     return json;
   }
 
-  GetAssociationByFounderEmailVariables({
+  GetBandByFounderEmailVariables({
     required this.founderEmail,
   });
 }

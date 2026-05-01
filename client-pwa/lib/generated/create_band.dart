@@ -1,6 +1,6 @@
 part of 'samby.dart';
 
-class CreateAssociationVariablesBuilder {
+class CreateBandVariablesBuilder {
   String name;
   String shortName;
   String subdomain;
@@ -9,23 +9,23 @@ class CreateAssociationVariablesBuilder {
   String founderEmail;
 
   final FirebaseDataConnect _dataConnect;
-  CreateAssociationVariablesBuilder(this._dataConnect, {required  this.name,required  this.shortName,required  this.subdomain,required  this.primaryColor,required  this.secondaryColor,required  this.founderEmail,});
-  Deserializer<CreateAssociationData> dataDeserializer = (dynamic json)  => CreateAssociationData.fromJson(jsonDecode(json));
-  Serializer<CreateAssociationVariables> varsSerializer = (CreateAssociationVariables vars) => jsonEncode(vars.toJson());
-  Future<OperationResult<CreateAssociationData, CreateAssociationVariables>> execute() {
+  CreateBandVariablesBuilder(this._dataConnect, {required  this.name,required  this.shortName,required  this.subdomain,required  this.primaryColor,required  this.secondaryColor,required  this.founderEmail,});
+  Deserializer<CreateBandData> dataDeserializer = (dynamic json)  => CreateBandData.fromJson(jsonDecode(json));
+  Serializer<CreateBandVariables> varsSerializer = (CreateBandVariables vars) => jsonEncode(vars.toJson());
+  Future<OperationResult<CreateBandData, CreateBandVariables>> execute() {
     return ref().execute();
   }
 
-  MutationRef<CreateAssociationData, CreateAssociationVariables> ref() {
-    CreateAssociationVariables vars= CreateAssociationVariables(name: name,shortName: shortName,subdomain: subdomain,primaryColor: primaryColor,secondaryColor: secondaryColor,founderEmail: founderEmail,);
-    return _dataConnect.mutation("CreateAssociation", dataDeserializer, varsSerializer, vars);
+  MutationRef<CreateBandData, CreateBandVariables> ref() {
+    CreateBandVariables vars= CreateBandVariables(name: name,shortName: shortName,subdomain: subdomain,primaryColor: primaryColor,secondaryColor: secondaryColor,founderEmail: founderEmail,);
+    return _dataConnect.mutation("CreateBand", dataDeserializer, varsSerializer, vars);
   }
 }
 
 @immutable
-class CreateAssociationAssociationInsert {
+class CreateBandBandInsert {
   final String id;
-  CreateAssociationAssociationInsert.fromJson(dynamic json):
+  CreateBandBandInsert.fromJson(dynamic json):
   
   id = nativeFromJson<String>(json['id']);
   @override
@@ -37,7 +37,7 @@ class CreateAssociationAssociationInsert {
       return false;
     }
 
-    final CreateAssociationAssociationInsert otherTyped = other as CreateAssociationAssociationInsert;
+    final CreateBandBandInsert otherTyped = other as CreateBandBandInsert;
     return id == otherTyped.id;
     
   }
@@ -51,17 +51,17 @@ class CreateAssociationAssociationInsert {
     return json;
   }
 
-  CreateAssociationAssociationInsert({
+  CreateBandBandInsert({
     required this.id,
   });
 }
 
 @immutable
-class CreateAssociationData {
-  final CreateAssociationAssociationInsert association_insert;
-  CreateAssociationData.fromJson(dynamic json):
+class CreateBandData {
+  final CreateBandBandInsert band_insert;
+  CreateBandData.fromJson(dynamic json):
   
-  association_insert = CreateAssociationAssociationInsert.fromJson(json['association_insert']);
+  band_insert = CreateBandBandInsert.fromJson(json['band_insert']);
   @override
   bool operator ==(Object other) {
     if(identical(this, other)) {
@@ -71,27 +71,27 @@ class CreateAssociationData {
       return false;
     }
 
-    final CreateAssociationData otherTyped = other as CreateAssociationData;
-    return association_insert == otherTyped.association_insert;
+    final CreateBandData otherTyped = other as CreateBandData;
+    return band_insert == otherTyped.band_insert;
     
   }
   @override
-  int get hashCode => association_insert.hashCode;
+  int get hashCode => band_insert.hashCode;
   
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    json['association_insert'] = association_insert.toJson();
+    json['band_insert'] = band_insert.toJson();
     return json;
   }
 
-  CreateAssociationData({
-    required this.association_insert,
+  CreateBandData({
+    required this.band_insert,
   });
 }
 
 @immutable
-class CreateAssociationVariables {
+class CreateBandVariables {
   final String name;
   final String shortName;
   final String subdomain;
@@ -99,7 +99,7 @@ class CreateAssociationVariables {
   final String secondaryColor;
   final String founderEmail;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
-  CreateAssociationVariables.fromJson(Map<String, dynamic> json):
+  CreateBandVariables.fromJson(Map<String, dynamic> json):
   
   name = nativeFromJson<String>(json['name']),
   shortName = nativeFromJson<String>(json['shortName']),
@@ -116,7 +116,7 @@ class CreateAssociationVariables {
       return false;
     }
 
-    final CreateAssociationVariables otherTyped = other as CreateAssociationVariables;
+    final CreateBandVariables otherTyped = other as CreateBandVariables;
     return name == otherTyped.name && 
     shortName == otherTyped.shortName && 
     subdomain == otherTyped.subdomain && 
@@ -140,7 +140,7 @@ class CreateAssociationVariables {
     return json;
   }
 
-  CreateAssociationVariables({
+  CreateBandVariables({
     required this.name,
     required this.shortName,
     required this.subdomain,

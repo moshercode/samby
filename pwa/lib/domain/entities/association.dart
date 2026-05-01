@@ -1,6 +1,6 @@
 import 'package:samby/domain/entities/entity.dart';
 
-class Association implements Entity {
+class Band implements Entity {
   // Variables
 
   late String id;
@@ -20,7 +20,7 @@ class Association implements Entity {
   // Constructor
 
   @override
-  Association.fromMap(Map<String, dynamic> map) {
+  Band.fromMap(Map<String, dynamic> map) {
     id = map['id'] as String;
     name = map['name'] as String;
     shortName = map['shortName'] as String;

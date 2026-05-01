@@ -1,5 +1,5 @@
-query GetAssociationByFounderEmail($founderEmail: String!) @auth(level: USER) {
-  association(first: { where: { founderEmail: { eq: $founderEmail } } }) {
+query GetBandByFounderEmail($founderEmail: String!) @auth(level: USER) {
+  band(first: { where: { founderEmail: { eq: $founderEmail } } }) {
     id
     name
     shortName
@@ -17,8 +17,8 @@ query GetAssociationByFounderEmail($founderEmail: String!) @auth(level: USER) {
   }
 }
 
-query GetAssociationBySubdomain($subdomain: String!) @auth(level: PUBLIC) {
-  association(first: { where: { subdomain: { eq: $subdomain } } }) {
+query GetBandBySubdomain($subdomain: String!) @auth(level: PUBLIC) {
+  band(first: { where: { subdomain: { eq: $subdomain } } }) {
     id
     name
     shortName
@@ -39,7 +39,7 @@ query GetAssociationBySubdomain($subdomain: String!) @auth(level: PUBLIC) {
 query GetMember($memberId: UUID!) @auth(level: USER) {
   member(key: { id: $memberId }) {
     id
-    association { id }
+    band { id }
     email
     phone
     role
@@ -64,8 +64,8 @@ query GetMember($memberId: UUID!) @auth(level: USER) {
   }
 }
 
-query GetAssociationConditions($associationId: UUID!) @auth(level: PUBLIC) {
-  associationConditions(where: { associationId: { eq: $associationId } }, orderBy: [{ sortOrder: ASC }]) {
+query GetBandConditions($bandId: UUID!) @auth(level: PUBLIC) {
+  bandConditions(where: { bandId: { eq: $bandId } }, orderBy: [{ sortOrder: ASC }]) {
     id
     type
     content
@@ -73,8 +73,8 @@ query GetAssociationConditions($associationId: UUID!) @auth(level: PUBLIC) {
   }
 }
 
-query GetAssociationMembers($associationId: UUID!) @auth(level: USER) {
-  members(where: { associationId: { eq: $associationId } }, orderBy: [{ createdAt: DESC }]) {
+query GetBandMembers($bandId: UUID!) @auth(level: USER) {
+  members(where: { bandId: { eq: $bandId } }, orderBy: [{ createdAt: DESC }]) {
     id
     email
     phone
@@ -100,8 +100,8 @@ query GetAssociationMembers($associationId: UUID!) @auth(level: USER) {
   }
 }
 
-query GetAssociationEvents($associationId: UUID!) @auth(level: USER) {
-  events(where: { associationId: { eq: $associationId } }, orderBy: [{ createdAt: DESC }]) {
+query GetBandEvents($bandId: UUID!) @auth(level: USER) {
+  events(where: { bandId: { eq: $bandId } }, orderBy: [{ createdAt: DESC }]) {
     id
     title
     description

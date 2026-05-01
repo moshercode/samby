@@ -12,14 +12,14 @@ class EventRepositoryImpl implements EventRepository {
   EventRepositoryImpl(this._datasource);
 
   @override
-  void getAssociationEvents(
-    String associationId, {
+  void getBandEvents(
+    String bandId, {
     required Function(List<Event> events, AppError? error) onComplete,
   }) async {
     try {
       final Map<String, dynamic>? data = await _datasource.executeQuery(
-        DataconnectOps.getAssociationEvents,
-        variables: {DataconnectKeys.associationId: associationId},
+        DataconnectOps.getBandEvents,
+        variables: {DataconnectKeys.bandId: bandId},
       );
       final List<dynamic> raw =
           data?[DataconnectResponseKeys.events] as List<dynamic>? ?? <dynamic>[];
@@ -27,10 +27,10 @@ class EventRepositoryImpl implements EventRepository {
           raw.map((dynamic e) => Event.fromMap(e as Map<String, dynamic>)).toList();
       onComplete(events, null);
     } on AppError catch (e) {
-      Log.error('EventRepositoryImpl.getAssociationEvents: $e');
+      Log.error('EventRepositoryImpl.getBandEvents: $e');
       onComplete(<Event>[], e);
     } catch (e) {
-      Log.error('EventRepositoryImpl.getAssociationEvents unknown: $e');
+      Log.error('EventRepositoryImpl.getBandEvents unknown: $e');
       onComplete(<Event>[], DataError(e.toString()));
     }
   }
@@ -60,7 +60,7 @@ class EventRepositoryImpl implements EventRepository {
 
   @override
   void createEvent({
-    required String associationId,
+    required String bandId,
     required String title,
     required String description,
     required String imageUrl,
@@ -75,7 +75,7 @@ class EventRepositoryImpl implements EventRepository {
       final Map<String, dynamic>? data = await _datasource.executeMutation(
         DataconnectOps.createEvent,
         variables: {
-          DataconnectKeys.associationId: associationId,
+          DataconnectKeys.bandId: bandId,
           DataconnectKeys.title: title,
           DataconnectKeys.description: description,
           DataconnectKeys.imageUrl: imageUrl,

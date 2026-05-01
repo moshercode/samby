@@ -4,8 +4,8 @@ import 'package:samby/domain/entities/event_access_request.dart';
 import 'package:samby/domain/entities/event_appointment.dart';
 
 abstract class EventRepository {
-  void getAssociationEvents(
-    String associationId, {
+  void getBandEvents(
+    String bandId, {
     required Function(List<Event> events, AppError? error) onComplete,
   });
 
@@ -15,7 +15,7 @@ abstract class EventRepository {
   });
 
   void createEvent({
-    required String associationId,
+    required String bandId,
     required String title,
     required String description,
     required String imageUrl,

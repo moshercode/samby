@@ -5,6 +5,7 @@ import 'package:samby/domain/entities/membership.dart';
 import 'package:samby/presentation/managers/navigation_manager.dart';
 import 'package:samby/presentation/viewmodels/access_request/access_request_viewmodel.dart';
 import 'package:samby/presentation/viewmodels/association/association_detail_viewmodel.dart';
+
 import 'package:samby/presentation/viewmodels/authentication/authentication_viewmodel.dart';
 import 'package:samby/presentation/viewmodels/base/view_model.dart';
 import 'package:samby/presentation/viewmodels/events/create_event_viewmodel.dart';
@@ -91,8 +92,8 @@ abstract class NavigationUtils {
     return _showView(from: from, view: EventAppointmentDetailView(EventAppointmentDetailViewModel(appointmentId)), mode: PresentationMode.push);
   }
 
-  static Future<void> showAssociationDetailView(ViewModel from) {
-    return _showView(from: from, view: AssociationDetailView(AssociationDetailViewModel()), mode: PresentationMode.push);
+  static Future<void> showBandDetailView(ViewModel from) {
+    return _showView(from: from, view: BandDetailView(BandDetailViewModel()), mode: PresentationMode.push);
   }
 
   static Future<void> showMemberDetailView(ViewModel from, Member member) {

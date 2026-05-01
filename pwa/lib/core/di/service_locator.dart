@@ -17,7 +17,7 @@ Future<void> initDependencies() async {
 
   final DataconnectDatasource datasource = DataconnectDatasource(dc: firebaseDataConnect);
 
-  sl.registerSingleton<AssociationRepository>(AssociationRepositoryImpl(datasource));
+  sl.registerSingleton<BandRepository>(BandRepositoryImpl(datasource));
   sl.registerSingleton<MemberRepository>(MemberRepositoryImpl(datasource));
   sl.registerSingleton<EventRepository>(EventRepositoryImpl(datasource));
 }

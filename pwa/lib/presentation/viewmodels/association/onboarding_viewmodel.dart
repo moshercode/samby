@@ -117,36 +117,36 @@ class OnboardingViewModel extends ViewModel {
     }
     final String founderEmail = UserManager.instance.userEmail ?? '';
     setLoading(true);
-    sl<AssociationRepository>().createAssociation(
+    sl<BandRepository>().createBand(
       _name.trim(),
       _shortName.trim(),
       _subdomain,
       _primaryColor,
       _secondaryColor,
       founderEmail,
-      onComplete: (String? associationId, dynamic error) async {
-        if (error != null || associationId == null) {
+      onComplete: (String? bandId, dynamic error) async {
+        if (error != null || bandId == null) {
           setLoading(false);
           return;
         }
-        await _createConditions(associationId);
-        await _createFounderMembership(associationId);
-        await _updateAssociationSettings(associationId);
+        await _createConditions(bandId);
+        await _createFounderMembership(bandId);
+        await _updateBandSettings(bandId);
         setLoading(false);
-        _redirectToAssociation();
+        _redirectToBand();
       },
     );
   }
 
   // Private methods
 
-  Future<void> _createConditions(String associationId) async {
+  Future<void> _createConditions(String bandId) async {
     final List<Future<void>> tasks = <Future<void>>[];
 
     for (int i = 0; i < _generalConditions.length; i++) {
       final Completer<void> c = Completer<void>();
-      sl<AssociationRepository>().createCondition(
-        associationId, 'general', _generalConditions[i], i,
+      sl<BandRepository>().createBandCondition(
+        bandId, 'general', _generalConditions[i], i,
         onComplete: (_) => c.complete(),
       );
       tasks.add(c.future);
@@ -154,8 +154,8 @@ class OnboardingViewModel extends ViewModel {
 
     for (int i = 0; i < _minorConditions.length; i++) {
       final Completer<void> c = Completer<void>();
-      sl<AssociationRepository>().createCondition(
-        associationId, 'minor', _minorConditions[i], i,
+      sl<BandRepository>().createBandCondition(
+        bandId, 'minor', _minorConditions[i], i,
         onComplete: (_) => c.complete(),
       );
       tasks.add(c.future);
@@ -164,14 +164,14 @@ class OnboardingViewModel extends ViewModel {
     await Future.wait(tasks);
   }
 
-  Future<void> _createFounderMembership(String associationId) async {
+  Future<void> _createFounderMembership(String bandId) async {
     final String? email = UserManager.instance.userEmail;
     if (email == null) return;
     final String displayName = UserManager.instance.user?.displayName ?? email;
 
     final Completer<void> completer = Completer<void>();
     sl<MemberRepository>().createFounderMember(
-      associationId,
+      bandId,
       displayName,
       email,
       onComplete: (_) => completer.complete(),
@@ -179,10 +179,10 @@ class OnboardingViewModel extends ViewModel {
     await completer.future;
   }
 
-  Future<void> _updateAssociationSettings(String associationId) async {
+  Future<void> _updateBandSettings(String bandId) async {
     final Completer<void> completer = Completer<void>();
-    sl<AssociationRepository>().updateAssociation(
-      associationId,
+    sl<BandRepository>().updateBand(
+      bandId,
       requireIdDoc: _requireIdDoc,
       requireIdDocImage: _requireIdDocImage,
       requireGuardian: _requireGuardian,
@@ -191,7 +191,7 @@ class OnboardingViewModel extends ViewModel {
     await completer.future;
   }
 
-  void _redirectToAssociation() {
+  void _redirectToBand() {
     web.window.location.href = 'https://$_subdomain.samby.app';
   }
 }

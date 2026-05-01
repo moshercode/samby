@@ -51,8 +51,8 @@ abstract class Localization {
 
   // ── Splash ─────────────────────────────────────────
 
-  String get splashAssociationNotFound;
-  String get splashAssociationNotFoundSubtitle;
+  String get splashBandNotFound;
+  String get splashBandNotFoundSubtitle;
 
   // ── Auth ───────────────────────────────────────────
 
@@ -91,11 +91,11 @@ abstract class Localization {
   String get onboardingTitle;
   String get onboardingSubtitle;
   String get onboardingBlock1Title;
-  String get onboardingAssociationName;
-  String get onboardingAssociationShortName;
-  String get onboardingAssociationShortNameHint;
-  String get onboardingAssociationSubdomain;
-  String get onboardingAssociationSubdomainHint;
+  String get onboardingBandName;
+  String get onboardingBandShortName;
+  String get onboardingBandShortNameHint;
+  String get onboardingBandSubdomain;
+  String get onboardingBandSubdomainHint;
   String get onboardingPrimaryColor;
   String get onboardingSecondaryColor;
   String get onboardingBlock2Title;
@@ -147,7 +147,7 @@ abstract class Localization {
 
   String get homeTabEvents;
   String get homeTabMembers;
-  String get homeTabAssociation;
+  String get homeTabBand;
   String get homeTabProfile;
 
   // ── Membership status ───────────────────────────────
@@ -193,13 +193,13 @@ abstract class Localization {
   String get createAppointmentDateLabel;
   String get createAppointmentSubmit;
 
-  // ── Association Detail ──────────────────────────────
+  // ── Band Detail ──────────────────────────────
 
-  String get associationDetailTitle;
-  String get associationDetailRequirements;
-  String get associationDetailRequireIdDoc;
-  String get associationDetailRequireIdDocImage;
-  String get associationDetailRequireGuardian;
+  String get bandDetailTitle;
+  String get bandDetailRequirements;
+  String get bandDetailRequireIdDoc;
+  String get bandDetailRequireIdDocImage;
+  String get bandDetailRequireGuardian;
 
   // ── Profile ─────────────────────────────────────────
 

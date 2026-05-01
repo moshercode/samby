@@ -1,24 +1,24 @@
 part of 'samby.dart';
 
-class GetAssociationBySubdomainVariablesBuilder {
+class GetBandBySubdomainVariablesBuilder {
   String subdomain;
 
   final FirebaseDataConnect _dataConnect;
-  GetAssociationBySubdomainVariablesBuilder(this._dataConnect, {required  this.subdomain,});
-  Deserializer<GetAssociationBySubdomainData> dataDeserializer = (dynamic json)  => GetAssociationBySubdomainData.fromJson(jsonDecode(json));
-  Serializer<GetAssociationBySubdomainVariables> varsSerializer = (GetAssociationBySubdomainVariables vars) => jsonEncode(vars.toJson());
-  Future<QueryResult<GetAssociationBySubdomainData, GetAssociationBySubdomainVariables>> execute() {
+  GetBandBySubdomainVariablesBuilder(this._dataConnect, {required  this.subdomain,});
+  Deserializer<GetBandBySubdomainData> dataDeserializer = (dynamic json)  => GetBandBySubdomainData.fromJson(jsonDecode(json));
+  Serializer<GetBandBySubdomainVariables> varsSerializer = (GetBandBySubdomainVariables vars) => jsonEncode(vars.toJson());
+  Future<QueryResult<GetBandBySubdomainData, GetBandBySubdomainVariables>> execute() {
     return ref().execute();
   }
 
-  QueryRef<GetAssociationBySubdomainData, GetAssociationBySubdomainVariables> ref() {
-    GetAssociationBySubdomainVariables vars= GetAssociationBySubdomainVariables(subdomain: subdomain,);
-    return _dataConnect.query("GetAssociationBySubdomain", dataDeserializer, varsSerializer, vars);
+  QueryRef<GetBandBySubdomainData, GetBandBySubdomainVariables> ref() {
+    GetBandBySubdomainVariables vars= GetBandBySubdomainVariables(subdomain: subdomain,);
+    return _dataConnect.query("GetBandBySubdomain", dataDeserializer, varsSerializer, vars);
   }
 }
 
 @immutable
-class GetAssociationBySubdomainAssociation {
+class GetBandBySubdomainBand {
   final String id;
   final String name;
   final String shortName;
@@ -33,7 +33,7 @@ class GetAssociationBySubdomainAssociation {
   final bool requireGuardian;
   final bool active;
   final Timestamp createdAt;
-  GetAssociationBySubdomainAssociation.fromJson(dynamic json):
+  GetBandBySubdomainBand.fromJson(dynamic json):
   
   id = nativeFromJson<String>(json['id']),
   name = nativeFromJson<String>(json['name']),
@@ -58,7 +58,7 @@ class GetAssociationBySubdomainAssociation {
       return false;
     }
 
-    final GetAssociationBySubdomainAssociation otherTyped = other as GetAssociationBySubdomainAssociation;
+    final GetBandBySubdomainBand otherTyped = other as GetBandBySubdomainBand;
     return id == otherTyped.id && 
     name == otherTyped.name && 
     shortName == otherTyped.shortName && 
@@ -98,7 +98,7 @@ class GetAssociationBySubdomainAssociation {
     return json;
   }
 
-  GetAssociationBySubdomainAssociation({
+  GetBandBySubdomainBand({
     required this.id,
     required this.name,
     required this.shortName,
@@ -117,11 +117,11 @@ class GetAssociationBySubdomainAssociation {
 }
 
 @immutable
-class GetAssociationBySubdomainData {
-  final GetAssociationBySubdomainAssociation? association;
-  GetAssociationBySubdomainData.fromJson(dynamic json):
+class GetBandBySubdomainData {
+  final GetBandBySubdomainBand? band;
+  GetBandBySubdomainData.fromJson(dynamic json):
   
-  association = json['association'] == null ? null : GetAssociationBySubdomainAssociation.fromJson(json['association']);
+  band = json['band'] == null ? null : GetBandBySubdomainBand.fromJson(json['band']);
   @override
   bool operator ==(Object other) {
     if(identical(this, other)) {
@@ -131,32 +131,32 @@ class GetAssociationBySubdomainData {
       return false;
     }
 
-    final GetAssociationBySubdomainData otherTyped = other as GetAssociationBySubdomainData;
-    return association == otherTyped.association;
+    final GetBandBySubdomainData otherTyped = other as GetBandBySubdomainData;
+    return band == otherTyped.band;
     
   }
   @override
-  int get hashCode => association.hashCode;
+  int get hashCode => band.hashCode;
   
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    if (association != null) {
-      json['association'] = association!.toJson();
+    if (band != null) {
+      json['band'] = band!.toJson();
     }
     return json;
   }
 
-  GetAssociationBySubdomainData({
-    this.association,
+  GetBandBySubdomainData({
+    this.band,
   });
 }
 
 @immutable
-class GetAssociationBySubdomainVariables {
+class GetBandBySubdomainVariables {
   final String subdomain;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
-  GetAssociationBySubdomainVariables.fromJson(Map<String, dynamic> json):
+  GetBandBySubdomainVariables.fromJson(Map<String, dynamic> json):
   
   subdomain = nativeFromJson<String>(json['subdomain']);
   @override
@@ -168,7 +168,7 @@ class GetAssociationBySubdomainVariables {
       return false;
     }
 
-    final GetAssociationBySubdomainVariables otherTyped = other as GetAssociationBySubdomainVariables;
+    final GetBandBySubdomainVariables otherTyped = other as GetBandBySubdomainVariables;
     return subdomain == otherTyped.subdomain;
     
   }
@@ -182,7 +182,7 @@ class GetAssociationBySubdomainVariables {
     return json;
   }
 
-  GetAssociationBySubdomainVariables({
+  GetBandBySubdomainVariables({
     required this.subdomain,
   });
 }

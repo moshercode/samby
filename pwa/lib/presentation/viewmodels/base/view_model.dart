@@ -12,7 +12,7 @@ abstract class ViewModel extends ChangeNotifier {
   List<String> loadings = <String>[];
 
   bool get isAppInstalled => PwaManager.instance.isInstalled;
-  Association? get association => SessionDataManager.instance.association;
+  Band? get band => SessionDataManager.instance.band;
 
   // Constructor
 

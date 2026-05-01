@@ -1,24 +1,24 @@
 part of 'samby.dart';
 
-class GetAssociationMembersVariablesBuilder {
-  String associationId;
+class GetBandMembersVariablesBuilder {
+  String bandId;
 
   final FirebaseDataConnect _dataConnect;
-  GetAssociationMembersVariablesBuilder(this._dataConnect, {required  this.associationId,});
-  Deserializer<GetAssociationMembersData> dataDeserializer = (dynamic json)  => GetAssociationMembersData.fromJson(jsonDecode(json));
-  Serializer<GetAssociationMembersVariables> varsSerializer = (GetAssociationMembersVariables vars) => jsonEncode(vars.toJson());
-  Future<QueryResult<GetAssociationMembersData, GetAssociationMembersVariables>> execute() {
+  GetBandMembersVariablesBuilder(this._dataConnect, {required  this.bandId,});
+  Deserializer<GetBandMembersData> dataDeserializer = (dynamic json)  => GetBandMembersData.fromJson(jsonDecode(json));
+  Serializer<GetBandMembersVariables> varsSerializer = (GetBandMembersVariables vars) => jsonEncode(vars.toJson());
+  Future<QueryResult<GetBandMembersData, GetBandMembersVariables>> execute() {
     return ref().execute();
   }
 
-  QueryRef<GetAssociationMembersData, GetAssociationMembersVariables> ref() {
-    GetAssociationMembersVariables vars= GetAssociationMembersVariables(associationId: associationId,);
-    return _dataConnect.query("GetAssociationMembers", dataDeserializer, varsSerializer, vars);
+  QueryRef<GetBandMembersData, GetBandMembersVariables> ref() {
+    GetBandMembersVariables vars= GetBandMembersVariables(bandId: bandId,);
+    return _dataConnect.query("GetBandMembers", dataDeserializer, varsSerializer, vars);
   }
 }
 
 @immutable
-class GetAssociationMembersMembers {
+class GetBandMembersMembers {
   final String id;
   final String email;
   final String phone;
@@ -41,7 +41,7 @@ class GetAssociationMembersMembers {
   final String? internalNotes;
   final Timestamp? requestedAt;
   final Timestamp? resolvedAt;
-  GetAssociationMembersMembers.fromJson(dynamic json):
+  GetBandMembersMembers.fromJson(dynamic json):
   
   id = nativeFromJson<String>(json['id']),
   email = nativeFromJson<String>(json['email']),
@@ -74,7 +74,7 @@ class GetAssociationMembersMembers {
       return false;
     }
 
-    final GetAssociationMembersMembers otherTyped = other as GetAssociationMembersMembers;
+    final GetBandMembersMembers otherTyped = other as GetBandMembersMembers;
     return id == otherTyped.id && 
     email == otherTyped.email && 
     phone == otherTyped.phone && 
@@ -160,7 +160,7 @@ class GetAssociationMembersMembers {
     return json;
   }
 
-  GetAssociationMembersMembers({
+  GetBandMembersMembers({
     required this.id,
     required this.email,
     required this.phone,
@@ -187,12 +187,12 @@ class GetAssociationMembersMembers {
 }
 
 @immutable
-class GetAssociationMembersData {
-  final List<GetAssociationMembersMembers> members;
-  GetAssociationMembersData.fromJson(dynamic json):
+class GetBandMembersData {
+  final List<GetBandMembersMembers> members;
+  GetBandMembersData.fromJson(dynamic json):
   
   members = (json['members'] as List<dynamic>)
-        .map((e) => GetAssociationMembersMembers.fromJson(e))
+        .map((e) => GetBandMembersMembers.fromJson(e))
         .toList();
   @override
   bool operator ==(Object other) {
@@ -203,7 +203,7 @@ class GetAssociationMembersData {
       return false;
     }
 
-    final GetAssociationMembersData otherTyped = other as GetAssociationMembersData;
+    final GetBandMembersData otherTyped = other as GetBandMembersData;
     return members == otherTyped.members;
     
   }
@@ -217,18 +217,18 @@ class GetAssociationMembersData {
     return json;
   }
 
-  GetAssociationMembersData({
+  GetBandMembersData({
     required this.members,
   });
 }
 
 @immutable
-class GetAssociationMembersVariables {
-  final String associationId;
+class GetBandMembersVariables {
+  final String bandId;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
-  GetAssociationMembersVariables.fromJson(Map<String, dynamic> json):
+  GetBandMembersVariables.fromJson(Map<String, dynamic> json):
   
-  associationId = nativeFromJson<String>(json['associationId']);
+  bandId = nativeFromJson<String>(json['bandId']);
   @override
   bool operator ==(Object other) {
     if(identical(this, other)) {
@@ -238,22 +238,22 @@ class GetAssociationMembersVariables {
       return false;
     }
 
-    final GetAssociationMembersVariables otherTyped = other as GetAssociationMembersVariables;
-    return associationId == otherTyped.associationId;
+    final GetBandMembersVariables otherTyped = other as GetBandMembersVariables;
+    return bandId == otherTyped.bandId;
     
   }
   @override
-  int get hashCode => associationId.hashCode;
+  int get hashCode => bandId.hashCode;
   
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    json['associationId'] = nativeToJson<String>(associationId);
+    json['bandId'] = nativeToJson<String>(bandId);
     return json;
   }
 
-  GetAssociationMembersVariables({
-    required this.associationId,
+  GetBandMembersVariables({
+    required this.bandId,
   });
 }
 

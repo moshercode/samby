@@ -38,18 +38,18 @@ class OnboardingView extends BaseView<OnboardingViewModel> {
                 // Block 1 — Association info
                 Text(l.onboardingBlock1Title, style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: Dimensions.space12),
-                AppTextInput(label: l.onboardingAssociationName, textInputAction: TextInputAction.next, onChanged: (v) => viewModel.name = v),
+                AppTextInput(label: l.onboardingBandName, textInputAction: TextInputAction.next, onChanged: (v) => viewModel.name = v),
                 const SizedBox(height: Dimensions.space12),
                 AppTextInput(
-                  label: l.onboardingAssociationShortName,
-                  hint: l.onboardingAssociationShortNameHint,
+                  label: l.onboardingBandShortName,
+                  hint: l.onboardingBandShortNameHint,
                   textInputAction: TextInputAction.next,
                   onChanged: (v) => viewModel.shortName = v,
                 ),
                 const SizedBox(height: Dimensions.space12),
                 AppTextInput(
-                  label: l.onboardingAssociationSubdomain,
-                  hint: l.onboardingAssociationSubdomainHint,
+                  label: l.onboardingBandSubdomain,
+                  hint: l.onboardingBandSubdomainHint,
                   initialValue: viewModel.subdomain,
                   textInputAction: TextInputAction.next,
                   onChanged: (v) => viewModel.subdomain = v,

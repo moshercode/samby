@@ -6,7 +6,7 @@ import 'package:samby/domain/repositories/association_repository.dart';
 import 'package:samby/presentation/managers/session_data_manager.dart';
 import 'package:samby/presentation/viewmodels/base/view_model.dart';
 
-class AssociationDetailViewModel extends ViewModel {
+class BandDetailViewModel extends ViewModel {
   // Variables
 
   bool _requireIdDoc = false;
@@ -25,35 +25,35 @@ class AssociationDetailViewModel extends ViewModel {
 
   bool get saved => _saved;
 
-  Association? get association => SessionDataManager.instance.association;
+  Band? get band => SessionDataManager.instance.band;
 
   // Constructor
 
-  AssociationDetailViewModel();
+  BandDetailViewModel();
 
   @override
-  String getScreenName() => 'association_detail';
+  String getScreenName() => 'band_detail';
 
   @override
   void onStart() {
     super.onStart();
-    final Association? assoc = SessionDataManager.instance.association;
-    if (assoc != null) {
-      _requireIdDoc = assoc.requireIdDoc;
-      _requireIdDocImage = assoc.requireIdDocImage;
-      _requireGuardian = assoc.requireGuardian;
+    final Band? b = SessionDataManager.instance.band;
+    if (b != null) {
+      _requireIdDoc = b.requireIdDoc;
+      _requireIdDocImage = b.requireIdDocImage;
+      _requireGuardian = b.requireGuardian;
     }
   }
 
   // Public methods
 
   Future<void> save() async {
-    final String? assocId = association?.id;
-    if (assocId == null) return;
+    final String? bandId = band?.id;
+    if (bandId == null) return;
     setLoading(true);
     final Completer<void> completer = Completer<void>();
-    sl<AssociationRepository>().updateAssociation(
-      assocId,
+    sl<BandRepository>().updateBand(
+      bandId,
       requireIdDoc: _requireIdDoc,
       requireIdDocImage: _requireIdDocImage,
       requireGuardian: _requireGuardian,

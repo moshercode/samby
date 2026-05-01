@@ -1,13 +1,13 @@
 part of 'samby.dart';
 
 class SendBroadcastVariablesBuilder {
-  String associationId;
+  String bandId;
   String sentBy;
   String title;
   String body;
 
   final FirebaseDataConnect _dataConnect;
-  SendBroadcastVariablesBuilder(this._dataConnect, {required  this.associationId,required  this.sentBy,required  this.title,required  this.body,});
+  SendBroadcastVariablesBuilder(this._dataConnect, {required  this.bandId,required  this.sentBy,required  this.title,required  this.body,});
   Deserializer<SendBroadcastData> dataDeserializer = (dynamic json)  => SendBroadcastData.fromJson(jsonDecode(json));
   Serializer<SendBroadcastVariables> varsSerializer = (SendBroadcastVariables vars) => jsonEncode(vars.toJson());
   Future<OperationResult<SendBroadcastData, SendBroadcastVariables>> execute() {
@@ -15,7 +15,7 @@ class SendBroadcastVariablesBuilder {
   }
 
   MutationRef<SendBroadcastData, SendBroadcastVariables> ref() {
-    SendBroadcastVariables vars= SendBroadcastVariables(associationId: associationId,sentBy: sentBy,title: title,body: body,);
+    SendBroadcastVariables vars= SendBroadcastVariables(bandId: bandId,sentBy: sentBy,title: title,body: body,);
     return _dataConnect.mutation("SendBroadcast", dataDeserializer, varsSerializer, vars);
   }
 }
@@ -90,14 +90,14 @@ class SendBroadcastData {
 
 @immutable
 class SendBroadcastVariables {
-  final String associationId;
+  final String bandId;
   final String sentBy;
   final String title;
   final String body;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   SendBroadcastVariables.fromJson(Map<String, dynamic> json):
   
-  associationId = nativeFromJson<String>(json['associationId']),
+  bandId = nativeFromJson<String>(json['bandId']),
   sentBy = nativeFromJson<String>(json['sentBy']),
   title = nativeFromJson<String>(json['title']),
   body = nativeFromJson<String>(json['body']);
@@ -111,19 +111,19 @@ class SendBroadcastVariables {
     }
 
     final SendBroadcastVariables otherTyped = other as SendBroadcastVariables;
-    return associationId == otherTyped.associationId && 
+    return bandId == otherTyped.bandId && 
     sentBy == otherTyped.sentBy && 
     title == otherTyped.title && 
     body == otherTyped.body;
     
   }
   @override
-  int get hashCode => Object.hashAll([associationId.hashCode, sentBy.hashCode, title.hashCode, body.hashCode]);
+  int get hashCode => Object.hashAll([bandId.hashCode, sentBy.hashCode, title.hashCode, body.hashCode]);
   
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    json['associationId'] = nativeToJson<String>(associationId);
+    json['bandId'] = nativeToJson<String>(bandId);
     json['sentBy'] = nativeToJson<String>(sentBy);
     json['title'] = nativeToJson<String>(title);
     json['body'] = nativeToJson<String>(body);
@@ -131,7 +131,7 @@ class SendBroadcastVariables {
   }
 
   SendBroadcastVariables({
-    required this.associationId,
+    required this.bandId,
     required this.sentBy,
     required this.title,
     required this.body,

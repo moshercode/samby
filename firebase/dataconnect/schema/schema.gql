@@ -1,4 +1,4 @@
-type Association @table {
+type Band @table {
   id: UUID! @default(expr: "uuidV4()")
   name: String!
   shortName: String!
@@ -15,9 +15,9 @@ type Association @table {
   createdAt: Timestamp! @default(expr: "request.time")
 }
 
-type AssociationCondition @table {
+type BandCondition @table {
   id: UUID! @default(expr: "uuidV4()")
-  association: Association!
+  band: Band!
   type: String!
   content: String!
   sortOrder: Int!
@@ -31,7 +31,7 @@ enum MemberRole {
 
 type Member @table {
   id: UUID! @default(expr: "uuidV4()")
-  association: Association!
+  band: Band!
   email: String!
   phone: String!
   role: MemberRole!
@@ -70,7 +70,7 @@ enum EventStatus {
 
 type Event @table {
   id: UUID! @default(expr: "uuidV4()")
-  association: Association!
+  band: Band!
   title: String!
   description: String!
   imageUrl: String!
@@ -117,7 +117,7 @@ type EventAppointmentComment @table(key: "id") {
 
 type BroadcastMessage @table {
   id: UUID! @default(expr: "uuidV4()")
-  association: Association!
+  band: Band!
   sentBy: Member!
   title: String!
   body: String!

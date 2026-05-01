@@ -17,34 +17,34 @@ export const connectorConfig = {
   location: 'europe-southwest1'
 };
 
-export function createAssociation(dcOrVarsOrOptions, varsOrOptions, options) {
+export function createBand(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('CreateAssociation', inputVars, inputOpts);
+  return dcInstance.executeMutation('CreateBand', inputVars, inputOpts);
 }
 
-export function updateAssociationImages(dcOrVarsOrOptions, varsOrOptions, options) {
+export function updateBandImages(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('UpdateAssociationImages', inputVars, inputOpts);
+  return dcInstance.executeMutation('UpdateBandImages', inputVars, inputOpts);
 }
 
-export function updateAssociation(dcOrVarsOrOptions, varsOrOptions, options) {
+export function updateBand(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('UpdateAssociation', inputVars, inputOpts);
+  return dcInstance.executeMutation('UpdateBand', inputVars, inputOpts);
 }
 
-export function addAssociationCondition(dcOrVarsOrOptions, varsOrOptions, options) {
+export function addBandCondition(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('AddAssociationCondition', inputVars, inputOpts);
+  return dcInstance.executeMutation('AddBandCondition', inputVars, inputOpts);
 }
 
-export function deleteAssociationCondition(dcOrVarsOrOptions, varsOrOptions, options) {
+export function deleteBandCondition(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeMutation('DeleteAssociationCondition', inputVars, inputOpts);
+  return dcInstance.executeMutation('DeleteBandCondition', inputVars, inputOpts);
 }
 
 export function createFounderMember(dcOrVarsOrOptions, varsOrOptions, options) {
@@ -143,16 +143,16 @@ export function sendBroadcast(dcOrVarsOrOptions, varsOrOptions, options) {
   return dcInstance.executeMutation('SendBroadcast', inputVars, inputOpts);
 }
 
-export function getAssociationByFounderEmail(dcOrVarsOrOptions, varsOrOptions, options) {
+export function getBandByFounderEmail(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetAssociationByFounderEmail', inputVars, inputOpts);
+  return dcInstance.executeQuery('GetBandByFounderEmail', inputVars, inputOpts);
 }
 
-export function getAssociationBySubdomain(dcOrVarsOrOptions, varsOrOptions, options) {
+export function getBandBySubdomain(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetAssociationBySubdomain', inputVars, inputOpts);
+  return dcInstance.executeQuery('GetBandBySubdomain', inputVars, inputOpts);
 }
 
 export function getMember(dcOrVarsOrOptions, varsOrOptions, options) {
@@ -161,22 +161,22 @@ export function getMember(dcOrVarsOrOptions, varsOrOptions, options) {
   return dcInstance.executeQuery('GetMember', inputVars, inputOpts);
 }
 
-export function getAssociationConditions(dcOrVarsOrOptions, varsOrOptions, options) {
+export function getBandConditions(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetAssociationConditions', inputVars, inputOpts);
+  return dcInstance.executeQuery('GetBandConditions', inputVars, inputOpts);
 }
 
-export function getAssociationMembers(dcOrVarsOrOptions, varsOrOptions, options) {
+export function getBandMembers(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetAssociationMembers', inputVars, inputOpts);
+  return dcInstance.executeQuery('GetBandMembers', inputVars, inputOpts);
 }
 
-export function getAssociationEvents(dcOrVarsOrOptions, varsOrOptions, options) {
+export function getBandEvents(dcOrVarsOrOptions, varsOrOptions, options) {
   const { dc: dcInstance, vars: inputVars, options: inputOpts} = validateAdminArgs(connectorConfig, dcOrVarsOrOptions, varsOrOptions, options, true, true);
   dcInstance.useGen(true);
-  return dcInstance.executeQuery('GetAssociationEvents', inputVars, inputOpts);
+  return dcInstance.executeQuery('GetBandEvents', inputVars, inputOpts);
 }
 
 export function getEventDetail(dcOrVarsOrOptions, varsOrOptions, options) {

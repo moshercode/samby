@@ -39,14 +39,14 @@ class MemberRepositoryImpl implements MemberRepository {
   }
 
   @override
-  void getAssociationMembers(
-    String associationId, {
+  void getBandMembers(
+    String bandId, {
     required Function(List<Member> members, AppError? error) onComplete,
   }) async {
     try {
       final Map<String, dynamic>? data = await _datasource.executeQuery(
-        DataconnectOps.getAssociationMembers,
-        variables: {DataconnectKeys.associationId: associationId},
+        DataconnectOps.getBandMembers,
+        variables: {DataconnectKeys.bandId: bandId},
       );
       final List<dynamic> raw =
           data?[DataconnectResponseKeys.members] as List<dynamic>? ?? <dynamic>[];
@@ -54,10 +54,10 @@ class MemberRepositoryImpl implements MemberRepository {
           raw.map((dynamic m) => Member.fromMap(m as Map<String, dynamic>)).toList();
       onComplete(members, null);
     } on AppError catch (e) {
-      Log.error('MemberRepositoryImpl.getAssociationMembers: $e');
+      Log.error('MemberRepositoryImpl.getBandMembers: $e');
       onComplete(<Member>[], e);
     } catch (e) {
-      Log.error('MemberRepositoryImpl.getAssociationMembers unknown: $e');
+      Log.error('MemberRepositoryImpl.getBandMembers unknown: $e');
       onComplete(<Member>[], DataError(e.toString()));
     }
   }
@@ -245,7 +245,7 @@ class MemberRepositoryImpl implements MemberRepository {
 
   @override
   void createFounderMember(
-    String associationId,
+    String bandId,
     String name,
     String email, {
     required Function(AppError? error) onComplete,
@@ -254,7 +254,7 @@ class MemberRepositoryImpl implements MemberRepository {
       await _datasource.executeMutation(
         DataconnectOps.createFounderMember,
         variables: {
-          DataconnectKeys.associationId: associationId,
+          DataconnectKeys.bandId: bandId,
           DataconnectKeys.name: name,
           DataconnectKeys.email: email,
           DataconnectKeys.conditionsAcceptedAt: DateTime.now().toUtc().toIso8601String(),

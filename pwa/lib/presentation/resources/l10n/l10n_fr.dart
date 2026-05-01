@@ -35,9 +35,9 @@ class L10nFr extends Localization {
   // Splash
 
   @override
-  String get splashAssociationNotFound => 'Association introuvable';
+  String get splashBandNotFound => 'Association introuvable';
   @override
-  String get splashAssociationNotFoundSubtitle => "Le lien que vous avez utilisé ne correspond à aucune association enregistrée sur Samby";
+  String get splashBandNotFoundSubtitle => "Le lien que vous avez utilisé ne correspond à aucune association enregistrée sur Samby";
 
   // Auth
 
@@ -109,15 +109,15 @@ class L10nFr extends Localization {
   @override
   String get onboardingBlock1Title => "Informations de l'association";
   @override
-  String get onboardingAssociationName => 'Nom complet';
+  String get onboardingBandName => 'Nom complet';
   @override
-  String get onboardingAssociationShortName => 'Nom court';
+  String get onboardingBandShortName => 'Nom court';
   @override
-  String get onboardingAssociationShortNameHint => 'Ex : La Comparsa';
+  String get onboardingBandShortNameHint => 'Ex : La Comparsa';
   @override
-  String get onboardingAssociationSubdomain => 'Adresse web';
+  String get onboardingBandSubdomain => 'Adresse web';
   @override
-  String get onboardingAssociationSubdomainHint => 'Ex : lacomparsa';
+  String get onboardingBandSubdomainHint => 'Ex : lacomparsa';
   @override
   String get onboardingPrimaryColor => 'Couleur primaire';
   @override
@@ -242,7 +242,7 @@ class L10nFr extends Localization {
   @override
   String get homeTabMembers => 'Membres';
   @override
-  String get homeTabAssociation => 'Association';
+  String get homeTabBand => 'Association';
   @override
   String get homeTabProfile => 'Profil';
 
@@ -293,15 +293,15 @@ class L10nFr extends Localization {
   // Association Detail
 
   @override
-  String get associationDetailTitle => 'Association';
+  String get bandDetailTitle => 'Association';
   @override
-  String get associationDetailRequirements => 'Exigences de candidature';
+  String get bandDetailRequirements => 'Exigences de candidature';
   @override
-  String get associationDetailRequireIdDoc => "Exiger une pièce d'identité";
+  String get bandDetailRequireIdDoc => "Exiger une pièce d'identité";
   @override
-  String get associationDetailRequireIdDocImage => "Exiger l'image de la pièce d'identité";
+  String get bandDetailRequireIdDocImage => "Exiger l'image de la pièce d'identité";
   @override
-  String get associationDetailRequireGuardian => 'Exiger les données du tuteur';
+  String get bandDetailRequireGuardian => 'Exiger les données du tuteur';
 
   // Profile
 

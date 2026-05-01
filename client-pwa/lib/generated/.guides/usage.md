@@ -1,11 +1,11 @@
 # Basic Usage
 
 ```dart
-SambyConnector.instance.CreateAssociation(createAssociationVariables).execute();
-SambyConnector.instance.UpdateAssociationImages(updateAssociationImagesVariables).execute();
-SambyConnector.instance.UpdateAssociation(updateAssociationVariables).execute();
-SambyConnector.instance.AddAssociationCondition(addAssociationConditionVariables).execute();
-SambyConnector.instance.DeleteAssociationCondition(deleteAssociationConditionVariables).execute();
+SambyConnector.instance.CreateBand(createBandVariables).execute();
+SambyConnector.instance.UpdateBandImages(updateBandImagesVariables).execute();
+SambyConnector.instance.UpdateBand(updateBandVariables).execute();
+SambyConnector.instance.AddBandCondition(addBandConditionVariables).execute();
+SambyConnector.instance.DeleteBandCondition(deleteBandConditionVariables).execute();
 SambyConnector.instance.CreateFounderMember(createFounderMemberVariables).execute();
 SambyConnector.instance.UpdateMemberApplication(updateMemberApplicationVariables).execute();
 SambyConnector.instance.ResetMemberApplication(resetMemberApplicationVariables).execute();

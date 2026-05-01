@@ -1,4 +1,4 @@
-mutation CreateAssociation(
+mutation CreateBand(
   $name: String!
   $shortName: String!
   $subdomain: String!
@@ -6,7 +6,7 @@ mutation CreateAssociation(
   $secondaryColor: String!
   $founderEmail: String!
 ) @auth(level: USER) {
-  association_insert(data: {
+  band_insert(data: {
     name: $name
     shortName: $shortName
     subdomain: $subdomain
@@ -18,56 +18,56 @@ mutation CreateAssociation(
   })
 }
 
-mutation UpdateAssociationImages(
+mutation UpdateBandImages(
   $id: UUID!
   $logoUrl: String!
   $iconUrl: String!
 ) @auth(level: USER) {
-  association_update(key: { id: $id }, data: {
+  band_update(key: { id: $id }, data: {
     logoUrl: $logoUrl
     iconUrl: $iconUrl
   })
 }
 
-mutation UpdateAssociation(
+mutation UpdateBand(
   $id: UUID!
   $requireIdDoc: Boolean!
   $requireIdDocImage: Boolean!
   $requireGuardian: Boolean!
 ) @auth(level: USER) {
-  association_update(key: { id: $id }, data: {
+  band_update(key: { id: $id }, data: {
     requireIdDoc: $requireIdDoc
     requireIdDocImage: $requireIdDocImage
     requireGuardian: $requireGuardian
   })
 }
 
-mutation AddAssociationCondition(
-  $associationId: UUID!
+mutation AddBandCondition(
+  $bandId: UUID!
   $type: String!
   $content: String!
   $sortOrder: Int!
 ) @auth(level: USER) {
-  associationCondition_insert(data: {
-    associationId: $associationId
+  bandCondition_insert(data: {
+    bandId: $bandId
     type: $type
     content: $content
     sortOrder: $sortOrder
   })
 }
 
-mutation DeleteAssociationCondition($id: UUID!) @auth(level: USER) {
-  associationCondition_delete(key: { id: $id })
+mutation DeleteBandCondition($id: UUID!) @auth(level: USER) {
+  bandCondition_delete(key: { id: $id })
 }
 
 mutation CreateFounderMember(
-  $associationId: UUID!
+  $bandId: UUID!
   $name: String!
   $email: String!
   $conditionsAcceptedAt: Timestamp!
 ) @auth(level: USER) {
   member_insert(data: {
-    associationId: $associationId
+    bandId: $bandId
     email: $email
     phone: ""
     role: MANAGER
@@ -171,7 +171,7 @@ mutation UpdateMemberFcmToken($id: UUID!, $token: String!, $updatedAt: Timestamp
 }
 
 mutation CreateEvent(
-  $associationId: UUID!
+  $bandId: UUID!
   $title: String!
   $description: String!
   $imageUrl: String!
@@ -182,7 +182,7 @@ mutation CreateEvent(
   $createdBy: UUID!
 ) @auth(level: USER) {
   event_insert(data: {
-    associationId: $associationId
+    bandId: $bandId
     title: $title
     description: $description
     imageUrl: $imageUrl
@@ -262,13 +262,13 @@ mutation CreateEventAppointment(
 }
 
 mutation SendBroadcast(
-  $associationId: UUID!
+  $bandId: UUID!
   $sentBy: UUID!
   $title: String!
   $body: String!
 ) @auth(level: USER) {
   broadcastMessage_insert(data: {
-    associationId: $associationId
+    bandId: $bandId
     sentById: $sentBy
     title: $title
     body: $body

@@ -1,13 +1,13 @@
 part of 'samby.dart';
 
 class CreateFounderMemberVariablesBuilder {
-  String associationId;
+  String bandId;
   String name;
   String email;
   Timestamp conditionsAcceptedAt;
 
   final FirebaseDataConnect _dataConnect;
-  CreateFounderMemberVariablesBuilder(this._dataConnect, {required  this.associationId,required  this.name,required  this.email,required  this.conditionsAcceptedAt,});
+  CreateFounderMemberVariablesBuilder(this._dataConnect, {required  this.bandId,required  this.name,required  this.email,required  this.conditionsAcceptedAt,});
   Deserializer<CreateFounderMemberData> dataDeserializer = (dynamic json)  => CreateFounderMemberData.fromJson(jsonDecode(json));
   Serializer<CreateFounderMemberVariables> varsSerializer = (CreateFounderMemberVariables vars) => jsonEncode(vars.toJson());
   Future<OperationResult<CreateFounderMemberData, CreateFounderMemberVariables>> execute() {
@@ -15,7 +15,7 @@ class CreateFounderMemberVariablesBuilder {
   }
 
   MutationRef<CreateFounderMemberData, CreateFounderMemberVariables> ref() {
-    CreateFounderMemberVariables vars= CreateFounderMemberVariables(associationId: associationId,name: name,email: email,conditionsAcceptedAt: conditionsAcceptedAt,);
+    CreateFounderMemberVariables vars= CreateFounderMemberVariables(bandId: bandId,name: name,email: email,conditionsAcceptedAt: conditionsAcceptedAt,);
     return _dataConnect.mutation("CreateFounderMember", dataDeserializer, varsSerializer, vars);
   }
 }
@@ -90,14 +90,14 @@ class CreateFounderMemberData {
 
 @immutable
 class CreateFounderMemberVariables {
-  final String associationId;
+  final String bandId;
   final String name;
   final String email;
   final Timestamp conditionsAcceptedAt;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   CreateFounderMemberVariables.fromJson(Map<String, dynamic> json):
   
-  associationId = nativeFromJson<String>(json['associationId']),
+  bandId = nativeFromJson<String>(json['bandId']),
   name = nativeFromJson<String>(json['name']),
   email = nativeFromJson<String>(json['email']),
   conditionsAcceptedAt = Timestamp.fromJson(json['conditionsAcceptedAt']);
@@ -111,19 +111,19 @@ class CreateFounderMemberVariables {
     }
 
     final CreateFounderMemberVariables otherTyped = other as CreateFounderMemberVariables;
-    return associationId == otherTyped.associationId && 
+    return bandId == otherTyped.bandId && 
     name == otherTyped.name && 
     email == otherTyped.email && 
     conditionsAcceptedAt == otherTyped.conditionsAcceptedAt;
     
   }
   @override
-  int get hashCode => Object.hashAll([associationId.hashCode, name.hashCode, email.hashCode, conditionsAcceptedAt.hashCode]);
+  int get hashCode => Object.hashAll([bandId.hashCode, name.hashCode, email.hashCode, conditionsAcceptedAt.hashCode]);
   
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    json['associationId'] = nativeToJson<String>(associationId);
+    json['bandId'] = nativeToJson<String>(bandId);
     json['name'] = nativeToJson<String>(name);
     json['email'] = nativeToJson<String>(email);
     json['conditionsAcceptedAt'] = conditionsAcceptedAt.toJson();
@@ -131,7 +131,7 @@ class CreateFounderMemberVariables {
   }
 
   CreateFounderMemberVariables({
-    required this.associationId,
+    required this.bandId,
     required this.name,
     required this.email,
     required this.conditionsAcceptedAt,

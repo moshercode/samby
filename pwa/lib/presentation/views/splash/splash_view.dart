@@ -26,10 +26,10 @@ class SplashView extends BaseView<SplashViewModel> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            if (viewModel.association != null) ...<Widget>[
-              if (viewModel.association!.logoUrl.isNotEmpty)
+            if (viewModel.band != null) ...<Widget>[
+              if (viewModel.band!.logoUrl.isNotEmpty)
                 CachedNetworkImage(
-                  imageUrl: viewModel.association!.logoUrl,
+                  imageUrl: viewModel.band!.logoUrl,
                   height: 100,
                   placeholder: (_, _) => const SizedBox(height: 100),
                   errorWidget: (_, _, _) => Icon(
@@ -42,7 +42,7 @@ class SplashView extends BaseView<SplashViewModel> {
                 Icon(Icons.groups_rounded, size: 100, color: Theme.of(context).colorScheme.primary),
               const SizedBox(height: Dimensions.space24),
               Text(
-                viewModel.association!.name,
+                viewModel.band!.name,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                 ),
@@ -81,9 +81,9 @@ class _NotFoundBody extends StatelessWidget {
             children: <Widget>[
               Icon(Icons.search_off_rounded, size: Dimensions.iconXXXl, color: Theme.of(context).colorScheme.outline),
               const SizedBox(height: Dimensions.space24),
-              Text(l.splashAssociationNotFound, style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center),
+              Text(l.splashBandNotFound, style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center),
               const SizedBox(height: Dimensions.space8),
-              Text(l.splashAssociationNotFoundSubtitle, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
+              Text(l.splashBandNotFoundSubtitle, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
             ],
           ),
         ),

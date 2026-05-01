@@ -4,15 +4,15 @@ import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
-part 'create_association.dart';
+part 'create_band.dart';
 
-part 'update_association_images.dart';
+part 'update_band_images.dart';
 
-part 'update_association.dart';
+part 'update_band.dart';
 
-part 'add_association_condition.dart';
+part 'add_band_condition.dart';
 
-part 'delete_association_condition.dart';
+part 'delete_band_condition.dart';
 
 part 'create_founder_member.dart';
 
@@ -46,17 +46,17 @@ part 'create_event_appointment.dart';
 
 part 'send_broadcast.dart';
 
-part 'get_association_by_founder_email.dart';
+part 'get_band_by_founder_email.dart';
 
-part 'get_association_by_subdomain.dart';
+part 'get_band_by_subdomain.dart';
 
 part 'get_member.dart';
 
-part 'get_association_conditions.dart';
+part 'get_band_conditions.dart';
 
-part 'get_association_members.dart';
+part 'get_band_members.dart';
 
-part 'get_association_events.dart';
+part 'get_band_events.dart';
 
 part 'get_event_detail.dart';
 
@@ -179,33 +179,33 @@ class Unknown extends EnumValue<Never> {
 class SambyConnector {
   
   
-  CreateAssociationVariablesBuilder createAssociation ({required String name, required String shortName, required String subdomain, required String primaryColor, required String secondaryColor, required String founderEmail, }) {
-    return CreateAssociationVariablesBuilder(dataConnect, name: name,shortName: shortName,subdomain: subdomain,primaryColor: primaryColor,secondaryColor: secondaryColor,founderEmail: founderEmail,);
+  CreateBandVariablesBuilder createBand ({required String name, required String shortName, required String subdomain, required String primaryColor, required String secondaryColor, required String founderEmail, }) {
+    return CreateBandVariablesBuilder(dataConnect, name: name,shortName: shortName,subdomain: subdomain,primaryColor: primaryColor,secondaryColor: secondaryColor,founderEmail: founderEmail,);
   }
   
   
-  UpdateAssociationImagesVariablesBuilder updateAssociationImages ({required String id, required String logoUrl, required String iconUrl, }) {
-    return UpdateAssociationImagesVariablesBuilder(dataConnect, id: id,logoUrl: logoUrl,iconUrl: iconUrl,);
+  UpdateBandImagesVariablesBuilder updateBandImages ({required String id, required String logoUrl, required String iconUrl, }) {
+    return UpdateBandImagesVariablesBuilder(dataConnect, id: id,logoUrl: logoUrl,iconUrl: iconUrl,);
   }
   
   
-  UpdateAssociationVariablesBuilder updateAssociation ({required String id, required bool requireIdDoc, required bool requireIdDocImage, required bool requireGuardian, }) {
-    return UpdateAssociationVariablesBuilder(dataConnect, id: id,requireIdDoc: requireIdDoc,requireIdDocImage: requireIdDocImage,requireGuardian: requireGuardian,);
+  UpdateBandVariablesBuilder updateBand ({required String id, required bool requireIdDoc, required bool requireIdDocImage, required bool requireGuardian, }) {
+    return UpdateBandVariablesBuilder(dataConnect, id: id,requireIdDoc: requireIdDoc,requireIdDocImage: requireIdDocImage,requireGuardian: requireGuardian,);
   }
   
   
-  AddAssociationConditionVariablesBuilder addAssociationCondition ({required String associationId, required String type, required String content, required int sortOrder, }) {
-    return AddAssociationConditionVariablesBuilder(dataConnect, associationId: associationId,type: type,content: content,sortOrder: sortOrder,);
+  AddBandConditionVariablesBuilder addBandCondition ({required String bandId, required String type, required String content, required int sortOrder, }) {
+    return AddBandConditionVariablesBuilder(dataConnect, bandId: bandId,type: type,content: content,sortOrder: sortOrder,);
   }
   
   
-  DeleteAssociationConditionVariablesBuilder deleteAssociationCondition ({required String id, }) {
-    return DeleteAssociationConditionVariablesBuilder(dataConnect, id: id,);
+  DeleteBandConditionVariablesBuilder deleteBandCondition ({required String id, }) {
+    return DeleteBandConditionVariablesBuilder(dataConnect, id: id,);
   }
   
   
-  CreateFounderMemberVariablesBuilder createFounderMember ({required String associationId, required String name, required String email, required Timestamp conditionsAcceptedAt, }) {
-    return CreateFounderMemberVariablesBuilder(dataConnect, associationId: associationId,name: name,email: email,conditionsAcceptedAt: conditionsAcceptedAt,);
+  CreateFounderMemberVariablesBuilder createFounderMember ({required String bandId, required String name, required String email, required Timestamp conditionsAcceptedAt, }) {
+    return CreateFounderMemberVariablesBuilder(dataConnect, bandId: bandId,name: name,email: email,conditionsAcceptedAt: conditionsAcceptedAt,);
   }
   
   
@@ -244,8 +244,8 @@ class SambyConnector {
   }
   
   
-  CreateEventVariablesBuilder createEvent ({required String associationId, required String title, required String description, required String imageUrl, required bool freeEntry, required String createdBy, }) {
-    return CreateEventVariablesBuilder(dataConnect, associationId: associationId,title: title,description: description,imageUrl: imageUrl,freeEntry: freeEntry,createdBy: createdBy,);
+  CreateEventVariablesBuilder createEvent ({required String bandId, required String title, required String description, required String imageUrl, required bool freeEntry, required String createdBy, }) {
+    return CreateEventVariablesBuilder(dataConnect, bandId: bandId,title: title,description: description,imageUrl: imageUrl,freeEntry: freeEntry,createdBy: createdBy,);
   }
   
   
@@ -279,18 +279,18 @@ class SambyConnector {
   }
   
   
-  SendBroadcastVariablesBuilder sendBroadcast ({required String associationId, required String sentBy, required String title, required String body, }) {
-    return SendBroadcastVariablesBuilder(dataConnect, associationId: associationId,sentBy: sentBy,title: title,body: body,);
+  SendBroadcastVariablesBuilder sendBroadcast ({required String bandId, required String sentBy, required String title, required String body, }) {
+    return SendBroadcastVariablesBuilder(dataConnect, bandId: bandId,sentBy: sentBy,title: title,body: body,);
   }
   
   
-  GetAssociationByFounderEmailVariablesBuilder getAssociationByFounderEmail ({required String founderEmail, }) {
-    return GetAssociationByFounderEmailVariablesBuilder(dataConnect, founderEmail: founderEmail,);
+  GetBandByFounderEmailVariablesBuilder getBandByFounderEmail ({required String founderEmail, }) {
+    return GetBandByFounderEmailVariablesBuilder(dataConnect, founderEmail: founderEmail,);
   }
   
   
-  GetAssociationBySubdomainVariablesBuilder getAssociationBySubdomain ({required String subdomain, }) {
-    return GetAssociationBySubdomainVariablesBuilder(dataConnect, subdomain: subdomain,);
+  GetBandBySubdomainVariablesBuilder getBandBySubdomain ({required String subdomain, }) {
+    return GetBandBySubdomainVariablesBuilder(dataConnect, subdomain: subdomain,);
   }
   
   
@@ -299,18 +299,18 @@ class SambyConnector {
   }
   
   
-  GetAssociationConditionsVariablesBuilder getAssociationConditions ({required String associationId, }) {
-    return GetAssociationConditionsVariablesBuilder(dataConnect, associationId: associationId,);
+  GetBandConditionsVariablesBuilder getBandConditions ({required String bandId, }) {
+    return GetBandConditionsVariablesBuilder(dataConnect, bandId: bandId,);
   }
   
   
-  GetAssociationMembersVariablesBuilder getAssociationMembers ({required String associationId, }) {
-    return GetAssociationMembersVariablesBuilder(dataConnect, associationId: associationId,);
+  GetBandMembersVariablesBuilder getBandMembers ({required String bandId, }) {
+    return GetBandMembersVariablesBuilder(dataConnect, bandId: bandId,);
   }
   
   
-  GetAssociationEventsVariablesBuilder getAssociationEvents ({required String associationId, }) {
-    return GetAssociationEventsVariablesBuilder(dataConnect, associationId: associationId,);
+  GetBandEventsVariablesBuilder getBandEvents ({required String bandId, }) {
+    return GetBandEventsVariablesBuilder(dataConnect, bandId: bandId,);
   }
   
   

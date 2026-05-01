@@ -1,29 +1,29 @@
 part of 'samby.dart';
 
-class UpdateAssociationVariablesBuilder {
+class UpdateBandVariablesBuilder {
   String id;
   bool requireIdDoc;
   bool requireIdDocImage;
   bool requireGuardian;
 
   final FirebaseDataConnect _dataConnect;
-  UpdateAssociationVariablesBuilder(this._dataConnect, {required  this.id,required  this.requireIdDoc,required  this.requireIdDocImage,required  this.requireGuardian,});
-  Deserializer<UpdateAssociationData> dataDeserializer = (dynamic json)  => UpdateAssociationData.fromJson(jsonDecode(json));
-  Serializer<UpdateAssociationVariables> varsSerializer = (UpdateAssociationVariables vars) => jsonEncode(vars.toJson());
-  Future<OperationResult<UpdateAssociationData, UpdateAssociationVariables>> execute() {
+  UpdateBandVariablesBuilder(this._dataConnect, {required  this.id,required  this.requireIdDoc,required  this.requireIdDocImage,required  this.requireGuardian,});
+  Deserializer<UpdateBandData> dataDeserializer = (dynamic json)  => UpdateBandData.fromJson(jsonDecode(json));
+  Serializer<UpdateBandVariables> varsSerializer = (UpdateBandVariables vars) => jsonEncode(vars.toJson());
+  Future<OperationResult<UpdateBandData, UpdateBandVariables>> execute() {
     return ref().execute();
   }
 
-  MutationRef<UpdateAssociationData, UpdateAssociationVariables> ref() {
-    UpdateAssociationVariables vars= UpdateAssociationVariables(id: id,requireIdDoc: requireIdDoc,requireIdDocImage: requireIdDocImage,requireGuardian: requireGuardian,);
-    return _dataConnect.mutation("UpdateAssociation", dataDeserializer, varsSerializer, vars);
+  MutationRef<UpdateBandData, UpdateBandVariables> ref() {
+    UpdateBandVariables vars= UpdateBandVariables(id: id,requireIdDoc: requireIdDoc,requireIdDocImage: requireIdDocImage,requireGuardian: requireGuardian,);
+    return _dataConnect.mutation("UpdateBand", dataDeserializer, varsSerializer, vars);
   }
 }
 
 @immutable
-class UpdateAssociationAssociationUpdate {
+class UpdateBandBandUpdate {
   final String id;
-  UpdateAssociationAssociationUpdate.fromJson(dynamic json):
+  UpdateBandBandUpdate.fromJson(dynamic json):
   
   id = nativeFromJson<String>(json['id']);
   @override
@@ -35,7 +35,7 @@ class UpdateAssociationAssociationUpdate {
       return false;
     }
 
-    final UpdateAssociationAssociationUpdate otherTyped = other as UpdateAssociationAssociationUpdate;
+    final UpdateBandBandUpdate otherTyped = other as UpdateBandBandUpdate;
     return id == otherTyped.id;
     
   }
@@ -49,17 +49,17 @@ class UpdateAssociationAssociationUpdate {
     return json;
   }
 
-  UpdateAssociationAssociationUpdate({
+  UpdateBandBandUpdate({
     required this.id,
   });
 }
 
 @immutable
-class UpdateAssociationData {
-  final UpdateAssociationAssociationUpdate? association_update;
-  UpdateAssociationData.fromJson(dynamic json):
+class UpdateBandData {
+  final UpdateBandBandUpdate? band_update;
+  UpdateBandData.fromJson(dynamic json):
   
-  association_update = json['association_update'] == null ? null : UpdateAssociationAssociationUpdate.fromJson(json['association_update']);
+  band_update = json['band_update'] == null ? null : UpdateBandBandUpdate.fromJson(json['band_update']);
   @override
   bool operator ==(Object other) {
     if(identical(this, other)) {
@@ -69,35 +69,35 @@ class UpdateAssociationData {
       return false;
     }
 
-    final UpdateAssociationData otherTyped = other as UpdateAssociationData;
-    return association_update == otherTyped.association_update;
+    final UpdateBandData otherTyped = other as UpdateBandData;
+    return band_update == otherTyped.band_update;
     
   }
   @override
-  int get hashCode => association_update.hashCode;
+  int get hashCode => band_update.hashCode;
   
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    if (association_update != null) {
-      json['association_update'] = association_update!.toJson();
+    if (band_update != null) {
+      json['band_update'] = band_update!.toJson();
     }
     return json;
   }
 
-  UpdateAssociationData({
-    this.association_update,
+  UpdateBandData({
+    this.band_update,
   });
 }
 
 @immutable
-class UpdateAssociationVariables {
+class UpdateBandVariables {
   final String id;
   final bool requireIdDoc;
   final bool requireIdDocImage;
   final bool requireGuardian;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
-  UpdateAssociationVariables.fromJson(Map<String, dynamic> json):
+  UpdateBandVariables.fromJson(Map<String, dynamic> json):
   
   id = nativeFromJson<String>(json['id']),
   requireIdDoc = nativeFromJson<bool>(json['requireIdDoc']),
@@ -112,7 +112,7 @@ class UpdateAssociationVariables {
       return false;
     }
 
-    final UpdateAssociationVariables otherTyped = other as UpdateAssociationVariables;
+    final UpdateBandVariables otherTyped = other as UpdateBandVariables;
     return id == otherTyped.id && 
     requireIdDoc == otherTyped.requireIdDoc && 
     requireIdDocImage == otherTyped.requireIdDocImage && 
@@ -132,7 +132,7 @@ class UpdateAssociationVariables {
     return json;
   }
 
-  UpdateAssociationVariables({
+  UpdateBandVariables({
     required this.id,
     required this.requireIdDoc,
     required this.requireIdDocImage,

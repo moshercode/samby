@@ -12,7 +12,7 @@ final class SessionDataManager {
   static SessionDataManager? _instance;
   static SessionDataManager get instance => _instance ??= SessionDataManager._();
 
-  Association? association;
+  Band? band;
   Member? member;
 
   // Constructor
@@ -21,11 +21,11 @@ final class SessionDataManager {
 
   // Public methods
 
-  void loadAssociation(String subdomain, {required Function onComplete}) {
-    FindAssociationBySubdomainUseCase(sl<AssociationRepository>()).call(
+  void loadBand(String subdomain, {required Function onComplete}) {
+    FindBandBySubdomainUseCase(sl<BandRepository>()).call(
       subdomain,
-      onComplete: (Association? result, AppError? _) {
-        association = result;
+      onComplete: (Band? result, AppError? _) {
+        band = result;
         onComplete();
       },
     );
@@ -49,7 +49,7 @@ final class SessionDataManager {
   }
 
   void clear() {
-    association = null;
+    band = null;
     member = null;
   }
 }

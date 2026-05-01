@@ -8,7 +8,7 @@ class Member implements Entity {
   // Variables
 
   late String id;
-  late String associationId;
+  late String bandId;
   late String email;
   late String phone;
   late MemberRole role;
@@ -38,8 +38,8 @@ class Member implements Entity {
   @override
   Member.fromMap(Map<String, dynamic> map) {
     id = map['id'] as String;
-    final Map<String, dynamic>? assocMap = map['association'] as Map<String, dynamic>?;
-    associationId = assocMap?['id'] as String? ?? map['associationId'] as String? ?? '';
+    final Map<String, dynamic>? bandMap = map['band'] as Map<String, dynamic>?;
+    bandId = bandMap?['id'] as String? ?? map['bandId'] as String? ?? '';
     email = map['email'] as String? ?? '';
     phone = map['phone'] as String? ?? '';
     role = MemberRole.values.firstWhere(
